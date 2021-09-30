@@ -1,0 +1,17 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "minecraft:wither"
+  },
+  "providers": [
+    {
+      "item": "minecraft:wither_rose"
+    },
+    {
+      "item": "minecraft:wither_skeleton_spawn_egg"
+    },
+    {
+      "item": "minecraft:wither_skeleton_skull"
+    }
+  ]
+}

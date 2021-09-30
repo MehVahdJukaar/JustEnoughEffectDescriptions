@@ -1,0 +1,14 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "minecraft:fire_resistance"
+  },
+  "providers": [
+    {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    }
+  ]
+}

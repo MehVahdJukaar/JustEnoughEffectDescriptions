@@ -1,0 +1,11 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "minecraft:water_breathing"
+  },
+  "providers": [
+    {
+      "item": "minecraft:turtle_helmet"
+    }
+  ]
+}

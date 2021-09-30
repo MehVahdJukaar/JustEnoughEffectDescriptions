@@ -1,0 +1,23 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "minecraft:poison"
+  },
+  "providers": [
+    {
+      "item": "minecraft:poisonous_potato"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    },
+    {
+      "item": "minecraft:cave_spider_spawn_egg"
+    },
+    {
+      "item": "minecraft:witch_spawn_egg"
+    },
+    {
+      "item": "minecraft:pufferfish_spawn_egg"
+    }
+  ]
+}

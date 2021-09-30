@@ -1,0 +1,14 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "minecraft:hunger"
+  },
+  "providers": [
+    {
+      "item": "minecraft:husk_spawn_egg"
+    },
+    {
+      "item": "minecraft:rotten_flesh"
+    }
+  ]
+}

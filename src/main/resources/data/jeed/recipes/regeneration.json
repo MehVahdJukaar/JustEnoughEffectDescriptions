@@ -1,0 +1,20 @@
+{
+  "type": "jeed:effect_provider",
+  "effect":{
+    "id": "minecraft:regeneration"
+  },
+  "providers": [
+    {
+      "item": "minecraft:enchanted_golden_apple"
+    },
+    {
+      "item": "minecraft:golden_apple"
+    },
+    {
+      "item": "minecraft:beacon"
+    },
+    {
+      "item": "minecraft:totem_of_undying"
+    }
+  ]
+}
