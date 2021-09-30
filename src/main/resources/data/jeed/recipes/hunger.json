@@ -6,9 +6,6 @@
   "providers": [
     {
       "item": "minecraft:husk_spawn_egg"
-    },
-    {
-      "item": "minecraft:rotten_flesh"
     }
   ]
 }

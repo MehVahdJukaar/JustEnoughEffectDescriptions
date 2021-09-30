@@ -11,6 +11,7 @@ import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
 import net.mehvahdjukaar.jeed.jei.plugins.VanillaPlugin;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.extensions.IForgeEffectInstance;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registry) {
         for (EffectInstance e : getEffectList()) {
+
             ResourceLocation name = e.getEffect().getRegistryName();
 
             registerEffectInfo(registry, new EffectInstance(e), EFFECT, "effect."+ name.getNamespace() + "." +
@@ -52,6 +54,7 @@ public class JEIPlugin implements IModPlugin {
     private static List<EffectInstance> getEffectList() {
         return ForgeRegistries.POTIONS.getValues().stream()
                 .map(EffectInstance::new)
+                .filter(IForgeEffectInstance::shouldRender)
                 .collect(Collectors.toList());
     }
 
