@@ -96,11 +96,51 @@
   "effect.seasonals.thorn_resistance.description": "Gives the user immunity to spiky plants and thorns damage.",
   "effect.seasonals.fall_flavour.description": "Gives the user immunity to spiky plants and thorns damage.",
 
-  "effect.farmersdelight.comfort.description": "Makes the user immune to cold (Slowness) and sickness (Hunger and Weakness). When first applied, these effects are immediately removed , and cannot be reapplied by any means while the effect is active.",
+  "effect.farmersdelight.comfort.description": "Negates to cold (Slowness) and sickness (Hunger and Weakness). When first applied, these effects are immediately removed , and cannot be reapplied by any means while the effect is active.",
   "effect.farmersdelight.nourished.description": "Prevents players from losing hunger or saturation through exhausting actions, such as running, jumping and attacking mobs. This effectively delays the time before the player need to eat again. The effect will only pause itself when the player can spend saturation to regenerate health. This means a player can spend their hunger bar up until it stops healing them (around 1.5 missing hunger points), but no further than that. This allows players to eat something else to keep healing, but won't let them starve to death until the effect wears off.",
 
-  "effect.savageandravage.frostbite.description": "Inflicts major slowness to the target as well as a very slow damage over time",
+  "effect.savageandravage.frostbite.description": "Inflicts severe slowness to the target as well as a very slow damage over time",
 
+  "effect.rats.plague.description": "Disables natural health regeneration and turns hearts into plague hearts. Plague can be spread to other entities via interaction",
+  "effect.rats.synesthesia.description": "Provides unlimited saturation along with a full row of absorption hearts and heavily increased attack speed. When the effect is applied the field of view will zoom in and out and will be tinted orange. The opposite thing happens when the effect runs out.",
 
-  "effect.paraglider.exhausted": "Exhausted"
+  "effect.immersiveengineering.flashed.description": "Players affected by it will have their screen flash white, rendering them temporarily blind",
+  "effect.immersiveengineering.concrete_feet.description": "Makes the target unable to move or jump. The effect immediatly ends when the user is no longer standing on Concrete",
+  "effect.immersiveengineering.stunned.description": "Endermen affected by this effect are unable to teleport",
+  "effect.immersiveengineering.sticky.description": "Heavily slows do the target and impedes jumping",
+  "effect.immersiveengineering.conductive.description": "Affected entities take extra damage from electric or 'flux' damage, such as Redstone Arsenal weapons or electrified Razor Wire",
+  "effect.immersiveengineering.slippery.description": "Affected entities will slowly slide forward when on the ground, and each tick have a 1/300 chance (roughly 6.5% chance each second) of dropping either their held item or their offhand item",
+  "effect.immersiveengineering.flammable.description": "Increases fire damage taken",
+
+  "effect.ars_nouveau.mana_regen.description": "Regenerate mana at a faster rate",
+
+  "effect.astralsorcery.bleed.description": "Fast damage over time",
+  "effect.astralsorcery.cheat_death.description": "Allows entity to cheat death. When triggered light nearby mobs on fire, grants fire resistance and regeneration when used",
+  "effect.astralsorcery.drop_modifier.description": "Changes drops",
+
+  "effect.xreliquary.flight.description": "Allows creative flight",
+  "effect.xreliquary.pacification": "Pacified",
+  "effect.xreliquary.pacification.description": "Makes the target not target and wander",
+  "effect.xreliquary.cure.description": "The cure to something, that's for sure",
+  "effect.xreliquary.exhausted.description": "The cure to something, that's for sure",
+  "effect.twilightforest.frosted.description": "You are somewhere you are not supposed to be... yet",
+
+  "effect.botania.soul_cross.description": "Restore 5% of their user maximum health whenever another creature is killed",
+  "effect.botania.feather_feet.description": "Negated damaged cause by falling. This effect doesn't prevent fall damage from other causes like Ender Pearls",
+  "effect.botania.emptiness.description": "Prevents mob natural mob spawning in a 128 block radius around the affected entity",
+  "effect.botania.bloodthirst.description": "Allows hostile monsters to spawn within a 64 block radius of the user, regardless of light level or other spawning conditions. This includes allowing Slimes to spawn outside of Slime Chunks",
+  "effect.botania.allure.description": "The affected player will have their Fishing Rod update twice as often, effectively doubling fishing speed",
+  "effect.botania.clear.description": "Clears all status effects",
+
+  "effect.tetra.bleeding.description": "Inflicts damage over time",
+  "effect.tetra.earthbound.description": "The affected entity is slowed, take less knockback and cannot jump",
+  "effect.tetra.stun.description": "Stuns the target impeding its movement, making them deal no damage when attacking and giving them an infinite swing cooldown",
+  "effect.tetra.howling.description": "Grants 12.5% chance to deflect projectile per effect level, slow movement speed by -5% and 2.5% chance to send incoming projectiles back where they came from",
+  "effect.tetra.severed.description": "Reduces maximum health and attack damage",
+  "effect.tetra.punctured.description": "Reduces armor by 10% per level",
+  "effect.tetra.exhausted.description": "<Unknown>",
+  "effect.tetra.steeled.description": "<Unknown>",
+  "effect.tetra.small_strength.description": "Less potent version of Strength",
+  "effect.tetra.small_health.description": "Less potent version of Health Boost"
+
 }
