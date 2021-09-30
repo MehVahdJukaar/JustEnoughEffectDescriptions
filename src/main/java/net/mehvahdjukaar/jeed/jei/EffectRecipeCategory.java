@@ -1,12 +1,12 @@
 package net.mehvahdjukaar.jeed.jei;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jeed.Jeed;
@@ -22,7 +22,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
@@ -82,10 +81,8 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
     @Override
     public void setIngredients(EffectInfoRecipe recipe, IIngredients ingredients) {
-        IIngredientType<EffectInstance> ingredientType = recipe.getIngredientType();
-        List<List<EffectInstance>> recipeIngredients = Collections.singletonList(Collections.singletonList(recipe.getIngredient()));
-        ingredients.setInputLists(ingredientType, recipeIngredients);
-        ingredients.setOutputLists(ingredientType, recipeIngredients);
+        ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItems());
+        ingredients.setOutput(recipe.getEffectIngredientType(), recipe.getEffect());
     }
 
     @Override
@@ -95,7 +92,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
         FontRenderer font = Minecraft.getInstance().font;
 
-        Effect effect = recipe.getIngredient().getEffect();
+        Effect effect = recipe.getEffect().getEffect();
 
 
         TextComponent name = (TextComponent) effect.getDisplayName();
@@ -129,12 +126,12 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
         if(box) {
             guiEffectInstances.setBackground(0, effectBackground);
         }
-        guiEffectInstances.set(ingredients);
+        guiEffectInstances.set(0, recipe.getEffect());
 
 
 
         List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
-        List<ItemStack> compatible = recipe.getEffectProviders();
+        List<ItemStack> compatible = recipe.getInputItems();
 
         for (int slotId = 0; slotId < compatible.size(); slotId++) {
 

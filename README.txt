@@ -37,7 +37,7 @@ To do so one can simply use one of the two newly added recipes categoris:
             "item": "minecraft:splash_potion"
         },
         {
-        "item": "minecraft:tipped_arrow"
+            "item": "minecraft:tipped_arrow"
         }
     ]
 }

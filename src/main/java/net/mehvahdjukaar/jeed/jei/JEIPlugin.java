@@ -43,6 +43,7 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registry) {
         for (EffectInstance e : getEffectList()) {
             ResourceLocation name = e.getEffect().getRegistryName();
+
             registerEffectInfo(registry, new EffectInstance(e), EFFECT, "effect."+ name.getNamespace() + "." +
                     name.getPath() + ".description");
         }

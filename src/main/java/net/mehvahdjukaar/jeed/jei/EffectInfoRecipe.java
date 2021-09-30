@@ -17,6 +17,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.tileentity.BeaconTileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
@@ -35,20 +36,20 @@ public class EffectInfoRecipe {
     private static final int lineSpacing = 2;
 
     private final List<ITextProperties> description;
-    private final EffectInstance ingredient;
-    private final IIngredientType<EffectInstance> ingredientType;
-    private final List<ItemStack> effectProviders;
+    private final EffectInstance effect;
+    private final IIngredientType<EffectInstance> effectIngredientType;
+    private final List<ItemStack> inputItems;
 
     private EffectInfoRecipe(EffectInstance effectInstance, IIngredientType<EffectInstance> ingredientType, List<ITextProperties> description) {
         this.description = description;
-        this.ingredient = effectInstance;
-        this.ingredientType = ingredientType;
-        this.effectProviders = getEffectProviders(effectInstance.getEffect());
+        this.effect = effectInstance;
+        this.effectIngredientType = ingredientType;
+        this.inputItems = getEffectProviders(effectInstance.getEffect());
     }
 
     private static Map<Effect, List<ItemStack>> buildEffectProviderCache() {
 
-        Map<Effect, List<ItemStack>> compatibleItemsCache = new HashMap<>();
+        Map<Effect, List<ItemStack>> effectProvidingItems = new HashMap<>();
 
 
         World world = Minecraft.getInstance().level;
@@ -59,7 +60,7 @@ public class EffectInfoRecipe {
                     ((EffectProviderRecipe)r) : null));
 
             for(EffectProviderRecipe p : recipes){
-                compatibleItemsCache.computeIfAbsent(p.getEffect(), i -> (new ItemStackList())).addAll(p.getProviders());
+                effectProvidingItems.computeIfAbsent(p.getEffect(), i -> (new ItemStackList())).addAll(p.getProviders());
             }
 
             //potions
@@ -78,7 +79,7 @@ public class EffectInfoRecipe {
                         ItemStack copy = stack.copy();
                         PotionUtils.setPotion(copy, potion);
                         for (EffectInstance effect : potion.getEffects()){
-                            compatibleItemsCache.computeIfAbsent(effect.getEffect(), i -> (new ItemStackList())).add(copy);
+                            effectProvidingItems.computeIfAbsent(effect.getEffect(), i -> (new ItemStackList())).add(copy);
                         }
                     }
                 }
@@ -94,7 +95,7 @@ public class EffectInfoRecipe {
                     Effect effect = flowerblock.getSuspiciousStewEffect();
                     SuspiciousStewItem.saveMobEffect(stew, effect, 200);
 
-                    compatibleItemsCache.computeIfAbsent(effect, i -> (new ItemStackList())).add(stew);
+                    effectProvidingItems.computeIfAbsent(effect, i -> (new ItemStackList())).add(stew);
 
                 }
             }
@@ -106,13 +107,20 @@ public class EffectInfoRecipe {
 
                     ItemStack foodItem = new ItemStack(i);
                     for (Pair<EffectInstance, Float> pair : food.getEffects()){
-                        compatibleItemsCache.computeIfAbsent(pair.getFirst().getEffect(), s -> (new ItemStackList())).add(foodItem);
+                        effectProvidingItems.computeIfAbsent(pair.getFirst().getEffect(), s -> (new ItemStackList())).add(foodItem);
                     }
                 }
             }
 
+            //beacon
+            for (Effect[] array : BeaconTileEntity.BEACON_EFFECTS) {
+                for (Effect e : array) {
+                    effectProvidingItems.computeIfAbsent(e, s -> (new ItemStackList())).add(Items.BEACON.getDefaultInstance());
+                }
+            }
+
         }
-        return compatibleItemsCache;
+        return effectProvidingItems;
     }
 
 
@@ -123,10 +131,10 @@ public class EffectInfoRecipe {
     }
 
 
-    public List<ItemStack> getEffectProviders () {
+    public List<ItemStack> getInputItems() {
         IngredientManager manager = Internal.getIngredientManager();
         IngredientFilter filter = Internal.getIngredientFilter();
-        return this.effectProviders.stream().filter(s ->!s.isEmpty())
+        return this.inputItems.stream().filter(s ->!s.isEmpty())
                 .filter(s -> manager.isIngredientVisible(s, filter)).collect(Collectors.toList());
     }
     private static NonNullList<ItemStack> getEffectProviders (Effect effect) {
@@ -136,7 +144,10 @@ public class EffectInfoRecipe {
     }
 
     public static List<EffectInfoRecipe> create(EffectInstance ingredient, IIngredientType<EffectInstance> ingredientType, String descriptionKey) {
-        return create(ingredient, ingredientType, new TranslationTextComponent(descriptionKey));
+        ITextComponent text = new TranslationTextComponent(descriptionKey);
+        if(text.getString().equals(descriptionKey)) text = new TranslationTextComponent("jeed.description.missing");
+
+        return create(ingredient, ingredientType, text);
     }
 
     public static List<EffectInfoRecipe> create(EffectInstance ingredient, IIngredientType<EffectInstance> ingredientType, ITextComponent descriptionComponent) {
@@ -183,12 +194,12 @@ public class EffectInfoRecipe {
         return description;
     }
 
-    public IIngredientType<EffectInstance> getIngredientType() {
-        return ingredientType;
+    public IIngredientType<EffectInstance> getEffectIngredientType() {
+        return effectIngredientType;
     }
 
-    public EffectInstance getIngredient() {
-        return ingredient;
+    public EffectInstance getEffect() {
+        return effect;
     }
 
     private static class ExpandNewLineTextAcceptor implements ITextProperties.IStyledTextAcceptor<Void> {
@@ -257,6 +268,14 @@ public class EffectInfoRecipe {
     }
 
     private static class ItemStackList extends ArrayList<ItemStack>{
+
+        public ItemStackList(){
+            super();
+        }
+
+        public ItemStackList(Effect ignored){
+            super();
+        }
 
         @Override
         public boolean add(ItemStack stack) {
