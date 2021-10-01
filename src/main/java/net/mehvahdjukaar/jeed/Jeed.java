@@ -25,12 +25,12 @@ public class Jeed {
         return new ResourceLocation(MOD_ID, name);
     }
 
-
     private static final Logger LOGGER = LogManager.getLogger();
 
     public static ForgeConfigSpec.BooleanValue EFFECT_BOX;
 
     public Jeed() {
+
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();

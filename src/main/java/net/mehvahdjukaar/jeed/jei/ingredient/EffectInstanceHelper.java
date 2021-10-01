@@ -1,7 +1,4 @@
 package net.mehvahdjukaar.jeed.jei.ingredient;//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
 
 
 import com.google.common.base.MoreObjects;
@@ -74,7 +71,7 @@ public class EffectInstanceHelper implements IIngredientHelper<EffectInstance> {
     @Override
     public ItemStack getCheatItemStack(EffectInstance ingredient) {
         return PotionUtils.setCustomEffects(new ItemStack(Items.POTION),
-                Collections.singletonList(ingredient));
+                Collections.singletonList(normalizeIngredient(ingredient)));
     }
 
     @Override
@@ -85,7 +82,7 @@ public class EffectInstanceHelper implements IIngredientHelper<EffectInstance> {
 
     @Override
     public EffectInstance normalizeIngredient(EffectInstance ingredient) {
-        return new EffectInstance(ingredient.getEffect(), 200);
+        return new EffectInstance(ingredient.getEffect(), 30*20);
     }
 
     @Override

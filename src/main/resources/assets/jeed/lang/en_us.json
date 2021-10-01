@@ -81,11 +81,11 @@
 
   "effect.botania.allure.description": "The affected player will have their Fishing Rod update twice as often, effectively doubling fishing speed",
   "effect.botania.bloodthirst.description": "Allows hostile monsters to spawn within a 64 block radius of the user, regardless of light level or other spawning conditions. This includes allowing Slimes to spawn outside of Slime Chunks",
-
   "effect.botania.clear.description": "Clears all status effects",
   "effect.botania.emptiness.description": "Prevents mob natural mob spawning in a 128 block radius around the affected entity",
   "effect.botania.feather_feet.description": "Negated damaged cause by falling. This effect doesn't prevent fall damage from other causes like Ender Pearls",
   "effect.botania.soul_cross.description": "Restore 5% of their user maximum health whenever another creature is killed",
+
   "effect.buzzier_bees.sunny.description": "Simulates sunlight. Phantoms won't attack mobs that have the effect, bees won't sleep if they have the effect, undead that have the effect will burn",
 
   "effect.caverns_and_chasms.affliction.description": "Once the effect ends, inflicts 3 magic damage per effect level.",
