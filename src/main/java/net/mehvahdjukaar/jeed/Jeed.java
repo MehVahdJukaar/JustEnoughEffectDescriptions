@@ -2,8 +2,8 @@ package net.mehvahdjukaar.jeed;
 
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -40,10 +40,10 @@ public class Jeed {
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, builder.build());
 
-        bus.addGenericListener(IRecipeSerializer.class, this::registerRecipeSerializers);
+        bus.addGenericListener(RecipeSerializer.class, this::registerRecipeSerializers);
     }
 
-    public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+    public void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
         event.getRegistry().register(EffectProviderRecipe.SERIALIZER);
         event.getRegistry().register(PotionProviderRecipe.SERIALIZER);
 

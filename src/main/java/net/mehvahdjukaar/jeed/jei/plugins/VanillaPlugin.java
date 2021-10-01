@@ -2,7 +2,7 @@ package net.mehvahdjukaar.jeed.jei.plugins;
 
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import net.minecraft.client.gui.DisplayEffectsScreen;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 
 public class VanillaPlugin {
 
@@ -21,6 +21,6 @@ public class VanillaPlugin {
 
 
     public static void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addGuiContainerHandler(DisplayEffectsScreen.class, new InventoryScreenHandler<>());
+        registration.addGuiContainerHandler(EffectRenderingInventoryScreen.class, new InventoryScreenHandler<>());
     }
 }

@@ -4,30 +4,30 @@ package net.mehvahdjukaar.jeed.recipes;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.potion.Effect;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class EffectProviderRecipe implements IRecipe<RecipeWrapper> {
-    public static final IRecipeType<EffectProviderRecipe> TYPE = IRecipeType.register("jeed:effect_provider");
+public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
+    public static final RecipeType<EffectProviderRecipe> TYPE = RecipeType.register("jeed:effect_provider");
     public static final Serializer SERIALIZER = new Serializer();
     private final ResourceLocation id;
-    private final Effect effect;
+    private final MobEffect effect;
     private final NonNullList<ItemStack> providers;
 
-    public EffectProviderRecipe(ResourceLocation id, Effect effect,  NonNullList<ItemStack> providers) {
+    public EffectProviderRecipe(ResourceLocation id, MobEffect effect,  NonNullList<ItemStack> providers) {
         this.id = id;
         this.effect = effect;
         this.providers = providers;
@@ -57,7 +57,7 @@ public class EffectProviderRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, World worldIn) {
+    public boolean matches(RecipeWrapper inv, Level worldIn) {
         return false;
     }
 
@@ -77,16 +77,16 @@ public class EffectProviderRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return TYPE;
     }
 
-    public Effect getEffect() {
+    public MobEffect getEffect() {
         return effect;
     }
 
@@ -94,7 +94,7 @@ public class EffectProviderRecipe implements IRecipe<RecipeWrapper> {
         return providers;
     }
 
-    private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<EffectProviderRecipe> {
+    private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<EffectProviderRecipe> {
         public Serializer() {
             this.setRegistryName(Jeed.res("effect_provider"));
         }
@@ -102,10 +102,10 @@ public class EffectProviderRecipe implements IRecipe<RecipeWrapper> {
         @Override
         public EffectProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 
-            NonNullList<ItemStack> providers = JsonHelper.readItemStackList(JSONUtils.getAsJsonArray(json, "providers"));
+            NonNullList<ItemStack> providers = JsonHelper.readItemStackList(GsonHelper.getAsJsonArray(json, "providers"));
 
-            String effectID = JSONUtils.getAsString(json.getAsJsonObject("effect"), "id");
-            Effect effect = JsonHelper.getEffect(new ResourceLocation(effectID));
+            String effectID = GsonHelper.getAsString(json.getAsJsonObject("effect"), "id");
+            MobEffect effect = JsonHelper.getEffect(new ResourceLocation(effectID));
             if (providers.isEmpty()) {
                 throw new JsonParseException("No effect providers for recipe");
             } else {
@@ -115,9 +115,9 @@ public class EffectProviderRecipe implements IRecipe<RecipeWrapper> {
 
         @Override
         @Nullable
-        public EffectProviderRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+        public EffectProviderRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             ResourceLocation id = buffer.readResourceLocation();
-            Effect effect = JsonHelper.getEffect(id);
+            MobEffect effect = JsonHelper.getEffect(id);
             int i = buffer.readVarInt();
             NonNullList<ItemStack> providers = NonNullList.withSize(i, ItemStack.EMPTY);
 
@@ -128,7 +128,7 @@ public class EffectProviderRecipe implements IRecipe<RecipeWrapper> {
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, EffectProviderRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, EffectProviderRecipe recipe) {
             buffer.writeResourceLocation(recipe.effect.getRegistryName());
             buffer.writeVarInt(recipe.providers.size());
 

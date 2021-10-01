@@ -1,10 +1,10 @@
 package net.mehvahdjukaar.jeed.mixins;
 
-import net.minecraft.client.gui.DisplayEffectsScreen;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(DisplayEffectsScreen.class)
+@Mixin(EffectRenderingInventoryScreen.class)
 public interface DisplayEffectScreenAccessor{
 
     @Accessor("doRenderEffects")

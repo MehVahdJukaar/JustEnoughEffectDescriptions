@@ -1,6 +1,6 @@
 package net.mehvahdjukaar.jeed.jei;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -13,13 +13,14 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
 import net.mehvahdjukaar.jeed.utils.HSLColor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.*;
+import net.minecraft.client.gui.Font;
+import net.minecraft.core.NonNullList;
+import net.minecraft.locale.Language;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +42,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     private final IDrawable slotBackground;
     private final IDrawable effectBackground;
     //private final JeiInternalPlugin jeiPlugin;
-    private final ITextComponent localizedName;
+    private final Component localizedName;
 
     public EffectRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(recipeWidth, recipeHeight);
@@ -50,7 +51,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
         this.icon = ICON;
         this.slotBackground = guiHelper.getSlotDrawable();
         //this.jeiPlugin = jeiPlugin;
-        this.localizedName = new TranslationTextComponent("jeed.category.effect_info");
+        this.localizedName = new TranslatableComponent("jeed.category.effect_info");
     }
 
     @Override
@@ -64,9 +65,8 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     }
 
     @Override
-    @Deprecated
-    public String getTitle() {
-        return this.localizedName.getString();
+    public Component getTitle() {
+        return this.localizedName;
     }
 
     @Override
@@ -86,24 +86,24 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     }
 
     @Override
-    public void draw(EffectInfoRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(EffectInfoRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
         int xPos = 0;
         int yPos = effectBackground.getHeight() + 4 + yOffset;
 
-        FontRenderer font = Minecraft.getInstance().font;
+        Font font = Minecraft.getInstance().font;
 
-        Effect effect = recipe.getEffect().getEffect();
+        MobEffect effect = recipe.getEffect().getEffect();
 
 
-        TextComponent name = (TextComponent) effect.getDisplayName();
+        BaseComponent name = (BaseComponent) effect.getDisplayName();
         int color = HSLColor.getProcessedColor(effect.getColor());
 
-        name.setStyle(Style.EMPTY.withBold(true).withColor(Color.fromRgb(color)));
+        name.setStyle(Style.EMPTY.withBold(true).withColor(TextColor.fromRgb(color)));
         float x = recipeWidth / 2f - font.width(name) / 2f;
-        font.drawShadow(matrixStack, LanguageMap.getInstance().getVisualOrder(name), x, 0, 0xFF000000);
+        font.drawShadow(matrixStack, Language.getInstance().getVisualOrder(name), x, 0, 0xFF000000);
 
-        for (ITextProperties descriptionLine : recipe.getDescription()) {
-            font.draw(matrixStack, LanguageMap.getInstance().getVisualOrder(descriptionLine), xPos, yPos, 0xFF000000);
+        for (FormattedText descriptionLine : recipe.getDescription()) {
+            font.draw(matrixStack, Language.getInstance().getVisualOrder(descriptionLine), xPos, yPos, 0xFF000000);
             yPos += font.lineHeight + lineSpacing;
         }
 
@@ -115,7 +115,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, EffectInfoRecipe recipe, IIngredients ingredients) {
 
-        IGuiIngredientGroup<EffectInstance> guiEffectInstances = recipeLayout.getIngredientsGroup(JEIPlugin.EFFECT);
+        IGuiIngredientGroup<MobEffectInstance> guiEffectInstances = recipeLayout.getIngredientsGroup(JEIPlugin.EFFECT);
         IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
 
         boolean box = Jeed.EFFECT_BOX.get();

@@ -1,29 +1,31 @@
 package net.mehvahdjukaar.jeed.jei.ingredient;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import mezz.jei.api.ingredients.IIngredientRenderer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.renderer.texture.PotionSpriteUploader;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.text.*;
+import net.minecraft.client.resources.MobEffectTextureManager;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class EffectInstanceRenderer implements IIngredientRenderer<EffectInstance> {
+public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInstance> {
 
     public static final EffectInstanceRenderer INSTANCE = new EffectInstanceRenderer(true);
 
@@ -39,32 +41,33 @@ public class EffectInstanceRenderer implements IIngredientRenderer<EffectInstanc
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int xPosition, int yPosition, @Nullable EffectInstance effectInstance) {
+    public void render(PoseStack matrixStack, int xPosition, int yPosition, @Nullable MobEffectInstance effectInstance) {
 
         if (effectInstance != null ) {
-            RenderSystem.enableBlend();
-            RenderSystem.enableAlphaTest();
 
-            PotionSpriteUploader potionspriteuploader = MC.getMobEffectTextures();
+            MobEffect effect = effectInstance.getEffect();
 
-            Effect effect = effectInstance.getEffect();
+
+            MobEffectTextureManager potionspriteuploader = MC.getMobEffectTextures();
             TextureAtlasSprite textureatlassprite = potionspriteuploader.get(effect);
-            MC.getTextureManager().bind(textureatlassprite.atlas().location());
+
+
+            RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, textureatlassprite.atlas().location());
             int o = offset ? -1 : 0;
-            AbstractGui.blit(matrixStack, xPosition + o, yPosition+ o, 0, 18, 18, textureatlassprite);
+            GuiComponent.blit(matrixStack, xPosition + o, yPosition+ o, 0, 18, 18, textureatlassprite);
 
+            RenderSystem.applyModelViewMatrix();
 
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            RenderSystem.disableAlphaTest();
-            RenderSystem.disableBlend();
         }
     }
 
 
     @Override
-    public List<ITextComponent> getTooltip(EffectInstance effectInstance, ITooltipFlag tooltipFlag) {
-        List<ITextComponent> tooltip = new ArrayList<>();
-        Effect effect = effectInstance.getEffect();
+    public List<Component> getTooltip(MobEffectInstance effectInstance, TooltipFlag tooltipFlag) {
+        List<Component> tooltip = new ArrayList<>();
+        MobEffect effect = effectInstance.getEffect();
         if (effect != null) {
 
 
@@ -77,19 +80,19 @@ public class EffectInstanceRenderer implements IIngredientRenderer<EffectInstanc
 
             //ITextComponent displayName = effectInstance.getEffect().getDisplayName();
             //tooltip.add(displayName);
-            tooltip.add(new StringTextComponent(name));
+            tooltip.add(new TextComponent(name));
 
-            StringTextComponent colorValue = new StringTextComponent("#" + Integer.toHexString(effect.getColor()));
-            colorValue.setStyle(Style.EMPTY.withColor(Color.fromRgb(effect.getColor())));
+            TextComponent colorValue = new TextComponent("#" + Integer.toHexString(effect.getColor()));
+            colorValue.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(effect.getColor())));
 
-            IFormattableTextComponent color = new TranslationTextComponent("jeed.tooltip.color").withStyle(TextFormatting.GRAY);
+            MutableComponent color = new TranslatableComponent("jeed.tooltip.color").withStyle(ChatFormatting.GRAY);
 
-            tooltip.add(new TranslationTextComponent("jeed.tooltip.color_complete", color, colorValue));
+            tooltip.add(new TranslatableComponent("jeed.tooltip.color_complete", color, colorValue));
             if(effect.isBeneficial()){
-                tooltip.add(new TranslationTextComponent("jeed.tooltip.beneficial").withStyle(TextFormatting.BLUE));
+                tooltip.add(new TranslatableComponent("jeed.tooltip.beneficial").withStyle(ChatFormatting.BLUE));
             }
             else{
-                tooltip.add(new TranslationTextComponent("jeed.tooltip.harmful").withStyle(TextFormatting.RED));
+                tooltip.add(new TranslatableComponent("jeed.tooltip.harmful").withStyle(ChatFormatting.RED));
             }
 
             List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
@@ -102,8 +105,8 @@ public class EffectInstanceRenderer implements IIngredientRenderer<EffectInstanc
                 }
             }
             if (!list1.isEmpty()) {
-                tooltip.add(StringTextComponent.EMPTY);
-                tooltip.add((new TranslationTextComponent("potion.whenDrank")).withStyle(TextFormatting.DARK_PURPLE));
+                tooltip.add(TextComponent.EMPTY);
+                tooltip.add((new TranslatableComponent("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
 
                 for(Pair<Attribute, AttributeModifier> pair : list1) {
                     AttributeModifier attributemodifier2 = pair.getSecond();
@@ -116,16 +119,18 @@ public class EffectInstanceRenderer implements IIngredientRenderer<EffectInstanc
                     }
 
                     if (d0 > 0.0D) {
-                        tooltip.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslationTextComponent(pair.getFirst().getDescriptionId()))).withStyle(TextFormatting.BLUE));
+                        tooltip.add((new TranslatableComponent("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(),
+                                ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
                     } else if (d0 < 0.0D) {
                         d1 = d1 * -1.0D;
-                        tooltip.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslationTextComponent(pair.getFirst().getDescriptionId()))).withStyle(TextFormatting.RED));
+                        tooltip.add((new TranslatableComponent("attribute.modifier.take." + attributemodifier2.getOperation().toValue(),
+                                ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
                     }
                 }
             }
 
             if(tooltipFlag.isAdvanced()){
-                tooltip.add(new StringTextComponent(effect.getRegistryName().toString()).withStyle(TextFormatting.DARK_GRAY));
+                tooltip.add(new TextComponent(effect.getRegistryName().toString()).withStyle(ChatFormatting.DARK_GRAY));
             }
 
         }

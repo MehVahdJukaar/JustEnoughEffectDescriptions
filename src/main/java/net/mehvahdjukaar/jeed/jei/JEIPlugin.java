@@ -9,9 +9,8 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceHelper;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
 import net.mehvahdjukaar.jeed.jei.plugins.VanillaPlugin;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.extensions.IForgeEffectInstance;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class JEIPlugin implements IModPlugin {
 
     private static final ResourceLocation ID = Jeed.res("jei_plugin");
 
-    public static final IIngredientType<EffectInstance> EFFECT = () -> EffectInstance.class;
+    public static final IIngredientType<MobEffectInstance> EFFECT = () -> MobEffectInstance.class;
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -42,23 +41,24 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registry) {
-        for (EffectInstance e : getEffectList()) {
+        for (MobEffectInstance e : getEffectList()) {
 
             ResourceLocation name = e.getEffect().getRegistryName();
 
-            registerEffectInfo(registry, new EffectInstance(e), EFFECT, "effect."+ name.getNamespace() + "." +
+            registerEffectInfo(registry, new MobEffectInstance(e), EFFECT, "effect."+ name.getNamespace() + "." +
                     name.getPath() + ".description");
         }
     }
 
-    private static List<EffectInstance> getEffectList() {
-        return ForgeRegistries.POTIONS.getValues().stream()
-                .map(EffectInstance::new)
-                .filter(IForgeEffectInstance::shouldRender)
+    private static List<MobEffectInstance> getEffectList() {
+        return ForgeRegistries.MOB_EFFECTS.getValues().stream()
+                .map(MobEffectInstance::new)
+                .filter(MobEffectInstance::showIcon)
+                .filter(MobEffectInstance::isVisible)
                 .collect(Collectors.toList());
     }
 
-    public void registerEffectInfo(IRecipeRegistration registration, EffectInstance ingredient, IIngredientType<EffectInstance> ingredientType, String descriptionKey) {
+    public void registerEffectInfo(IRecipeRegistration registration, MobEffectInstance ingredient, IIngredientType<MobEffectInstance> ingredientType, String descriptionKey) {
 
         List<EffectInfoRecipe> recipes = EffectInfoRecipe.create(ingredient, ingredientType, descriptionKey);
         registration.addRecipes(recipes, EffectRecipeCategory.UID);

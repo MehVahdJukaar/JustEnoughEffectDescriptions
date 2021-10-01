@@ -1,7 +1,7 @@
 package net.mehvahdjukaar.jeed.utils;
 
-import net.minecraft.util.ColorHelper;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 
 public class HSLColor {
 
@@ -69,8 +69,8 @@ public class HSLColor {
             g = hueToRgb(p, q, h);
             b = hueToRgb(p, q, h - 1f / 3f);
         }
-        return ColorHelper.PackedColor.color(
-                MathHelper.floor(255), MathHelper.floor(r * 255), MathHelper.floor(g * 255), MathHelper.floor(b * 255));
+        return FastColor.ARGB32.color(
+                Mth.floor(255), Mth.floor(r * 255), Mth.floor(g * 255), Mth.floor(b * 255));
     }
 
 
@@ -92,9 +92,9 @@ public class HSLColor {
     }
 
     public static float[] rgbToHsl(int rgb) {
-        int r = ColorHelper.PackedColor.red(rgb);
-        int g = ColorHelper.PackedColor.green(rgb);
-        int b = ColorHelper.PackedColor.blue(rgb);
+        int r = FastColor.ARGB32.red(rgb);
+        int g = FastColor.ARGB32.green(rgb);
+        int b = FastColor.ARGB32.blue(rgb);
         return rgbToHsl(r, g, b);
     }
 

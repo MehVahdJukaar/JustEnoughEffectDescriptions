@@ -8,18 +8,18 @@ import mezz.jei.input.IClickedIngredient;
 import net.mehvahdjukaar.jeed.jei.JEIPlugin;
 import net.mehvahdjukaar.jeed.mixins.DisplayEffectScreenAccessor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.DisplayEffectsScreen;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.renderer.Rectangle2d;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.potion.EffectInstance;
-import net.minecraftforge.common.extensions.IForgeEffectInstance;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraftforge.client.ForgeHooksClient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 
-public class InventoryScreenHandler <C extends Container, T extends DisplayEffectsScreen<C>> implements IGuiContainerHandler<T> {
+public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends EffectRenderingInventoryScreen<C>> implements IGuiContainerHandler<T> {
 
     @Nullable
     @Override
@@ -28,7 +28,7 @@ public class InventoryScreenHandler <C extends Container, T extends DisplayEffec
     }
 
     @Nullable
-    public static EffectInstance getHoveredEffect(ContainerScreen<?> screen, double x, double y, boolean useAccessor){
+    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double x, double y, boolean useAccessor){
         int width = 120;
 
         int minY = screen.getGuiTop();
@@ -39,8 +39,9 @@ public class InventoryScreenHandler <C extends Container, T extends DisplayEffec
 
             if(!useAccessor || screen instanceof DisplayEffectScreenAccessor && ((DisplayEffectScreenAccessor)screen).hasEffects()) {
 
-                Collection<EffectInstance> collection = Minecraft.getInstance().player.getActiveEffects();
-                List<EffectInstance> list = collection.stream().filter(IForgeEffectInstance::shouldRender).sorted().collect(java.util.stream.Collectors.toList());
+
+                Collection<MobEffectInstance> collection = Minecraft.getInstance().player.getActiveEffects();
+                List<MobEffectInstance> list = collection.stream().filter(ForgeHooksClient::shouldRender).sorted().collect(java.util.stream.Collectors.toList());
                 if (!collection.isEmpty()) {
 
                     int dx = 33;
@@ -60,9 +61,9 @@ public class InventoryScreenHandler <C extends Container, T extends DisplayEffec
         return null;
     }
 
-    public static void onClickedEffect(EffectInstance effect, double x, double y, int button){
+    public static void onClickedEffect(MobEffectInstance effect, double x, double y, int button){
 
-        Rectangle2d slotArea = new Rectangle2d((int)x, (int)y, 16, 16);
+        Rect2i slotArea = new Rect2i((int)x, (int)y, 16, 16);
         IClickedIngredient<?> clicked = ClickedIngredient.create(effect, slotArea);
 
         JEIPlugin.JEI_RUNTIME.getRecipesGui().show(new Focus<Object>(IFocus.Mode.OUTPUT, clicked.getValue()));

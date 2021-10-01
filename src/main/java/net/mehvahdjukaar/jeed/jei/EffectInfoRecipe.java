@@ -8,19 +8,23 @@ import mezz.jei.ingredients.IngredientManager;
 import mezz.jei.util.MathUtil;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
-import net.minecraft.block.Block;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.*;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.tileentity.BeaconTileEntity;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.*;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.*;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SuspiciousStewItem;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -31,28 +35,28 @@ import java.util.stream.Collectors;
 
 public class EffectInfoRecipe {
 
-    private static final Lazy<Map<Effect, List<ItemStack>>> EFFECT_PROVIDERS_CACHE = Lazy.of(EffectInfoRecipe::buildEffectProviderCache);
+    private static final Lazy<Map<MobEffect, List<ItemStack>>> EFFECT_PROVIDERS_CACHE = Lazy.of(EffectInfoRecipe::buildEffectProviderCache);
 
     private static final int lineSpacing = 2;
 
-    private final List<ITextProperties> description;
-    private final EffectInstance effect;
-    private final IIngredientType<EffectInstance> effectIngredientType;
+    private final List<FormattedText> description;
+    private final MobEffectInstance effect;
+    private final IIngredientType<MobEffectInstance> effectIngredientType;
     private final List<ItemStack> inputItems;
 
-    private EffectInfoRecipe(EffectInstance effectInstance, IIngredientType<EffectInstance> ingredientType, List<ITextProperties> description) {
+    private EffectInfoRecipe(MobEffectInstance effectInstance, IIngredientType<MobEffectInstance> ingredientType, List<FormattedText> description) {
         this.description = description;
         this.effect = effectInstance;
         this.effectIngredientType = ingredientType;
         this.inputItems = getEffectProviders(effectInstance.getEffect());
     }
 
-    private static Map<Effect, List<ItemStack>> buildEffectProviderCache() {
+    private static Map<MobEffect, List<ItemStack>> buildEffectProviderCache() {
 
-        Map<Effect, List<ItemStack>> effectProvidingItems = new HashMap<>();
+        Map<MobEffect, List<ItemStack>> effectProvidingItems = new HashMap<>();
 
 
-        World world = Minecraft.getInstance().level;
+        Level world = Minecraft.getInstance().level;
         if(world != null){
 
             //effects
@@ -72,13 +76,13 @@ public class EffectInfoRecipe {
 
                     Collection<Potion> acceptablePotions = p.getPotions();
                     if(acceptablePotions.isEmpty()){
-                        acceptablePotions = ForgeRegistries.POTION_TYPES.getValues();
+                        acceptablePotions = ForgeRegistries.POTIONS.getValues();
                     }
 
                     for (Potion potion : acceptablePotions) {
                         ItemStack copy = stack.copy();
                         PotionUtils.setPotion(copy, potion);
-                        for (EffectInstance effect : potion.getEffects()){
+                        for (MobEffectInstance effect : potion.getEffects()){
                             effectProvidingItems.computeIfAbsent(effect.getEffect(), i -> (new ItemStackList())).add(copy);
                         }
                     }
@@ -92,7 +96,7 @@ public class EffectInfoRecipe {
                     ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
 
                     FlowerBlock flowerblock = (FlowerBlock) b;
-                    Effect effect = flowerblock.getSuspiciousStewEffect();
+                    MobEffect effect = flowerblock.getSuspiciousStewEffect();
                     SuspiciousStewItem.saveMobEffect(stew, effect, 200);
 
                     effectProvidingItems.computeIfAbsent(effect, i -> (new ItemStackList())).add(stew);
@@ -102,19 +106,19 @@ public class EffectInfoRecipe {
 
             //food
             for (Item i : ForgeRegistries.ITEMS) {
-                Food food = i.getFoodProperties();
+                FoodProperties food = i.getFoodProperties();
                 if (food!=null) {
 
                     ItemStack foodItem = new ItemStack(i);
-                    for (Pair<EffectInstance, Float> pair : food.getEffects()){
+                    for (Pair<MobEffectInstance, Float> pair : food.getEffects()){
                         effectProvidingItems.computeIfAbsent(pair.getFirst().getEffect(), s -> (new ItemStackList())).add(foodItem);
                     }
                 }
             }
 
             //beacon
-            for (Effect[] array : BeaconTileEntity.BEACON_EFFECTS) {
-                for (Effect e : array) {
+            for (MobEffect[] array : BeaconBlockEntity.BEACON_EFFECTS) {
+                for (MobEffect e : array) {
                     effectProvidingItems.computeIfAbsent(e, s -> (new ItemStackList())).add(Items.BEACON.getDefaultInstance());
                 }
             }
@@ -124,7 +128,7 @@ public class EffectInfoRecipe {
     }
 
 
-    private static <T> List<T> getRecipesOfType(World world, Function<IRecipe<?>,T> function){
+    private static <T> List<T> getRecipesOfType(Level world, Function<Recipe<?>,T> function){
         return world.getRecipeManager().getRecipes().stream()
                 .map(function).filter(Objects::nonNull).collect(Collectors.toList());
 
@@ -137,22 +141,22 @@ public class EffectInfoRecipe {
         return this.inputItems.stream().filter(s ->!s.isEmpty())
                 .filter(s -> manager.isIngredientVisible(s, filter)).collect(Collectors.toList());
     }
-    private static NonNullList<ItemStack> getEffectProviders (Effect effect) {
+    private static NonNullList<ItemStack> getEffectProviders (MobEffect effect) {
         NonNullList<ItemStack> list = NonNullList.create();
         list.addAll (EFFECT_PROVIDERS_CACHE.get().getOrDefault(effect, (new ItemStackList())));
         return list;
     }
 
-    public static List<EffectInfoRecipe> create(EffectInstance ingredient, IIngredientType<EffectInstance> ingredientType, String descriptionKey) {
-        ITextComponent text = new TranslationTextComponent(descriptionKey);
-        if(text.getString().equals(descriptionKey)) text = new TranslationTextComponent("jeed.description.missing");
+    public static List<EffectInfoRecipe> create(MobEffectInstance ingredient, IIngredientType<MobEffectInstance> ingredientType, String descriptionKey) {
+        Component text = new TranslatableComponent(descriptionKey);
+        if(text.getString().equals(descriptionKey)) text = new TranslatableComponent("jeed.description.missing");
 
         return create(ingredient, ingredientType, text);
     }
 
-    public static List<EffectInfoRecipe> create(EffectInstance ingredient, IIngredientType<EffectInstance> ingredientType, ITextComponent descriptionComponent) {
+    public static List<EffectInfoRecipe> create(MobEffectInstance ingredient, IIngredientType<MobEffectInstance> ingredientType, Component descriptionComponent) {
         List<EffectInfoRecipe> recipes = new ArrayList<>();
-        List<ITextProperties> descriptionLines = expandNewlines(descriptionComponent);
+        List<FormattedText> descriptionLines = expandNewlines(descriptionComponent);
         descriptionLines = wrapDescriptionLines(descriptionLines);
         final int lineCount = descriptionLines.size();
 
@@ -162,7 +166,7 @@ public class EffectInfoRecipe {
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;
             int endLine = Math.min((i + 1) * maxLinesPerPage, lineCount);
-            List<ITextProperties> description = descriptionLines.subList(startLine, endLine);
+            List<FormattedText> description = descriptionLines.subList(startLine, endLine);
             EffectInfoRecipe recipe = new EffectInfoRecipe(ingredient, ingredientType, description);
             recipes.add(recipe);
         }
@@ -170,9 +174,9 @@ public class EffectInfoRecipe {
         return recipes;
     }
 
-    private static List<ITextProperties> expandNewlines(ITextComponent... descriptionComponents) {
-        List<ITextProperties> descriptionLinesExpanded = new ArrayList<>();
-        for (ITextComponent descriptionLine : descriptionComponents) {
+    private static List<FormattedText> expandNewlines(Component... descriptionComponents) {
+        List<FormattedText> descriptionLinesExpanded = new ArrayList<>();
+        for (Component descriptionLine : descriptionComponents) {
             ExpandNewLineTextAcceptor newLineTextAcceptor = new ExpandNewLineTextAcceptor();
             descriptionLine.visit(newLineTextAcceptor, Style.EMPTY);
             newLineTextAcceptor.addLinesTo(descriptionLinesExpanded);
@@ -180,34 +184,34 @@ public class EffectInfoRecipe {
         return descriptionLinesExpanded;
     }
 
-    private static List<ITextProperties> wrapDescriptionLines(List<ITextProperties> descriptionLines) {
+    private static List<FormattedText> wrapDescriptionLines(List<FormattedText> descriptionLines) {
         Minecraft minecraft = Minecraft.getInstance();
-        List<ITextProperties> descriptionLinesWrapped = new ArrayList<>();
-        for (ITextProperties descriptionLine : descriptionLines) {
-            List<ITextProperties> textLines = minecraft.font.getSplitter().splitLines(descriptionLine, EffectRecipeCategory.recipeWidth, Style.EMPTY);
+        List<FormattedText> descriptionLinesWrapped = new ArrayList<>();
+        for (FormattedText descriptionLine : descriptionLines) {
+            List<FormattedText> textLines = minecraft.font.getSplitter().splitLines(descriptionLine, EffectRecipeCategory.recipeWidth, Style.EMPTY);
             descriptionLinesWrapped.addAll(textLines);
         }
         return descriptionLinesWrapped;
     }
 
-    public List<ITextProperties> getDescription() {
+    public List<FormattedText> getDescription() {
         return description;
     }
 
-    public IIngredientType<EffectInstance> getEffectIngredientType() {
+    public IIngredientType<MobEffectInstance> getEffectIngredientType() {
         return effectIngredientType;
     }
 
-    public EffectInstance getEffect() {
+    public MobEffectInstance getEffect() {
         return effect;
     }
 
-    private static class ExpandNewLineTextAcceptor implements ITextProperties.IStyledTextAcceptor<Void> {
+    private static class ExpandNewLineTextAcceptor implements FormattedText.StyledContentConsumer<Void> {
 
-        private final List<ITextProperties> lines = new ArrayList<>();
+        private final List<FormattedText> lines = new ArrayList<>();
 
         @Nullable
-        private IFormattableTextComponent lastComponent;
+        private MutableComponent lastComponent;
 
         @Override
         public Optional<Void> accept(Style style, String line) {
@@ -224,11 +228,11 @@ public class EffectInfoRecipe {
                         lastComponent = null;
                     } else {
                         //Otherwise just add the empty line
-                        lines.add(StringTextComponent.EMPTY);
+                        lines.add(TextComponent.EMPTY);
                     }
                     continue;
                 }
-                StringTextComponent textComponent = new StringTextComponent(s);
+                TextComponent textComponent = new TextComponent(s);
                 textComponent.setStyle(style);
                 if (lastComponent != null) {
                     //If we already have a component that we want to continue with
@@ -238,7 +242,7 @@ public class EffectInfoRecipe {
                             //If it has a style and the style is different from the style the text component
                             // we are adding has add the last component as a sibling to an empty unstyled
                             // component so that we don't cause the styling to leak into the component we are adding
-                            lastComponent = new StringTextComponent("").append(lastComponent);
+                            lastComponent = new TextComponent("").append(lastComponent);
                         }
                         lastComponent.append(textComponent);
                         continue;
@@ -259,7 +263,7 @@ public class EffectInfoRecipe {
             return Optional.empty();
         }
 
-        public void addLinesTo(List<ITextProperties> descriptionLinesExpanded) {
+        public void addLinesTo(List<FormattedText> descriptionLinesExpanded) {
             descriptionLinesExpanded.addAll(lines);
             if (lastComponent != null) {
                 descriptionLinesExpanded.add(lastComponent);
@@ -273,7 +277,7 @@ public class EffectInfoRecipe {
             super();
         }
 
-        public ItemStackList(Effect ignored){
+        public ItemStackList(MobEffect ignored){
             super();
         }
 

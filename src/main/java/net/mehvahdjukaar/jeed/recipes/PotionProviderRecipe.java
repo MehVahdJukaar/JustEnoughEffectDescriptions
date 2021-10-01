@@ -4,17 +4,17 @@ package net.mehvahdjukaar.jeed.recipes;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //items that can accept any potion
-public class PotionProviderRecipe implements IRecipe<RecipeWrapper> {
-    public static final IRecipeType<PotionProviderRecipe> TYPE = IRecipeType.register("jeed:potion_provider");
+public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
+    public static final RecipeType<PotionProviderRecipe> TYPE = RecipeType.register("jeed:potion_provider");
     public static final Serializer SERIALIZER = new Serializer();
     private final ResourceLocation id;
     private final NonNullList<ItemStack> providers;
@@ -61,7 +61,7 @@ public class PotionProviderRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, World worldIn) {
+    public boolean matches(RecipeWrapper inv, Level worldIn) {
         return false;
     }
 
@@ -81,12 +81,12 @@ public class PotionProviderRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return TYPE;
     }
 
@@ -98,7 +98,7 @@ public class PotionProviderRecipe implements IRecipe<RecipeWrapper> {
         return potions;
     }
 
-    private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<PotionProviderRecipe> {
+    private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<PotionProviderRecipe> {
         public Serializer() {
             this.setRegistryName(Jeed.res("potion_provider"));
         }
@@ -106,11 +106,11 @@ public class PotionProviderRecipe implements IRecipe<RecipeWrapper> {
         @Override
         public PotionProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 
-            NonNullList<ItemStack> providers = JsonHelper.readItemStackList(JSONUtils.getAsJsonArray(json, "providers"));
+            NonNullList<ItemStack> providers = JsonHelper.readItemStackList(GsonHelper.getAsJsonArray(json, "providers"));
 
             List<Potion> potions;
             try {
-                potions = JsonHelper.readPotionList(JSONUtils.getAsJsonArray(json, "potions"));
+                potions = JsonHelper.readPotionList(GsonHelper.getAsJsonArray(json, "potions"));
             }catch (Exception ignored){
                 potions = new ArrayList<>();
             }
@@ -124,7 +124,7 @@ public class PotionProviderRecipe implements IRecipe<RecipeWrapper> {
 
         @Override
         @Nullable
-        public PotionProviderRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+        public PotionProviderRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int i = buffer.readVarInt();
             NonNullList<ItemStack> providers = NonNullList.withSize(i, ItemStack.EMPTY);
 
@@ -143,7 +143,7 @@ public class PotionProviderRecipe implements IRecipe<RecipeWrapper> {
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, PotionProviderRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, PotionProviderRecipe recipe) {
             buffer.writeVarInt(recipe.providers.size());
 
             for (ItemStack result : recipe.providers) {

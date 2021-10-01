@@ -3,12 +3,12 @@ package net.mehvahdjukaar.jeed.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -31,7 +31,7 @@ public class JsonHelper {
         List<Potion> results = new ArrayList<>();
 
         for (JsonElement result : resultArray) {
-            String id = JSONUtils.getAsString(result.getAsJsonObject(), "id");
+            String id = GsonHelper.getAsString(result.getAsJsonObject(), "id");
             results.add(getPotion(new ResourceLocation(id)));
         }
 
@@ -40,15 +40,15 @@ public class JsonHelper {
 
     public static Potion getPotion(ResourceLocation potionName) {
 
-        Potion potion = ForgeRegistries.POTION_TYPES.getValue(potionName);
+        Potion potion = ForgeRegistries.POTIONS.getValue(potionName);
 
         if (potion == null) throw new JsonSyntaxException("Unknown potion '" + potionName + "'");
         return potion;
     }
 
-    public static Effect getEffect(ResourceLocation effectName) {
+    public static MobEffect getEffect(ResourceLocation effectName) {
 
-        Effect effect = ForgeRegistries.POTIONS.getValue(effectName);
+        MobEffect effect = ForgeRegistries.MOB_EFFECTS.getValue(effectName);
 
         if (effect == null) throw new JsonSyntaxException("Unknown effect '" + effectName + "'");
         return effect;
