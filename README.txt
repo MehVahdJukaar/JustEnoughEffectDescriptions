@@ -41,3 +41,12 @@ To do so one can simply use one of the two newly added recipes categoris:
         }
     ]
 }
+with this last one you can also specify an optional Potion parameter to have your items be registered for only that particular potion like this
+"potions": [
+    {
+        "id": "minecraft:slowness"
+    }
+]
+
+
+
