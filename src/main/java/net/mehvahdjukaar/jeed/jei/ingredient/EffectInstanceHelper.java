@@ -17,6 +17,7 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.Collections;
 
 public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance> {
@@ -85,10 +86,20 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
     public Iterable<Integer> getColors(MobEffectInstance ingredient) {
         return Collections.singletonList(ingredient.getEffect().getColor());
     }
+
     @Override
     public ItemStack getCheatItemStack(MobEffectInstance ingredient) {
         return PotionUtils.setCustomEffects(new ItemStack(Items.POTION),
-                Collections.singletonList(ingredient));
+                Collections.singletonList(normalizeIngredient(ingredient)));
+    }
+
+    /**
+     * Get a list of tags that include this ingredient.
+     * Used for searching by tags.
+     */
+    @Override
+    public Collection<ResourceLocation> getTags(MobEffectInstance ingredient) {
+        return Collections.singletonList(new ResourceLocation("jeed","effects"));
     }
 
     @Override
@@ -99,7 +110,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
 
     @Override
     public MobEffectInstance normalizeIngredient(MobEffectInstance ingredient) {
-        return new MobEffectInstance(ingredient.getEffect(), 200);
+        return new MobEffectInstance(ingredient.getEffect(), 30*20);
     }
 
     @Override

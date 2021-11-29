@@ -45,13 +45,14 @@ public class JEIPlugin implements IModPlugin {
 
             ResourceLocation name = e.getEffect().getRegistryName();
 
-            registerEffectInfo(registry, new MobEffectInstance(e), EFFECT, "effect."+ name.getNamespace() + "." +
+            registerEffectInfo(registry, new MobEffectInstance(e), EFFECT, "effect." + name.getNamespace() + "." +
                     name.getPath() + ".description");
         }
     }
 
     private static List<MobEffectInstance> getEffectList() {
         return ForgeRegistries.MOB_EFFECTS.getValues().stream()
+                .filter(e -> !Jeed.HIDDEN_EFFECTS.get().contains(e.getRegistryName().toString()))
                 .map(MobEffectInstance::new)
                 .filter(MobEffectInstance::showIcon)
                 .filter(MobEffectInstance::isVisible)
@@ -66,7 +67,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        VanillaPlugin.registerGuiHandlers(registration);
+        if (!Jeed.REI) VanillaPlugin.registerGuiHandlers(registration);
     }
 
     @Override

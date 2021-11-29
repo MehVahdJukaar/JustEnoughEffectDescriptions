@@ -16,21 +16,33 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Collections;
 
 public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
     public static final RecipeType<EffectProviderRecipe> TYPE = RecipeType.register("jeed:effect_provider");
     public static final Serializer SERIALIZER = new Serializer();
     private final ResourceLocation id;
     private final MobEffect effect;
+    private final boolean allEffects;
     private final NonNullList<ItemStack> providers;
 
     public EffectProviderRecipe(ResourceLocation id, MobEffect effect,  NonNullList<ItemStack> providers) {
         this.id = id;
         this.effect = effect;
         this.providers = providers;
+        this.allEffects = false;
+    }
+
+    public EffectProviderRecipe(ResourceLocation id,  NonNullList<ItemStack> providers) {
+        this.id = id;
+        this.effect = null;
+        this.providers = providers;
+        this.allEffects = true;
     }
 
     @Override
@@ -86,9 +98,10 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
         return TYPE;
     }
 
-    public MobEffect getEffect() {
-        return effect;
+    public Collection<MobEffect> getEffects() {
+        return allEffects? ForgeRegistries.MOB_EFFECTS.getValues() : Collections.singletonList(effect);
     }
+
 
     public NonNullList<ItemStack> getProviders() {
         return providers;
@@ -104,37 +117,55 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
 
             NonNullList<ItemStack> providers = JsonHelper.readItemStackList(GsonHelper.getAsJsonArray(json, "providers"));
 
-            String effectID = GsonHelper.getAsString(json.getAsJsonObject("effect"), "id");
-            MobEffect effect = JsonHelper.getEffect(new ResourceLocation(effectID));
             if (providers.isEmpty()) {
                 throw new JsonParseException("No effect providers for recipe");
             } else {
-                return new EffectProviderRecipe(recipeId, effect, providers);
+                String effectID = GsonHelper.getAsString(json.getAsJsonObject("effect"), "id");
+                if (effectID.equals("all") || effectID.equals("minecraft:all")) {
+                    return new EffectProviderRecipe(recipeId, providers);
+                } else {
+                    MobEffect effect = JsonHelper.getEffect(new ResourceLocation(effectID));
+                    return new EffectProviderRecipe(recipeId, effect, providers);
+                }
             }
         }
 
         @Override
         @Nullable
         public EffectProviderRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ResourceLocation id = buffer.readResourceLocation();
-            MobEffect effect = JsonHelper.getEffect(id);
             int i = buffer.readVarInt();
             NonNullList<ItemStack> providers = NonNullList.withSize(i, ItemStack.EMPTY);
 
             for(int j = 0; j < providers.size(); ++j) {
                 providers.set(j, buffer.readItem());
             }
-            return new EffectProviderRecipe(recipeId, effect, providers);
+            ResourceLocation id = buffer.readResourceLocation();
+
+            if(id.getPath().equals("all")){
+                return new EffectProviderRecipe(recipeId, providers);
+            }
+            else {
+                MobEffect effect = JsonHelper.getEffect(id);
+                return new EffectProviderRecipe(recipeId, effect, providers);
+            }
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, EffectProviderRecipe recipe) {
-            buffer.writeResourceLocation(recipe.effect.getRegistryName());
             buffer.writeVarInt(recipe.providers.size());
 
             for (ItemStack result : recipe.providers) {
                 buffer.writeItem(result);
             }
+
+            ResourceLocation res;
+            if(recipe.allEffects){
+                res = new ResourceLocation("all");
+            }else{
+                res = recipe.effect.getRegistryName();
+            }
+            buffer.writeResourceLocation(res);
+
         }
 
 

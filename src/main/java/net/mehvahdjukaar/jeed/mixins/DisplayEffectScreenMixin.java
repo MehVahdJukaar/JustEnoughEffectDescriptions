@@ -3,7 +3,6 @@ package net.mehvahdjukaar.jeed.mixins;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
 import net.mehvahdjukaar.jeed.jei.plugins.InventoryScreenHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.network.chat.Component;
@@ -29,7 +28,7 @@ public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> 
     @Override
     public boolean mouseClicked(double x, double y, int activeButton) {
         if (this.doRenderEffects) {
-            MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(this, x, y, true);
+            MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(this, x, y);
             if (effect != null) {
                 InventoryScreenHandler.onClickedEffect(effect, x, y, activeButton);
                 return true;
@@ -42,11 +41,11 @@ public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> 
     protected void renderTooltip(PoseStack matrixStack, int x, int y) {
         if (this.hoveredSlot == null && this.menu.getCarried().isEmpty()) {
             if (this.doRenderEffects) {
-                MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(this, x, y, true);
-                if (effect != null) {
-                    TooltipFlag flag = Minecraft.getInstance().options.advancedItemTooltips ?
-                            TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
-                    List<Component> tooltip = EffectInstanceRenderer.INSTANCE.getTooltip(effect, flag);
+                MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(this, x, y);
+
+                TooltipFlag flag = this.minecraft.options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
+                List<Component> tooltip = EffectInstanceRenderer.INSTANCE.getTooltipsWithDescription(effect, flag, true);
+                if (!tooltip.isEmpty()) {
                     this.renderComponentTooltip(matrixStack, tooltip, x, y);
                 }
             }

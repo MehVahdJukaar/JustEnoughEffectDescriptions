@@ -1,11 +1,8 @@
 package net.mehvahdjukaar.jeed.jei;
 
 import com.mojang.datafixers.util.Pair;
-import mezz.jei.Internal;
 import mezz.jei.api.ingredients.IIngredientType;
-import mezz.jei.ingredients.IngredientFilter;
-import mezz.jei.ingredients.IngredientManager;
-import mezz.jei.util.MathUtil;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.client.Minecraft;
@@ -64,7 +61,8 @@ public class EffectInfoRecipe {
                     ((EffectProviderRecipe)r) : null));
 
             for(EffectProviderRecipe p : recipes){
-                effectProvidingItems.computeIfAbsent(p.getEffect(), i -> (new ItemStackList())).addAll(p.getProviders());
+                p.getEffects().stream().forEach(e ->
+                        effectProvidingItems.computeIfAbsent(e, i -> (new ItemStackList())).addAll(p.getProviders()));
             }
 
             //potions
@@ -136,11 +134,13 @@ public class EffectInfoRecipe {
 
 
     public List<ItemStack> getInputItems() {
-        IngredientManager manager = Internal.getIngredientManager();
-        IngredientFilter filter = Internal.getIngredientFilter();
-        return this.inputItems.stream().filter(s ->!s.isEmpty())
-                .filter(s -> manager.isIngredientVisible(s, filter)).collect(Collectors.toList());
+        if(!Jeed.REI) {
+            return JeiStuff.getInputItems(this.inputItems);
+        }else {
+            return this.inputItems.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        }
     }
+
     private static NonNullList<ItemStack> getEffectProviders (MobEffect effect) {
         NonNullList<ItemStack> list = NonNullList.create();
         list.addAll (EFFECT_PROVIDERS_CACHE.get().getOrDefault(effect, (new ItemStackList())));
@@ -162,7 +162,7 @@ public class EffectInfoRecipe {
 
         Minecraft minecraft = Minecraft.getInstance();
         final int maxLinesPerPage = (EffectRecipeCategory.recipeHeight - 80) / (minecraft.font.lineHeight + lineSpacing);
-        final int pageCount = MathUtil.divideCeil(lineCount, maxLinesPerPage);
+        final int pageCount = divideCeil(lineCount, maxLinesPerPage);
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;
             int endLine = Math.min((i + 1) * maxLinesPerPage, lineCount);
@@ -172,6 +172,10 @@ public class EffectInfoRecipe {
         }
 
         return recipes;
+    }
+
+    public static int divideCeil(int numerator, int denominator) {
+        return (int)Math.ceil((float)numerator / (float)denominator);
     }
 
     private static List<FormattedText> expandNewlines(Component... descriptionComponents) {

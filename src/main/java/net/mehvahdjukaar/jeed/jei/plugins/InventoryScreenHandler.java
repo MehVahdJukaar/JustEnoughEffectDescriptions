@@ -24,12 +24,13 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
     @Nullable
     @Override
     public Object getIngredientUnderMouse(T screen, double x, double y) {
-        return getHoveredEffect(screen, x, y, true);
+        return getHoveredEffect(screen, x, y);
     }
 
     @Nullable
-    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double x, double y, boolean useAccessor){
+    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double x, double y){
         int width = 120;
+
 
         int minY = screen.getGuiTop();
 
@@ -37,8 +38,7 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
         int maxX = minX + width;
         if (x > minX && x < maxX && y > minY) {
 
-            if(!useAccessor || screen instanceof DisplayEffectScreenAccessor && ((DisplayEffectScreenAccessor)screen).hasEffects()) {
-
+            if(screen instanceof DisplayEffectScreenAccessor accessor && accessor.hasEffects()) {
 
                 Collection<MobEffectInstance> collection = Minecraft.getInstance().player.getActiveEffects();
                 List<MobEffectInstance> list = collection.stream().filter(ForgeHooksClient::shouldRender).sorted().collect(java.util.stream.Collectors.toList());
