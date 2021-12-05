@@ -6,18 +6,12 @@ import mezz.jei.gui.Focus;
 import mezz.jei.input.ClickedIngredient;
 import mezz.jei.input.IClickedIngredient;
 import net.mehvahdjukaar.jeed.jei.JEIPlugin;
-import net.mehvahdjukaar.jeed.mixins.DisplayEffectScreenAccessor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.client.ForgeHooksClient;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Collection;
-import java.util.List;
 
 public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends EffectRenderingInventoryScreen<C>> implements IGuiContainerHandler<T> {
 
@@ -38,6 +32,7 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
         int maxX = minX + width;
         if (x > minX && x < maxX && y > minY) {
 
+            /*
             if(screen instanceof DisplayEffectScreenAccessor accessor && accessor.hasEffects()) {
 
                 Collection<MobEffectInstance> collection = Minecraft.getInstance().player.getActiveEffects();
@@ -56,7 +51,7 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
                         }
                     }
                 }
-            }
+            }*/
         }
         return null;
     }

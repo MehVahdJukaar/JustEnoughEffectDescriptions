@@ -191,9 +191,14 @@
   "effect.cofh_core.enderference.description": "Makes nearby endermen unable to teleport. Also disables teleportation for nearby players using ender pearls or chorus fruits.",
   "effect.cofh_core.clarity.description": "Increases the amount of gained exp by 40% per level.",
   "effect.cofh_core.explosion_resistance.description": "Grants immunity to explosion damage.",
-  "effect.cofh_core.chilled.description": "Reduces movement speed by 30% and attack damage by 1.5 hearts per level."
+  "effect.cofh_core.chilled.description": "Reduces movement speed by 30% and attack damage by 1.5 hearts per level.",
 
-
+  "effect.twist.afterburn.description": "Damages the user after the effect wears off.",
+  "effect.twist.disintegration.description": "Damages the user when sprinting.",
+  "effect.twist.hazy.description": "Not obtainable.",
+  "effect.twist.mold.description": "Causes the user's heart to rush when on a Charger's turf.",
+  "effect.twist.outzimpled.description": "Stops the user from popping Zimples.",
+  "effect.twist.parasite.description": "Not obtainable."
 
 
 

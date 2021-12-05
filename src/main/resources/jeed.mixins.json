@@ -8,8 +8,6 @@
   "mixins": [
   ],
   "client": [
-    "DisplayEffectScreenAccessor",
-    "DisplayEffectScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

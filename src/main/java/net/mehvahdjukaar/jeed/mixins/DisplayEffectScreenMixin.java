@@ -11,14 +11,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.TooltipFlag;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
 @Mixin(EffectRenderingInventoryScreen.class)
 public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
-    @Shadow
+    //@Shadow
     protected boolean doRenderEffects;
 
     public DisplayEffectScreenMixin(T p_i51105_1_, Inventory p_i51105_2_, Component p_i51105_3_) {

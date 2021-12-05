@@ -54,6 +54,6 @@ A JEI plugin that displays all status effects and how to obtain them
     modId="minecraft"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-    versionRange="[1.17.0,1.18)"
+    versionRange="[1.18.0,1.19)"
     ordering="NONE"
     side="BOTH"
