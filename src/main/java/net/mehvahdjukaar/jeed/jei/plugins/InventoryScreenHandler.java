@@ -2,13 +2,12 @@ package net.mehvahdjukaar.jeed.jei.plugins;
 
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.recipe.IFocus;
-import mezz.jei.gui.Focus;
-import mezz.jei.input.ClickedIngredient;
-import mezz.jei.input.IClickedIngredient;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.runtime.IJeiRuntime;
+import mezz.jei.api.runtime.IRecipesGui;
 import net.mehvahdjukaar.jeed.jei.JEIPlugin;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.jetbrains.annotations.Nullable;
@@ -57,11 +56,11 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
     }
 
     public static void onClickedEffect(MobEffectInstance effect, double x, double y, int button){
+        IJeiRuntime jeiRuntime = JEIPlugin.JEI_RUNTIME;
+        IFocus<MobEffectInstance> focus = jeiRuntime.createFocus(RecipeIngredientRole.OUTPUT, JEIPlugin.EFFECT, effect);
 
-        Rect2i slotArea = new Rect2i((int)x, (int)y, 16, 16);
-        IClickedIngredient<?> clicked = ClickedIngredient.create(effect, slotArea);
-
-        JEIPlugin.JEI_RUNTIME.getRecipesGui().show(new Focus<Object>(IFocus.Mode.OUTPUT, clicked.getValue()));
+        IRecipesGui recipesGui = jeiRuntime.getRecipesGui();
+        recipesGui.show(focus);
     }
 
 }
