@@ -4,6 +4,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.registration.*;
+import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceHelper;
@@ -41,6 +42,8 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registry) {
+        JEI_INGREDIENT_VISIBILITY = registry.getIngredientVisibility();
+
         for (MobEffectInstance e : getEffectList()) {
 
             ResourceLocation name = e.getEffect().getRegistryName();
@@ -78,6 +81,7 @@ public class JEIPlugin implements IModPlugin {
     //TODO: register keyword
 
     public static IJeiRuntime JEI_RUNTIME;
+    public static IIngredientVisibility JEI_INGREDIENT_VISIBILITY;
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {

@@ -60,6 +60,6 @@ A JEI plugin that displays all status effects and how to obtain them
 [[dependencies.jeed]]
     modId="jei"
     mandatory=false
-    versionRange="[9.3.0,)"
+    versionRange="[9.3.1,)"
     ordering="NONE"
     side="CLIENT"
