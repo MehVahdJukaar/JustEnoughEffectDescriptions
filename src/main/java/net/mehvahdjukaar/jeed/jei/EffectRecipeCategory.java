@@ -86,33 +86,6 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, List<? extends IFocus<?>> focuses) {
-        IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
-
-        IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.INPUT, (recipeWidth - 18) / 2, yOffset + 3)
-                .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
-                .addIngredient(type, recipe.getEffect());
-
-        if (Jeed.EFFECT_BOX.get()) {
-            mainSlot.setBackground(effectBackground, -3, -3);
-        }
-
-        List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
-        List<ItemStack> compatible = recipe.getInputItems();
-
-        for (int slotId = 0; slotId < compatible.size(); slotId++) {
-            slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
-        }
-
-        for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-            int x = (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
-            int y = recipeHeight - 19 * (2 - (slotId / 7));
-            builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
-                    .addItemStacks(slotContents.get(slotId));
-        }
-    }
-
-    @Override
     public void draw(EffectInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
         int xPos = 0;
         int yPos = effectBackground.getHeight() + 4 + yOffset;
@@ -136,6 +109,33 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
         for (int slotId = 0; slotId < 14; slotId++) {
             this.slotBackground.draw(matrixStack, (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f))), recipeHeight - 19 * (1 + slotId / 7));
+        }
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, List<? extends IFocus<?>> focuses) {
+        IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
+
+        IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.INPUT, (recipeWidth - 18) / 2, yOffset + 3)
+                .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
+                .addIngredient(type, recipe.getEffect());
+
+        if (Jeed.EFFECT_BOX.get()) {
+            mainSlot.setBackground(effectBackground, -3, -3);
+        }
+
+        List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
+        List<ItemStack> compatible = recipe.getInputItems();
+
+        for (int slotId = 0; slotId < compatible.size(); slotId++) {
+            slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
+        }
+
+        for (int slotId = 0; slotId < slotContents.size(); slotId++) {
+            int x = (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
+            int y = recipeHeight - 19 * (2 - (slotId / 7));
+            builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
+                    .addItemStacks(slotContents.get(slotId));
         }
     }
 }
