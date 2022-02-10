@@ -61,6 +61,18 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
     }
 
     @Override
+    public ResourceLocation getResourceLocation(MobEffectInstance ingredient) {
+        ResourceLocation registryName = ingredient.getEffect().getRegistryName();
+        if (registryName == null) {
+            String ingredientInfo = this.getErrorInfo(ingredient);
+            throw new IllegalStateException("effect.getRegistryName() returned null for: " + ingredientInfo);
+        } else {
+            return registryName;
+        }
+    }
+
+    @SuppressWarnings("removal")
+    @Override
     public String getModId(MobEffectInstance ingredient) {
         ResourceLocation registryName = ingredient.getEffect().getRegistryName();
         if (registryName == null) {
@@ -71,6 +83,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
         }
     }
 
+    @SuppressWarnings("removal")
     @Override
     public String getResourceId(MobEffectInstance ingredient) {
         ResourceLocation registryName = ingredient.getEffect().getRegistryName();

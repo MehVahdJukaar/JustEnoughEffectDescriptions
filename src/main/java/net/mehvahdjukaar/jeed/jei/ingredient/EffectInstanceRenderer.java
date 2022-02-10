@@ -23,7 +23,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,26 +43,21 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
     }
 
     @Override
-    public void render(PoseStack matrixStack, int xPosition, int yPosition, @Nullable MobEffectInstance effectInstance) {
-
-        if (effectInstance != null ) {
-
-            MobEffect effect = effectInstance.getEffect();
+    public void render(PoseStack matrixStack, MobEffectInstance effectInstance) {
+        MobEffect effect = effectInstance.getEffect();
 
 
-            MobEffectTextureManager potionspriteuploader = MC.getMobEffectTextures();
-            TextureAtlasSprite textureatlassprite = potionspriteuploader.get(effect);
+        MobEffectTextureManager potionspriteuploader = MC.getMobEffectTextures();
+        TextureAtlasSprite textureatlassprite = potionspriteuploader.get(effect);
 
 
-            RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, textureatlassprite.atlas().location());
-            int o = offset ? -1 : (Jeed.REI ? 3 : 0);
-            GuiComponent.blit(matrixStack, xPosition + o, yPosition+ o, 0, 18, 18, textureatlassprite);
+        RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, textureatlassprite.atlas().location());
+        int o = offset ? -1 : (Jeed.REI ? 3 : 0);
+        GuiComponent.blit(matrixStack, o, o, 0, 18, 18, textureatlassprite);
 
-            RenderSystem.applyModelViewMatrix();
-
-        }
+        RenderSystem.applyModelViewMatrix();
     }
 
 
@@ -151,5 +145,13 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
         return tooltip;
     }
 
+    @Override
+    public int getWidth() {
+        return offset ? 16 : 18;
+    }
 
+    @Override
+    public int getHeight() {
+        return offset ? 16 : 18;
+    }
 }

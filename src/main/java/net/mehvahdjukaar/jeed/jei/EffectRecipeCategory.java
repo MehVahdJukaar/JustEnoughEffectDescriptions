@@ -1,13 +1,14 @@
 package net.mehvahdjukaar.jeed.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
@@ -16,7 +17,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.NonNullList;
 import net.minecraft.locale.Language;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -80,13 +86,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     }
 
     @Override
-    public void setIngredients(EffectInfoRecipe recipe, IIngredients ingredients) {
-        ingredients.setInputs(VanillaTypes.ITEM, recipe.getInputItems());
-        ingredients.setOutput(recipe.getEffectIngredientType(), recipe.getEffect());
-    }
-
-    @Override
-    public void draw(EffectInfoRecipe recipe, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(EffectInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
         int xPos = 0;
         int yPos = effectBackground.getHeight() + 4 + yOffset;
 
@@ -113,38 +113,29 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, EffectInfoRecipe recipe, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, List<? extends IFocus<?>> focuses) {
+        IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
 
-        IGuiIngredientGroup<MobEffectInstance> guiEffectInstances = recipeLayout.getIngredientsGroup(JEIPlugin.EFFECT);
-        IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
+        IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.INPUT, (recipeWidth - 18) / 2, yOffset + 3)
+                .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
+                .addIngredient(type, recipe.getEffect());
 
-        boolean box = Jeed.EFFECT_BOX.get();
-        int offset = box ? 3 : 0;
-
-        int xPos = (recipeWidth - 18) / 2;
-        guiEffectInstances.init(0, true, EffectInstanceRenderer.INSTANCE_SLOT, xPos - offset, yOffset + 3 -offset, 18 +offset*2, 18+offset*2, offset, offset);
-        if(box) {
-            guiEffectInstances.setBackground(0, effectBackground);
+        if (Jeed.EFFECT_BOX.get()) {
+            mainSlot.setBackground(effectBackground, -3, -3);
         }
-        guiEffectInstances.set(0, recipe.getEffect());
-
-
 
         List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
         List<ItemStack> compatible = recipe.getInputItems();
 
         for (int slotId = 0; slotId < compatible.size(); slotId++) {
-
             slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
         }
 
         for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-
-            stacks.init(slotId + 1, false, (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f))), recipeHeight - 19*(2 - ( slotId / 7)));
-            stacks.set(slotId + 1, slotContents.get(slotId));
-
-            //stacks.addTooltipCallback(recipe);
+            int x = (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
+            int y = recipeHeight - 19 * (2 - (slotId / 7));
+            builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
+                    .addItemStacks(slotContents.get(slotId));
         }
-
     }
 }
