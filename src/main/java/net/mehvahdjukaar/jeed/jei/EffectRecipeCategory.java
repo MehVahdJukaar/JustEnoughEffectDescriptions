@@ -116,8 +116,12 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, List<? extends IFocus<?>> focuses) {
         IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
 
-        IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.INPUT, (recipeWidth - 18) / 2, yOffset + 3)
+        //adds to both output and input
+        IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, (recipeWidth - 18) / 2, yOffset + 3)
                 .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
+                .addIngredient(type, recipe.getEffect());
+
+        IRecipeSlotBuilder second = builder.addSlot(RecipeIngredientRole.INPUT, (recipeWidth - 18) / 2, yOffset + 3)
                 .addIngredient(type, recipe.getEffect());
 
         if (Jeed.EFFECT_BOX.get()) {

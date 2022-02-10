@@ -1,7 +1,9 @@
 package net.mehvahdjukaar.jeed.jei;
 
 import com.mojang.datafixers.util.Pair;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.runtime.IIngredientVisibility;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
@@ -61,7 +63,7 @@ public class EffectInfoRecipe {
                     ((EffectProviderRecipe)r) : null));
 
             for(EffectProviderRecipe p : recipes){
-                p.getEffects().stream().forEach(e ->
+                p.getEffects().forEach(e ->
                         effectProvidingItems.computeIfAbsent(e, i -> (new ItemStackList())).addAll(p.getProviders()));
             }
 
@@ -87,13 +89,12 @@ public class EffectInfoRecipe {
                 }
             }
 
-            //stew
+            //stews
             for (Block b : ForgeRegistries.BLOCKS) {
-                if (b instanceof FlowerBlock) {
+                if (b instanceof FlowerBlock flowerblock) {
 
                     ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
 
-                    FlowerBlock flowerblock = (FlowerBlock) b;
                     MobEffect effect = flowerblock.getSuspiciousStewEffect();
                     SuspiciousStewItem.saveMobEffect(stew, effect, 200);
 
@@ -102,7 +103,7 @@ public class EffectInfoRecipe {
                 }
             }
 
-            //food
+            //foods
             for (Item i : ForgeRegistries.ITEMS) {
                 FoodProperties food = i.getFoodProperties();
                 if (food!=null) {
@@ -132,13 +133,12 @@ public class EffectInfoRecipe {
 
     }
 
-
     public List<ItemStack> getInputItems() {
-        if(!Jeed.REI) {
-            return JeiStuff.getInputItems(this.inputItems);
-        }else {
-            return this.inputItems.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
-        }
+        IIngredientVisibility ingredientVisibility = JEIPlugin.JEI_INGREDIENT_VISIBILITY;
+        return inputItems.stream()
+                .filter(s -> !s.isEmpty())
+                .filter(s -> ingredientVisibility.isIngredientVisible(VanillaTypes.ITEM, s))
+                .collect(Collectors.toList());
     }
 
     private static NonNullList<ItemStack> getEffectProviders (MobEffect effect) {

@@ -6,58 +6,67 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.mehvahdjukaar.jeed.jei.JEIPlugin;
+import net.mehvahdjukaar.jeed.mixins.DisplayEffectScreenAccessor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraftforge.client.ForgeHooksClient;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends EffectRenderingInventoryScreen<C>> implements IGuiContainerHandler<T> {
 
     @Nullable
     @Override
     public Object getIngredientUnderMouse(T screen, double x, double y) {
-        return getHoveredEffect(screen, x, y);
+        return getHoveredEffect(screen, x, y, false);
     }
 
+    //TODO: re add this for to work with effects on left & right
     @Nullable
-    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double x, double y){
-        int width = 120;
+    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
+        int minX;
+        boolean cancelShift = (screen instanceof DisplayEffectScreenAccessor accessor && accessor.isCancelShift());
+        if(cancelShift)
+            minX = (screen.width - screen.getXSize()) / 2;
+        else
+            minX = screen.getGuiLeft() + screen.getXSize() + 2;
+        int x = screen.width - minX;
+        Collection<MobEffectInstance> collection = Minecraft.getInstance().player.getActiveEffects();
+        if (!collection.isEmpty() && x >= 32) {
 
+            boolean full = x >= 120;
+            if(!full && ignoreIfSmall)return null;
+            int width = full ? 120:32;
+            if(mouseX > minX && mouseX<minX+width) {
 
-        int minY = screen.getGuiTop();
-
-        int minX = screen.getGuiLeft() - 124;
-        int maxX = minX + width;
-        if (x > minX && x < maxX && y > minY) {
-
-            /*
-            if(screen instanceof DisplayEffectScreenAccessor accessor && accessor.hasEffects()) {
-
-                Collection<MobEffectInstance> collection = Minecraft.getInstance().player.getActiveEffects();
-                List<MobEffectInstance> list = collection.stream().filter(ForgeHooksClient::shouldRender).sorted().collect(java.util.stream.Collectors.toList());
-                if (!collection.isEmpty()) {
-
-                    int dx = 33;
-                    //vanilla bug here :/ should use other list size instead
-                    if (collection.size() > 5) {
-                        dx = 132 / (collection.size() - 1);
-                    }
-                    double rel = y - minY;
-                    for (int e = 1; e <= list.size(); e++) {
-                        if (rel < dx * e) {
-                            return list.get(e-1);
-                        }
-                    }
+                int spacing = 33;
+                if (collection.size() > 5) {
+                    spacing = 132 / (collection.size() - 1);
                 }
-            }*/
+
+
+                List<MobEffectInstance> iterable = collection.stream().filter(ForgeHooksClient::shouldRenderEffect).sorted().collect(Collectors.toList());
+
+                int minY = screen.getGuiTop();
+                int maxHeight = iterable.size()*spacing;
+
+                if (mouseY> minY && mouseY < minY+maxHeight){
+                    return iterable.get((int)((mouseY-minY)/spacing));
+                }
+            }
         }
         return null;
     }
 
     public static void onClickedEffect(MobEffectInstance effect, double x, double y, int button){
         IJeiRuntime jeiRuntime = JEIPlugin.JEI_RUNTIME;
-        IFocus<MobEffectInstance> focus = jeiRuntime.createFocus(RecipeIngredientRole.OUTPUT, JEIPlugin.EFFECT, effect);
+        IFocus<MobEffectInstance> focus = jeiRuntime.createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT, effect);
 
         IRecipesGui recipesGui = jeiRuntime.getRecipesGui();
         recipesGui.show(focus);

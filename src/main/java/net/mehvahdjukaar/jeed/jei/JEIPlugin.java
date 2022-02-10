@@ -24,6 +24,9 @@ public class JEIPlugin implements IModPlugin {
 
     public static final IIngredientType<MobEffectInstance> EFFECT = () -> MobEffectInstance.class;
 
+    public static IJeiRuntime JEI_RUNTIME;
+    public static IIngredientVisibility JEI_INGREDIENT_VISIBILITY;
+
     @Override
     public ResourceLocation getPluginUid() {
         return ID;
@@ -34,10 +37,14 @@ public class JEIPlugin implements IModPlugin {
         registry.addRecipeCategories(new EffectRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
-
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
         registration.register(EFFECT, getEffectList(), new EffectInstanceHelper(), EffectInstanceRenderer.INSTANCE);
+    }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+        JEI_RUNTIME = jeiRuntime;
     }
 
     @Override
@@ -80,14 +87,5 @@ public class JEIPlugin implements IModPlugin {
 
     //TODO: register keyword
 
-    public static IJeiRuntime JEI_RUNTIME;
-    public static IIngredientVisibility JEI_INGREDIENT_VISIBILITY;
-
-    @Override
-    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-        JEI_RUNTIME = jeiRuntime;
-    }
-
-    //ISubtypeRegistration
 
 }
