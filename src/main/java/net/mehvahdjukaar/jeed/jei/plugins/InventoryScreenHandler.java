@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -38,6 +39,11 @@ public class InventoryScreenHandler<C extends AbstractContainerMenu, T extends E
         if (!collection.isEmpty() && x >= 32) {
 
             boolean full = x >= 120;
+            var event = ForgeHooksClient.onScreenPotionSize(screen);
+            if (event != Event.Result.DEFAULT) {
+                full = event == Event.Result.DENY; // true means classic mode
+            }
+
             if (!full && ignoreIfSmall) return null;
             int width = full ? 120 : 32;
             if (mouseX > minX && mouseX < minX + width) {
