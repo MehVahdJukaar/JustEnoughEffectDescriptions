@@ -2,6 +2,7 @@ package net.mehvahdjukaar.jeed.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientVisibility;
@@ -25,6 +26,7 @@ public class JEIPlugin implements IModPlugin {
     public static final IIngredientType<MobEffectInstance> EFFECT = () -> MobEffectInstance.class;
 
     public static IJeiRuntime JEI_RUNTIME;
+    public static IJeiHelpers JEI_HELPERS;
     public static IIngredientVisibility JEI_INGREDIENT_VISIBILITY;
 
     @Override
@@ -50,6 +52,7 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registry) {
         JEI_INGREDIENT_VISIBILITY = registry.getIngredientVisibility();
+        JEI_HELPERS = registry.getJeiHelpers();
 
         for (MobEffectInstance e : getEffectList()) {
 

@@ -7,7 +7,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredientType;
-import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jeed.Jeed;
@@ -17,12 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.NonNullList;
 import net.minecraft.locale.Language;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -113,7 +108,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, List<? extends IFocus<?>> focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, IFocusGroup focuses) {
         IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
 
         //adds to both output and input
@@ -121,8 +116,9 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
                 .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
                 .addIngredient(type, recipe.getEffect());
 
-        IRecipeSlotBuilder second = builder.addSlot(RecipeIngredientRole.INPUT, (recipeWidth - 18) / 2, yOffset + 3)
-                .addIngredient(type, recipe.getEffect());
+        //hack so we have both input and outputs to make it easier to access effects using U and R keys. This one is set to not render
+        IRecipeSlotBuilder second = builder.addSlot(RecipeIngredientRole.INPUT, 1 + (recipeWidth - 18) / 2, 1 + yOffset + 3)
+                .addIngredient(type, recipe.getEffect()).setCustomRenderer(JEIPlugin.EFFECT, (effectInstance, tooltipFlag) -> List.of());
 
         if (Jeed.EFFECT_BOX.get()) {
             mainSlot.setBackground(effectBackground, -3, -3);

@@ -7,6 +7,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -40,6 +41,10 @@ public class Jeed {
     public static boolean REI = false;
 
     public Jeed() {
+
+        ModLoadingContext modLoader = ModLoadingContext.get();
+        modLoader.registerExtensionPoint(IExtensionPoint.DisplayTest.class,
+                () -> new IExtensionPoint.DisplayTest(() -> "ANY", (remote, isServer) -> true));
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(Jeed::init);

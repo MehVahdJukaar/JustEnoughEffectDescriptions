@@ -40,15 +40,6 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
     }
 
     @Override
-    @Nullable
-    public MobEffectInstance getMatch(Iterable<MobEffectInstance> iterable, MobEffectInstance mobEffectInstance, UidContext uidContext) {
-        for (MobEffectInstance e : iterable){
-            if(e.getEffect().equals(mobEffectInstance.getEffect()))return e;
-        }
-        return null;
-    }
-
-    @Override
     public String getDisplayName(MobEffectInstance ingredient) {
         Component displayName = ingredient.getEffect().getDisplayName();
         return displayName.getString();

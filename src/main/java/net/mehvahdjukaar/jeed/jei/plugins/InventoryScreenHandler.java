@@ -1,12 +1,9 @@
 package net.mehvahdjukaar.jeed.jei.plugins;
 
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
-import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.mehvahdjukaar.jeed.jei.JEIPlugin;
-import net.mehvahdjukaar.jeed.mixins.DisplayEffectScreenAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
@@ -19,7 +16,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends EffectRenderingInventoryScreen<C>> implements IGuiContainerHandler<T> {
+public class InventoryScreenHandler<C extends AbstractContainerMenu, T extends EffectRenderingInventoryScreen<C>> implements IGuiContainerHandler<T> {
 
     @Nullable
     @Override
@@ -31,8 +28,8 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
     @Nullable
     public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
         int minX;
-        boolean cancelShift = (screen instanceof DisplayEffectScreenAccessor accessor && accessor.isCancelShift());
-        if(cancelShift)
+        boolean cancelShift = false;
+        if (cancelShift)
             minX = (screen.width - screen.getXSize()) / 2;
         else
             minX = screen.getGuiLeft() + screen.getXSize() + 2;
@@ -41,9 +38,9 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
         if (!collection.isEmpty() && x >= 32) {
 
             boolean full = x >= 120;
-            if(!full && ignoreIfSmall)return null;
-            int width = full ? 120:32;
-            if(mouseX > minX && mouseX<minX+width) {
+            if (!full && ignoreIfSmall) return null;
+            int width = full ? 120 : 32;
+            if (mouseX > minX && mouseX < minX + width) {
 
                 int spacing = 33;
                 if (collection.size() > 5) {
@@ -54,21 +51,20 @@ public class InventoryScreenHandler <C extends AbstractContainerMenu, T extends 
                 List<MobEffectInstance> iterable = collection.stream().filter(ForgeHooksClient::shouldRenderEffect).sorted().collect(Collectors.toList());
 
                 int minY = screen.getGuiTop();
-                int maxHeight = iterable.size()*spacing;
+                int maxHeight = iterable.size() * spacing;
 
-                if (mouseY> minY && mouseY < minY+maxHeight){
-                    return iterable.get((int)((mouseY-minY)/spacing));
+                if (mouseY > minY && mouseY < minY + maxHeight) {
+                    return iterable.get((int) ((mouseY - minY) / spacing));
                 }
             }
         }
         return null;
     }
 
-    public static void onClickedEffect(MobEffectInstance effect, double x, double y, int button){
-        IJeiRuntime jeiRuntime = JEIPlugin.JEI_RUNTIME;
-        IFocus<MobEffectInstance> focus = jeiRuntime.createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT, effect);
+    public static void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
+        var focus = JEIPlugin.JEI_HELPERS.getFocusFactory().createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT, effect);
 
-        IRecipesGui recipesGui = jeiRuntime.getRecipesGui();
+        IRecipesGui recipesGui = JEIPlugin.JEI_RUNTIME.getRecipesGui();
         recipesGui.show(focus);
     }
 
