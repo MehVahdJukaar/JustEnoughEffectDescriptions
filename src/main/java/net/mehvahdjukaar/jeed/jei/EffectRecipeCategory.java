@@ -140,7 +140,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
         for (int slotId = 0; slotId < slotContents.size(); slotId++) {
 
-            stacks.init(slotId + 1, false, (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f))), recipeHeight - 19*(2 - ( slotId / 7)));
+            stacks.init(slotId + 1, false,1+ (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f))), 1+recipeHeight - 19*(2 - ( slotId / 7)));
             stacks.set(slotId + 1, slotContents.get(slotId));
 
             //stacks.addTooltipCallback(recipe);

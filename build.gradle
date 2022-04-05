@@ -4,13 +4,11 @@ buildscript {
         maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
         maven { url = 'https://files.minecraftforge.net/maven' }
         maven { url = 'https://repo.spongepowered.org/maven' }
-        maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: "${project.forgegradle_version}", changing: true
         classpath "org.spongepowered:mixingradle:${project.mixingradle_version}"
-        classpath "org.parchmentmc:librarian:${project.librarian_version}"
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -18,9 +16,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'org.spongepowered.mixin'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 mixin {
     add sourceSets.main, "${project.mod_id}.refmap.json"
@@ -31,7 +27,7 @@ archivesBaseName = project.mod_id
 version = "${project.minecraft_version}-${project.mod_version}".toString()
 group = "${project.maven_group}.${archivesBaseName}".toString()
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '17' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '8' // Need this here so eclipse task generates correctly.
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -88,7 +84,6 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', "${project.mod_id}", '--all', '--output', file('src/generated/resources/'), '--existing', sourceSets.main.resources.srcDirs[0]   //args "--mod", "usefulbackpacks", "--all", "--output", "\"" + file("src/generated/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.main.resources.srcDirs[0] + "\""
 
         }
     }
@@ -133,8 +128,8 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
 
-    implementation fg.deobf("curse.maven:configured-457570:3640884")
-    implementation fg.deobf("curse.maven:jei-238222:3735570")
+
+    implementation fg.deobf("curse.maven:jei-238222:3602551")
     //implementation fg.deobf("curse.maven:puzzles-lib-495476:3681966")
     //implementation fg.deobf("curse.maven:stylish-effects-543661:3671298")
     // implementation fg.deobf("curse.maven:crimson-nbt-tags-445260:3670163")
