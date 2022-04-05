@@ -132,8 +132,8 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
         }
 
         for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-            int x = (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
-            int y = recipeHeight - 19 * (2 - (slotId / 7));
+            int x = 1 + (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
+            int y = 1 + recipeHeight - 19 * (2 - (slotId / 7));
             builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
                     .addItemStacks(slotContents.get(slotId));
         }
