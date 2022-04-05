@@ -1,10 +1,7 @@
 package net.mehvahdjukaar.jeed.jei;
 
 import com.mojang.datafixers.util.Pair;
-import mezz.jei.Internal;
 import mezz.jei.api.ingredients.IIngredientType;
-import mezz.jei.ingredients.IngredientFilter;
-import mezz.jei.ingredients.IngredientManager;
 import mezz.jei.util.MathUtil;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
@@ -130,13 +127,10 @@ public class EffectInfoRecipe {
 
     }
 
-
     public List<ItemStack> getInputItems() {
-        IngredientManager manager = Internal.getIngredientManager();
-        IngredientFilter filter = Internal.getIngredientFilter();
-        return this.inputItems.stream().filter(s ->!s.isEmpty())
-                .filter(s -> manager.isIngredientVisible(s, filter)).collect(Collectors.toList());
+        return this.inputItems.stream().filter(s ->!s.isEmpty()).collect(Collectors.toList());
     }
+
     private static NonNullList<ItemStack> getEffectProviders (Effect effect) {
         NonNullList<ItemStack> list = NonNullList.create();
         list.addAll (EFFECT_PROVIDERS_CACHE.get().getOrDefault(effect, (new ItemStackList())));
