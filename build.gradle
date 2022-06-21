@@ -133,8 +133,8 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
 
-    implementation fg.deobf("curse.maven:configured-457570:3640884")
-    implementation fg.deobf("curse.maven:jei-238222:3735570")
+   // implementation fg.deobf("curse.maven:configured-457570:3640884")
+    implementation fg.deobf("curse.maven:jei-238222:3835406")
     //implementation fg.deobf("curse.maven:puzzles-lib-495476:3681966")
     //implementation fg.deobf("curse.maven:stylish-effects-543661:3671298")
    // implementation fg.deobf("curse.maven:crimson-nbt-tags-445260:3670163")

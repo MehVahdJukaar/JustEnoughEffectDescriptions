@@ -14,7 +14,10 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MobEffectTextureManager;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,26 +82,31 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
                 name = name + ' ' + I18n.get("enchantment.level." + (amp + 1));
             }
 
-            tooltip.add(new TextComponent(name));
+            tooltip.add(Component.literal(name));
 
-            TextComponent colorValue = new TextComponent("#" + Integer.toHexString(effect.getColor()));
+            MutableComponent colorValue = Component.literal("#" + Integer.toHexString(effect.getColor()));
             colorValue.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(effect.getColor())));
 
-            MutableComponent color = new TranslatableComponent("jeed.tooltip.color").withStyle(ChatFormatting.GRAY);
+            MutableComponent color = Component.translatable("jeed.tooltip.color").withStyle(ChatFormatting.GRAY);
 
-            tooltip.add(new TranslatableComponent("jeed.tooltip.color_complete", color, colorValue));
+            tooltip.add(Component.translatable("jeed.tooltip.color_complete", color, colorValue));
             if (effect.isBeneficial()) {
-                tooltip.add(new TranslatableComponent("jeed.tooltip.beneficial").withStyle(ChatFormatting.BLUE));
+                tooltip.add(Component.translatable("jeed.tooltip.beneficial").withStyle(ChatFormatting.BLUE));
             } else {
-                tooltip.add(new TranslatableComponent("jeed.tooltip.harmful").withStyle(ChatFormatting.RED));
+                tooltip.add(Component.translatable("jeed.tooltip.harmful").withStyle(ChatFormatting.RED));
             }
 
 
             boolean showDescription = reactsToShift && Screen.hasShiftDown();
             //show full description with shift
+            ResourceLocation res = null;
+            if(showDescription || tooltipFlag.isAdvanced()){
+                res = ForgeRegistries.MOB_EFFECTS.getKey(effect);
+            }
+
             if(showDescription){
-                ResourceLocation res = effect.getRegistryName();
-                tooltip.add(new TranslatableComponent("effect." + res.getNamespace() + "." +
+
+                tooltip.add(Component.translatable("effect." + res.getNamespace() + "." +
                         res.getPath() + ".description").withStyle(ChatFormatting.GRAY));
             }
             else {
@@ -112,8 +121,9 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
                     }
                 }
                 if (!list1.isEmpty()) {
-                    tooltip.add(TextComponent.EMPTY);
-                    tooltip.add((new TranslatableComponent("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
+
+                    tooltip.add(Component.empty());
+                    tooltip.add(Component.translatable("potion.whenDrank").withStyle(ChatFormatting.DARK_PURPLE));
 
                     for (Pair<Attribute, AttributeModifier> pair : list1) {
                         AttributeModifier attributemodifier2 = pair.getSecond();
@@ -126,19 +136,19 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
                         }
 
                         if (d0 > 0.0D) {
-                            tooltip.add((new TranslatableComponent("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(),
-                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
+                            tooltip.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(),
+                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
                         } else if (d0 < 0.0D) {
                             d1 = d1 * -1.0D;
-                            tooltip.add((new TranslatableComponent("attribute.modifier.take." + attributemodifier2.getOperation().toValue(),
-                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), new TranslatableComponent(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
+                            tooltip.add((Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(),
+                                    ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
                         }
                     }
                 }
             }
 
             if (tooltipFlag.isAdvanced()) {
-                tooltip.add(new TextComponent(effect.getRegistryName().toString()).withStyle(ChatFormatting.DARK_GRAY));
+                tooltip.add(Component.literal(res.toString()).withStyle(ChatFormatting.DARK_GRAY));
             }
 
         }

@@ -56,7 +56,7 @@ public class JEIPlugin implements IModPlugin {
 
         for (MobEffectInstance e : getEffectList()) {
 
-            ResourceLocation name = e.getEffect().getRegistryName();
+            ResourceLocation name = ForgeRegistries.MOB_EFFECTS.getKey(e.getEffect());
 
             registerEffectInfo(registry, new MobEffectInstance(e), EFFECT, "effect." + name.getNamespace() + "." +
                     name.getPath() + ".description");
@@ -65,7 +65,7 @@ public class JEIPlugin implements IModPlugin {
 
     private static List<MobEffectInstance> getEffectList() {
         return ForgeRegistries.MOB_EFFECTS.getValues().stream()
-                .filter(e -> !Jeed.HIDDEN_EFFECTS.get().contains(e.getRegistryName().toString()))
+                .filter(e -> !Jeed.HIDDEN_EFFECTS.get().contains(ForgeRegistries.MOB_EFFECTS.getKey(e).toString()))
                 .map(MobEffectInstance::new)
                 .filter(MobEffectInstance::showIcon)
                 .filter(MobEffectInstance::isVisible)
@@ -75,7 +75,7 @@ public class JEIPlugin implements IModPlugin {
     public void registerEffectInfo(IRecipeRegistration registration, MobEffectInstance ingredient, IIngredientType<MobEffectInstance> ingredientType, String descriptionKey) {
 
         List<EffectInfoRecipe> recipes = EffectInfoRecipe.create(ingredient, ingredientType, descriptionKey);
-        registration.addRecipes(recipes, EffectRecipeCategory.UID);
+        registration.addRecipes(EffectRecipeCategory.TYPE, recipes);
     }
 
     @Override

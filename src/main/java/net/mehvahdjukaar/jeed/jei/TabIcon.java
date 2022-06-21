@@ -37,16 +37,7 @@ public class TabIcon implements IDrawable {
         RenderSystem.setShaderTexture(0, resource);
         GuiComponent.blit(matrixStack, xOffset, yOffset, 0, 0, 0, width, height, width, height);
 
-        //GuiUtils.drawTexturedModalRect(poseStack, xOffset + PADDING, yOffset + PADDING, 0, 0, this.width, this.height, 0);
         RenderSystem.applyModelViewMatrix();
-
-        //RenderSystem.clearCurrentColor();
-       // Minecraft.getInstance().getTextureManager().bindForSetup(resource);
-        //RenderSystem.pushMatrix();
-        //RenderSystem.multMatrix(matrixStack.last().pose());
-
-        //GuiUtils.drawTexturedModalRect(xOffset + 0, yOffset + 0, 0, 0, this.width*2, this.height, 0);
-        //RenderSystem.popMatrix();
     }
 
 }

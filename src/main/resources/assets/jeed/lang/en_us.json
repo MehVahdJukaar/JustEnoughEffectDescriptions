@@ -94,7 +94,7 @@
   "effect.environmental.panic.description": "Increases speed the lower the user health is.",
   "effect.environmental.serenity.description": "Koi fish stop hostile mobs spawns in a 32x32x8 radius. The serenity effect indicates if the player is in that radius.",
 
-  "effect.farmersdelight.comfort.description": "Removes and grants immunity to Slowness andHunger and Weakness.",
+  "effect.farmersdelight.comfort.description": "Removes and grants immunity to Slowness, Hunger and Weakness.",
   "effect.farmersdelight.nourished.description": "Prevents players from losing hunger or saturation from any other source other than replenishing health points.",
 
   "effect.fruitful.sustaining.description": "Increases hunger yield from any food eaten.",

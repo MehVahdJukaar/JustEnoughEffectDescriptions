@@ -1,7 +1,7 @@
 
 modLoader="javafml" #mandatory
 
-loaderVersion="[38,)"
+loaderVersion="[40,)"
 
 license="All rights reserved"
 
@@ -27,20 +27,20 @@ A JEI plugin that displays all status effects and how to obtain them
 [[dependencies.jeed]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[38,)" #mandatory
+    versionRange="[40,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.jeed]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.0,1.19)"
+    versionRange="[1.19,1.20)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.jeed]]
     modId="jei"
     mandatory=false
-    versionRange="[9.4.1.108,)"
+    versionRange="[11.0.0.200,)"
     ordering="NONE"
     side="CLIENT"

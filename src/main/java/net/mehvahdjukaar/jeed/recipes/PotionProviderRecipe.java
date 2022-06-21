@@ -3,7 +3,6 @@ package net.mehvahdjukaar.jeed.recipes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ import java.util.List;
 public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
     public static final RecipeType<PotionProviderRecipe> TYPE = RecipeType.register("jeed:potion_provider");
     public static final Serializer SERIALIZER = new Serializer();
+
     private final ResourceLocation id;
     private final NonNullList<ItemStack> providers;
     //empty potions list means it applies to all of them
@@ -98,10 +98,7 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
         return potions;
     }
 
-    private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<PotionProviderRecipe> {
-        public Serializer() {
-            this.setRegistryName(Jeed.res("potion_provider"));
-        }
+    private static class Serializer implements RecipeSerializer<PotionProviderRecipe> {
 
         @Override
         public PotionProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -111,7 +108,7 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
             List<Potion> potions;
             try {
                 potions = JsonHelper.readPotionList(GsonHelper.getAsJsonArray(json, "potions"));
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
                 potions = new ArrayList<>();
             }
 
@@ -128,14 +125,14 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
             int i = buffer.readVarInt();
             NonNullList<ItemStack> providers = NonNullList.withSize(i, ItemStack.EMPTY);
 
-            for(int j = 0; j < providers.size(); ++j) {
+            for (int j = 0; j < providers.size(); ++j) {
                 providers.set(j, buffer.readItem());
             }
 
             int x = buffer.readVarInt();
             List<Potion> potions = new ArrayList<>();
 
-            for(int y = 0; y < x; ++y) {
+            for (int y = 0; y < x; ++y) {
                 potions.add(JsonHelper.getPotion(buffer.readResourceLocation()));
             }
 
@@ -153,7 +150,7 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
             buffer.writeVarInt(recipe.potions.size());
 
             for (Potion potion : recipe.potions) {
-                buffer.writeResourceLocation(potion.getRegistryName());
+                buffer.writeResourceLocation(ForgeRegistries.POTIONS.getKey(potion));
             }
         }
     }

@@ -3,7 +3,6 @@ package net.mehvahdjukaar.jeed.recipes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +16,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -26,19 +24,20 @@ import java.util.Collections;
 public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
     public static final RecipeType<EffectProviderRecipe> TYPE = RecipeType.register("jeed:effect_provider");
     public static final Serializer SERIALIZER = new Serializer();
+
     private final ResourceLocation id;
     private final MobEffect effect;
     private final boolean allEffects;
     private final NonNullList<ItemStack> providers;
 
-    public EffectProviderRecipe(ResourceLocation id, MobEffect effect,  NonNullList<ItemStack> providers) {
+    public EffectProviderRecipe(ResourceLocation id, MobEffect effect, NonNullList<ItemStack> providers) {
         this.id = id;
         this.effect = effect;
         this.providers = providers;
         this.allEffects = false;
     }
 
-    public EffectProviderRecipe(ResourceLocation id,  NonNullList<ItemStack> providers) {
+    public EffectProviderRecipe(ResourceLocation id, NonNullList<ItemStack> providers) {
         this.id = id;
         this.effect = null;
         this.providers = providers;
@@ -99,7 +98,7 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
     }
 
     public Collection<MobEffect> getEffects() {
-        return allEffects? ForgeRegistries.MOB_EFFECTS.getValues() : Collections.singletonList(effect);
+        return allEffects ? ForgeRegistries.MOB_EFFECTS.getValues() : Collections.singletonList(effect);
     }
 
 
@@ -107,10 +106,7 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
         return providers;
     }
 
-    private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<EffectProviderRecipe> {
-        public Serializer() {
-            this.setRegistryName(Jeed.res("effect_provider"));
-        }
+    private static class Serializer implements RecipeSerializer<EffectProviderRecipe> {
 
         @Override
         public EffectProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -136,15 +132,14 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
             int i = buffer.readVarInt();
             NonNullList<ItemStack> providers = NonNullList.withSize(i, ItemStack.EMPTY);
 
-            for(int j = 0; j < providers.size(); ++j) {
+            for (int j = 0; j < providers.size(); ++j) {
                 providers.set(j, buffer.readItem());
             }
             ResourceLocation id = buffer.readResourceLocation();
 
-            if(id.getPath().equals("all")){
+            if (id.getPath().equals("all")) {
                 return new EffectProviderRecipe(recipeId, providers);
-            }
-            else {
+            } else {
                 MobEffect effect = JsonHelper.getEffect(id);
                 return new EffectProviderRecipe(recipeId, effect, providers);
             }
@@ -159,10 +154,10 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
             }
 
             ResourceLocation res;
-            if(recipe.allEffects){
+            if (recipe.allEffects) {
                 res = new ResourceLocation("all");
-            }else{
-                res = recipe.effect.getRegistryName();
+            } else {
+                res = ForgeRegistries.MOB_EFFECTS.getKey(recipe.effect);
             }
             buffer.writeResourceLocation(res);
 

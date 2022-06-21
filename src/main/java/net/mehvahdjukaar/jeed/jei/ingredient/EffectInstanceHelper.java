@@ -15,24 +15,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 
 public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance> {
-    public EffectInstanceHelper() {
-    }
-
-    @Nullable
-    public MobEffectInstance getMatch(Iterable<MobEffectInstance> ingredients, MobEffectInstance toMatch) {
-        for (MobEffectInstance effect : ingredients) {
-            if (toMatch.equals(effect)) {
-                return effect;
-            }
-        }
-        return null;
-    }
 
     @Override
     public IIngredientType<MobEffectInstance> getIngredientType() {
@@ -47,42 +36,18 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
 
     @Override
     public String getUniqueId(MobEffectInstance ingredient, UidContext uidContext) {
-        ResourceLocation registryName = ingredient.getEffect().getRegistryName();
+        ResourceLocation registryName = ForgeRegistries.MOB_EFFECTS.getKey(ingredient.getEffect());
         return "effect:" + registryName;
     }
 
     @Override
     public ResourceLocation getResourceLocation(MobEffectInstance ingredient) {
-        ResourceLocation registryName = ingredient.getEffect().getRegistryName();
+        ResourceLocation registryName = ForgeRegistries.MOB_EFFECTS.getKey(ingredient.getEffect());
         if (registryName == null) {
             String ingredientInfo = this.getErrorInfo(ingredient);
             throw new IllegalStateException("effect.getRegistryName() returned null for: " + ingredientInfo);
         } else {
             return registryName;
-        }
-    }
-
-    @SuppressWarnings("removal")
-    @Override
-    public String getModId(MobEffectInstance ingredient) {
-        ResourceLocation registryName = ingredient.getEffect().getRegistryName();
-        if (registryName == null) {
-            String ingredientInfo = this.getErrorInfo(ingredient);
-            throw new IllegalStateException("effect.getRegistryName() returned null for: " + ingredientInfo);
-        } else {
-            return registryName.getNamespace();
-        }
-    }
-
-    @SuppressWarnings("removal")
-    @Override
-    public String getResourceId(MobEffectInstance ingredient) {
-        ResourceLocation registryName = ingredient.getEffect().getRegistryName();
-        if (registryName == null) {
-            String ingredientInfo = this.getErrorInfo(ingredient);
-            throw new IllegalStateException("ingredient.getRegistryName() returned null for: " + ingredientInfo);
-        } else {
-            return registryName.getPath();
         }
     }
 
@@ -103,7 +68,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
      */
     @Override
     public Collection<ResourceLocation> getTags(MobEffectInstance ingredient) {
-        return Collections.singletonList(new ResourceLocation("jeed","effects"));
+        return Collections.singletonList(new ResourceLocation("jeed", "effects"));
     }
 
     @Override
@@ -114,7 +79,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
 
     @Override
     public MobEffectInstance normalizeIngredient(MobEffectInstance ingredient) {
-        return new MobEffectInstance(ingredient.getEffect(), 30*20);
+        return new MobEffectInstance(ingredient.getEffect(), 30 * 20);
     }
 
     @Override

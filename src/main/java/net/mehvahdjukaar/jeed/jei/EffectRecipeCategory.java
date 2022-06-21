@@ -9,6 +9,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
@@ -22,13 +23,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ThornsEnchantment;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
-    public static final ResourceLocation UID = Jeed.res("effects");
+    public static final RecipeType<EffectInfoRecipe> TYPE = RecipeType.create(Jeed.MOD_ID, "effects", EffectInfoRecipe.class);
 
     private static final TabIcon ICON = new TabIcon();
 
@@ -47,22 +49,18 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
     public EffectRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(recipeWidth, recipeHeight);
-        this.effectBackground = new EffectBox();// guiHelper.createDrawable(ContainerScreen.INVENTORY_LOCATION, 141, 166, 24, 24);
+        this.effectBackground = new EffectBox(); // guiHelper.createDrawable(ContainerScreen.INVENTORY_LOCATION, 141, 166, 24, 24);
 
         this.icon = ICON;
         this.slotBackground = guiHelper.getSlotDrawable();
         //this.jeiPlugin = jeiPlugin;
-        this.localizedName = new TranslatableComponent("jeed.category.effect_info");
+        this.localizedName = Component.translatable("jeed.category.effect_info");
     }
 
-    @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
 
     @Override
-    public Class<? extends EffectInfoRecipe> getRecipeClass() {
-        return EffectInfoRecipe.class;
+    public RecipeType<EffectInfoRecipe> getRecipeType() {
+        return TYPE;
     }
 
     @Override
@@ -90,7 +88,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
         MobEffect effect = recipe.getEffect().getEffect();
 
 
-        BaseComponent name = (BaseComponent) effect.getDisplayName();
+        MutableComponent name = (MutableComponent) effect.getDisplayName();
         int color = HSLColor.getProcessedColor(effect.getColor());
 
         name.setStyle(Style.EMPTY.withBold(true).withColor(TextColor.fromRgb(color)));
@@ -110,7 +108,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, IFocusGroup focuses) {
         IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
-
+        ThornsEnchantment
         //adds to both output and input
         IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, (recipeWidth - 18) / 2, yOffset + 3)
                 .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
@@ -118,7 +116,8 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
         //hack so we have both input and outputs to make it easier to access effects using U and R keys. This one is set to not render
         IRecipeSlotBuilder second = builder.addSlot(RecipeIngredientRole.INPUT, 1 + (recipeWidth - 18) / 2, 1 + yOffset + 3)
-                .addIngredient(type, recipe.getEffect()).setCustomRenderer(JEIPlugin.EFFECT, (effectInstance, tooltipFlag) -> List.of());
+               // .setCustomRenderer(JEIPlugin.EFFECT, (effectInstance, tooltipFlag) -> List.of())
+                .addIngredient(type, recipe.getEffect());
 
         if (Jeed.EFFECT_BOX.get()) {
             mainSlot.setBackground(effectBackground, -3, -3);
