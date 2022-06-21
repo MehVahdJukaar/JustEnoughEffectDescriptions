@@ -5,7 +5,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
@@ -45,19 +44,19 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
     @Override
     public void render(PoseStack matrixStack, MobEffectInstance effectInstance) {
         MobEffect effect = effectInstance.getEffect();
+        MobEffectTextureManager effectTextures = MC.getMobEffectTextures();
+        TextureAtlasSprite textureatlassprite = effectTextures.get(effect);
 
-
-        MobEffectTextureManager potionspriteuploader = MC.getMobEffectTextures();
-        TextureAtlasSprite textureatlassprite = potionspriteuploader.get(effect);
-
-
+        RenderSystem.enableBlend();
         RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, textureatlassprite.atlas().location());
-        int o = offset ? -1 : (Jeed.REI ? 3 : 0);
+        int o = offset ? -1 : 0; // (Jeed.REI ? 3 : 0)
         GuiComponent.blit(matrixStack, o, o, 0, 18, 18, textureatlassprite);
 
-        RenderSystem.applyModelViewMatrix();
+        RenderSystem.disableBlend();
+
+       // RenderSystem.applyModelViewMatrix();
     }
 
 
