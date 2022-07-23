@@ -3,6 +3,7 @@ package net.mehvahdjukaar.jeed.jei.plugins;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.runtime.IRecipesGui;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.JEIPlugin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -10,7 +11,6 @@ import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class InventoryScreenHandler<C extends AbstractContainerMenu, T extends E
     @Nullable
     @Override
     public Object getIngredientUnderMouse(T screen, double x, double y) {
-        return getHoveredEffect(screen, x, y, false);
+        return Jeed.MOD_COMPAT.getHoveredEffect(screen, x, y, false);
     }
 
     //TODO: re add this for to work with effects on left & right
@@ -39,11 +39,9 @@ public class InventoryScreenHandler<C extends AbstractContainerMenu, T extends E
         if (!collection.isEmpty() && x >= 32) {
 
             boolean full = x >= 120;
-            var event = ForgeHooksClient.onScreenPotionSize(screen);
-            if (event != Event.Result.DEFAULT) {
-                full = event == Event.Result.DENY; // true means classic mode
-            }
-
+            var event = ForgeHooksClient.onScreenPotionSize(screen, x, !full);
+            if (event == 0) return null;
+            full = event == 2; // 2 means classic mode
             if (!full && ignoreIfSmall) return null;
             int width = full ? 120 : 32;
             if (mouseX > minX && mouseX < minX + width) {
