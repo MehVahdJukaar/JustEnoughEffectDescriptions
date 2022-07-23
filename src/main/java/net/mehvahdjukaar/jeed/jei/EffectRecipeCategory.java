@@ -19,11 +19,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.core.NonNullList;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.ThornsEnchantment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -108,7 +106,6 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, IFocusGroup focuses) {
         IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
-        ThornsEnchantment
         //adds to both output and input
         IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, (recipeWidth - 18) / 2, yOffset + 3)
                 .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
