@@ -1,7 +1,9 @@
 package net.mehvahdjukaar.jeed;
 
+import net.mehvahdjukaar.jeed.compat.IModCompat;
+import net.mehvahdjukaar.jeed.compat.NativeModCompat;
+import net.mehvahdjukaar.jeed.compat.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
-import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -42,6 +44,8 @@ public class Jeed {
     private static final RegistryObject<RecipeSerializer<?>> EFFECT_PROVIDER = RECIPES.register("effect_provider", () -> EffectProviderRecipe.SERIALIZER);
     private static final RegistryObject<RecipeSerializer<?>> POTION_PROVIDER = RECIPES.register("potion_provider", () -> EffectProviderRecipe.SERIALIZER);
 
+    public static IModCompat MOD_COMPAT = new NativeModCompat();
+
     public static ResourceLocation res(String name) {
         return new ResourceLocation(MOD_ID, name);
     }
@@ -56,6 +60,11 @@ public class Jeed {
         RECIPES.register(bus);
         bus.addListener(Jeed::init);
 
+        handleConfig();
+        handleModCompat();
+    }
+
+    private static void handleConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         EFFECT_BOX = builder.comment("Draw a black box behind effect icons")
@@ -64,6 +73,13 @@ public class Jeed {
                 .defineList("hidden_effects", Collections.singletonList(""), o -> o instanceof String);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, builder.build());
+    }
+
+    private static void handleModCompat() {
+        if (ModList.get().isLoaded("stylisheffects")) {
+            MOD_COMPAT = new StylishEffectsCompat();
+        }
+        MOD_COMPAT.registerHandlers();
     }
 
     public static void init(final FMLCommonSetupEvent event) {
