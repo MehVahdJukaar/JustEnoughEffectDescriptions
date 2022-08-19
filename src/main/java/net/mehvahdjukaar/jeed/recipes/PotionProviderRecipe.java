@@ -3,6 +3,7 @@ package net.mehvahdjukaar.jeed.recipes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -23,8 +24,6 @@ import java.util.List;
 
 //items that can accept any potion
 public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
-    public static final RecipeType<PotionProviderRecipe> TYPE = RecipeType.register("jeed:potion_provider");
-    public static final Serializer SERIALIZER = new Serializer();
 
     private final ResourceLocation id;
     private final NonNullList<ItemStack> providers;
@@ -82,12 +81,12 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SERIALIZER;
+        return Jeed.POTION_PROVIDER_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return TYPE;
+        return Jeed.POTION_PROVIDER_TYPE.get();
     }
 
     public NonNullList<ItemStack> getProviders() {
@@ -98,7 +97,7 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
         return potions;
     }
 
-    private static class Serializer implements RecipeSerializer<PotionProviderRecipe> {
+    public static class Serializer implements RecipeSerializer<PotionProviderRecipe> {
 
         @Override
         public PotionProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

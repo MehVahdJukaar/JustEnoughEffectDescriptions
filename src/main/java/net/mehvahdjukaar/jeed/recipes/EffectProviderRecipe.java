@@ -3,6 +3,7 @@ package net.mehvahdjukaar.jeed.recipes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -22,8 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
-    public static final RecipeType<EffectProviderRecipe> TYPE = RecipeType.register("jeed:effect_provider");
-    public static final Serializer SERIALIZER = new Serializer();
 
     private final ResourceLocation id;
     private final MobEffect effect;
@@ -89,12 +88,12 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return SERIALIZER;
+        return Jeed.EFFECT_PROVIDER_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return TYPE;
+        return Jeed.EFFECT_PROVIDER_TYPE.get();
     }
 
     public Collection<MobEffect> getEffects() {
@@ -106,7 +105,7 @@ public class EffectProviderRecipe implements Recipe<RecipeWrapper> {
         return providers;
     }
 
-    private static class Serializer implements RecipeSerializer<EffectProviderRecipe> {
+    public static class Serializer implements RecipeSerializer<EffectProviderRecipe> {
 
         @Override
         public EffectProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
