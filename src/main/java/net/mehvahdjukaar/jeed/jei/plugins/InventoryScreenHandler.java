@@ -39,9 +39,10 @@ public class InventoryScreenHandler<C extends AbstractContainerMenu, T extends E
         if (!collection.isEmpty() && x >= 32) {
 
             boolean full = x >= 120;
-            var event = ForgeHooksClient.onScreenPotionSize(screen, x, !full);
-            if (event == 0) return null;
-            full = event == 2; // 2 means classic mode
+            var event = ForgeHooksClient.onScreenPotionSize(screen, x, !full, minX);
+            if (event.isCanceled()) return null;
+            full = !event.isCompact();
+            minX = event.getHorizontalOffset();
             if (!full && ignoreIfSmall) return null;
             int width = full ? 120 : 32;
             if (mouseX > minX && mouseX < minX + width) {

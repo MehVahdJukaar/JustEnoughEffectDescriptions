@@ -36,6 +36,7 @@ public class Jeed {
 
 
     public static ForgeConfigSpec.BooleanValue EFFECT_BOX;
+    public static ForgeConfigSpec.BooleanValue EFFECT_COLOR;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HIDDEN_EFFECTS;
 
     private static final DeferredRegister<RecipeSerializer<?>> RECIPES_SERIALIZERS = DeferredRegister.create(
@@ -97,6 +98,8 @@ public class Jeed {
     private static void createConfigs() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
+        EFFECT_COLOR = builder.comment("Show effect colors in tooltip")
+                .define("effect_color",true);
         EFFECT_BOX = builder.comment("Draw a black box behind effect icons")
                 .define("effect_box", true);
         HIDDEN_EFFECTS = builder.comment("A list of effects that should not be registered nor shown in JEI")
