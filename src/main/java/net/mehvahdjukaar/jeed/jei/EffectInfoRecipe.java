@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.runtime.IIngredientVisibility;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.client.Minecraft;
@@ -163,7 +164,7 @@ public class EffectInfoRecipe {
         final int lineCount = descriptionLines.size();
 
         Minecraft minecraft = Minecraft.getInstance();
-        final int maxLinesPerPage = (EffectRecipeCategory.recipeHeight - 80) / (minecraft.font.lineHeight + lineSpacing);
+        final int maxLinesPerPage = (EffectRecipeCategory.recipeHeight - (Jeed.INGREDIENTS_LIST.get() ? 80 : 0)) / (minecraft.font.lineHeight + lineSpacing);
         final int pageCount = divideCeil(lineCount, maxLinesPerPage);
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;

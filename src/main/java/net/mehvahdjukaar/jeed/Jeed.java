@@ -1,7 +1,6 @@
 package net.mehvahdjukaar.jeed;
 
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
-import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -35,6 +34,7 @@ public class Jeed {
     public static boolean REI = false;
 
     public static ForgeConfigSpec.BooleanValue EFFECT_BOX;
+    public static ForgeConfigSpec.BooleanValue INGREDIENTS_LIST;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HIDDEN_EFFECTS;
 
     private static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MOD_ID);
@@ -60,6 +60,8 @@ public class Jeed {
 
         EFFECT_BOX = builder.comment("Draw a black box behind effect icons")
                 .define("effect_box", true);
+        INGREDIENTS_LIST = builder.comment("Show ingredients list along with an effect description")
+                .define("ingredients_list", true);
         HIDDEN_EFFECTS = builder.comment("A list of effects that should not be registered nor shown on JEI")
                 .defineList("hidden_effects", Collections.singletonList(""), o -> o instanceof String);
 

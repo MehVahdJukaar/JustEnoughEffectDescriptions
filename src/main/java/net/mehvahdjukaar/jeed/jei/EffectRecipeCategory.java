@@ -19,11 +19,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.core.NonNullList;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.ThornsEnchantment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -100,15 +98,16 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
             yPos += font.lineHeight + lineSpacing;
         }
 
-        for (int slotId = 0; slotId < 14; slotId++) {
-            this.slotBackground.draw(matrixStack, (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f))), recipeHeight - 19 * (1 + slotId / 7));
+        if(Jeed.INGREDIENTS_LIST.get()) {
+            for (int slotId = 0; slotId < 14; slotId++) {
+                this.slotBackground.draw(matrixStack, (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f))), recipeHeight - 19 * (1 + slotId / 7));
+            }
         }
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, IFocusGroup focuses) {
         IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
-        ThornsEnchantment
         //adds to both output and input
         IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, (recipeWidth - 18) / 2, yOffset + 3)
                 .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
@@ -123,18 +122,20 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
             mainSlot.setBackground(effectBackground, -3, -3);
         }
 
-        List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
-        List<ItemStack> compatible = recipe.getInputItems();
+        if(Jeed.INGREDIENTS_LIST.get()) {
+            List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
+            List<ItemStack> compatible = recipe.getInputItems();
 
-        for (int slotId = 0; slotId < compatible.size(); slotId++) {
-            slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
-        }
+            for (int slotId = 0; slotId < compatible.size(); slotId++) {
+                slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
+            }
 
-        for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-            int x = 1 + (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
-            int y = 1 + recipeHeight - 19 * (2 - (slotId / 7));
-            builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
-                    .addItemStacks(slotContents.get(slotId));
+            for (int slotId = 0; slotId < slotContents.size(); slotId++) {
+                int x = 1 + (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
+                int y = 1 + recipeHeight - 19 * (2 - (slotId / 7));
+                builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
+                        .addItemStacks(slotContents.get(slotId));
+            }
         }
     }
 }
