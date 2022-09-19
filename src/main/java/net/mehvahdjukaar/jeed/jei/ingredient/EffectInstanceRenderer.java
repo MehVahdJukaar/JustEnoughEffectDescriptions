@@ -84,12 +84,15 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
 
             tooltip.add(Component.literal(name));
 
-            MutableComponent colorValue = Component.literal("#" + Integer.toHexString(effect.getColor()));
-            colorValue.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(effect.getColor())));
+            if(Jeed.EFFECT_COLOR.get()) {
+                MutableComponent colorValue = Component.literal("#" + Integer.toHexString(effect.getColor()));
+                colorValue.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(effect.getColor())));
 
-            MutableComponent color = Component.translatable("jeed.tooltip.color").withStyle(ChatFormatting.GRAY);
+                MutableComponent color = Component.translatable("jeed.tooltip.color").withStyle(ChatFormatting.GRAY);
 
-            tooltip.add(Component.translatable("jeed.tooltip.color_complete", color, colorValue));
+                tooltip.add(Component.translatable("jeed.tooltip.color_complete", color, colorValue));
+            }
+
             if (effect.isBeneficial()) {
                 tooltip.add(Component.translatable("jeed.tooltip.beneficial").withStyle(ChatFormatting.BLUE));
             } else {

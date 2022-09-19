@@ -1,6 +1,7 @@
 package net.mehvahdjukaar.jeed.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
 import net.mehvahdjukaar.jeed.jei.plugins.InventoryScreenHandler;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -25,11 +26,7 @@ public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> 
     @Override
     public boolean mouseClicked(double x, double y, int activeButton) {
 
-        MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(this, x, y, false);
-        if (effect != null) {
-            InventoryScreenHandler.onClickedEffect(effect, x, y, activeButton);
-            return true;
-        }
+        if (Jeed.MOD_COMPAT.handleEffectMouseClicked(this, x, y, activeButton)) return true;
 
         return super.mouseClicked(x, y, activeButton);
     }
@@ -37,15 +34,7 @@ public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> 
     @Override
     protected void renderTooltip(PoseStack matrixStack, int x, int y) {
         if (this.hoveredSlot == null && this.menu.getCarried().isEmpty()) {
-
-            MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(this, x, y, true);
-
-            TooltipFlag flag = this.minecraft.options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
-            List<Component> tooltip = EffectInstanceRenderer.INSTANCE.getTooltipsWithDescription(effect, flag, false);
-            if (!tooltip.isEmpty()) {
-                this.renderComponentTooltip(matrixStack, tooltip, x, y);
-            }
-
+            Jeed.MOD_COMPAT.handleEffectRenderTooltip(this, matrixStack, x, y);
         }
         super.renderTooltip(matrixStack, x, y);
 
