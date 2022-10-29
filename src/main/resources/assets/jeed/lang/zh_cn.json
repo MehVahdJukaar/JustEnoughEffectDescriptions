@@ -17,7 +17,7 @@
     "effect.minecraft.haste.description": "Increases mining and attack speed; higher levels increase both stats further.",
     "effect.minecraft.health_boost.description": "Increases maximum health; higher levels give more additional hearths.",
     "effect.minecraft.hero_of_the_village.description": "Gives discounts on trades with villagers, and makes villagers throw items at the player depending on their profession.",
-    "effect.minecraft.hunger.description": "Increases food exhaustion; higher levels cause to starve quicker.",
+    "effect.minecraft.hunger.description": "饥饿值更快的消耗；更高的等级消耗更快",
     "effect.minecraft.instant_damage.description": "Damages living entities, heals undead; higher levels increase the effect potency.",
     "effect.minecraft.instant_health.description": "Heals living entities, damages undead; higher levels increase the effect potency.",
     "effect.minecraft.invisibility.description": "Grants invisibility, making the user invisible and reducing its detection range. Held or worn items will still be visible. Higher levels further decrease the detection range",
