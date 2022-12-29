@@ -32,11 +32,11 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
     private static final TabIcon ICON = new TabIcon();
 
-    public static final int RECIPE_WIDTH = 160;
-    public static final int RECIPE_HEIGHT = 125;
-    private static final int LINE_SPACING = 2;
+    public static final int recipeWidth = 160;
+    public static final int recipeHeight = 125;
+    private static final int lineSpacing = 2;
 
-    private static final int Y_OFFSET = 12;
+    private static final int yOffset = 12;
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -46,7 +46,7 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     private final Component localizedName;
 
     public EffectRecipeCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(RECIPE_WIDTH, RECIPE_HEIGHT);
+        this.background = guiHelper.createBlankDrawable(recipeWidth, recipeHeight);
         this.effectBackground = new EffectBox(); // guiHelper.createDrawable(ContainerScreen.INVENTORY_LOCATION, 141, 166, 24, 24);
 
         this.icon = ICON;
@@ -78,10 +78,8 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
     @Override
     public void draw(EffectInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
-
-
         int xPos = 0;
-        int yPos = effectBackground.getHeight() + 4 + Y_OFFSET;
+        int yPos = effectBackground.getHeight() + 4 + yOffset;
 
         Font font = Minecraft.getInstance().font;
 
@@ -92,16 +90,16 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
         int color = HSLColor.getProcessedColor(effect.getColor());
 
         name.setStyle(Style.EMPTY.withBold(true).withColor(TextColor.fromRgb(color)));
-        float x = RECIPE_WIDTH / 2f - font.width(name) / 2f;
+        float x = recipeWidth / 2f - font.width(name) / 2f;
         font.drawShadow(matrixStack, Language.getInstance().getVisualOrder(name), x, 0, 0xFF000000);
 
         for (FormattedText descriptionLine : recipe.getDescription()) {
             font.draw(matrixStack, Language.getInstance().getVisualOrder(descriptionLine), xPos, yPos, 0xFF000000);
-            yPos += font.lineHeight + LINE_SPACING;
+            yPos += font.lineHeight + lineSpacing;
         }
 
         for (int slotId = 0; slotId < 14; slotId++) {
-            this.slotBackground.draw(matrixStack, (int) (RECIPE_WIDTH / 2d + (19f * ((slotId % 7) - 7 / 2f))), RECIPE_HEIGHT - 19 * (1 + slotId / 7));
+            this.slotBackground.draw(matrixStack, (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f))), recipeHeight - 19 * (1 + slotId / 7));
         }
     }
 
@@ -109,12 +107,12 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
     public void setRecipe(IRecipeLayoutBuilder builder, EffectInfoRecipe recipe, IFocusGroup focuses) {
         IIngredientType<MobEffectInstance> type = recipe.getEffectIngredientType();
         //adds to both output and input
-        IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, (RECIPE_WIDTH - 18) / 2, Y_OFFSET + 3)
+        IRecipeSlotBuilder mainSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, (recipeWidth - 18) / 2, yOffset + 3)
                 .setCustomRenderer(type, EffectInstanceRenderer.INSTANCE_SLOT)
                 .addIngredient(type, recipe.getEffect());
 
         //hack so we have both input and outputs to make it easier to access effects using U and R keys. This one is set to not render
-        IRecipeSlotBuilder second = builder.addSlot(RecipeIngredientRole.INPUT, 1 + (RECIPE_WIDTH - 18) / 2, 1 + Y_OFFSET + 3)
+        IRecipeSlotBuilder second = builder.addSlot(RecipeIngredientRole.INPUT, 1 + (recipeWidth - 18) / 2, 1 + yOffset + 3)
                // .setCustomRenderer(JEIPlugin.EFFECT, (effectInstance, tooltipFlag) -> List.of())
                 .addIngredient(type, recipe.getEffect());
 
@@ -122,16 +120,17 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
             mainSlot.setBackground(effectBackground, -3, -3);
         }
 
-        List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
-        List<ItemStack> compatible = recipe.getInputItems();
+        if(Jeed.INGREDIENTS_LIST.get()) {
+            List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
+            List<ItemStack> compatible = recipe.getInputItems();
 
-        for (int slotId = 0; slotId < compatible.size(); slotId++) {
-            slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
-        }
+            for (int slotId = 0; slotId < compatible.size(); slotId++) {
+                slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
+            }
 
         for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-            int x = 1 + (int) (RECIPE_WIDTH / 2 + (19f * ((slotId % 7) - 7 / 2f)));
-            int y = 1 + RECIPE_HEIGHT - 19 * (2 - (slotId / 7));
+            int x = 1 + (int) (recipeWidth / 2 + (19f * ((slotId % 7) - 7 / 2f)));
+            int y = 1 + recipeHeight - 19 * (2 - (slotId / 7));
             builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
                     .addItemStacks(slotContents.get(slotId));
         }

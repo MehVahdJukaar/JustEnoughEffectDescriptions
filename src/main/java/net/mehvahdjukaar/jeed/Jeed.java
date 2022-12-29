@@ -36,6 +36,7 @@ public class Jeed {
 
 
     public static ForgeConfigSpec.BooleanValue EFFECT_BOX;
+    public static ForgeConfigSpec.BooleanValue INGREDIENTS_LIST;
     public static ForgeConfigSpec.BooleanValue EFFECT_COLOR;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> HIDDEN_EFFECTS;
 
@@ -45,9 +46,9 @@ public class Jeed {
             ForgeRegistries.RECIPE_TYPES, MOD_ID);
 
     public static final RegistryObject<RecipeType<?>> EFFECT_PROVIDER_TYPE = RECIPE_TYPES.register(
-            "effect_provider",()->RecipeType.simple(res("effect_provider")));
+            "effect_provider", () -> RecipeType.simple(res("effect_provider")));
     public static final RegistryObject<RecipeType<?>> POTION_PROVIDER_TYPE = RECIPE_TYPES.register(
-            "potion_provider",()->RecipeType.simple(res("potion_provider")));
+            "potion_provider", () -> RecipeType.simple(res("potion_provider")));
 
     public static final RegistryObject<RecipeSerializer<?>> EFFECT_PROVIDER_SERIALIZER = RECIPES_SERIALIZERS.register(
             "effect_provider", EffectProviderRecipe.Serializer::new);
@@ -99,11 +100,13 @@ public class Jeed {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         EFFECT_COLOR = builder.comment("Show effect colors in tooltip")
-                .define("effect_color",true);
+                .define("effect_color", true);
         EFFECT_BOX = builder.comment("Draw a black box behind effect icons")
                 .define("effect_box", true);
         HIDDEN_EFFECTS = builder.comment("A list of effects that should not be registered nor shown in JEI")
                 .defineList("hidden_effects", Collections.singletonList(""), o -> o instanceof String);
+        INGREDIENTS_LIST = builder.comment("Show ingredients list along with an effect description")
+                .define("ingredients_list", true);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, builder.build());
     }
