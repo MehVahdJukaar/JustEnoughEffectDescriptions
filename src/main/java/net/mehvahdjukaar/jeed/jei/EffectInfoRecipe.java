@@ -33,13 +33,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class EffectInfoRecipe {
 
     private static final Lazy<Map<MobEffect, List<ItemStack>>> EFFECT_PROVIDERS_CACHE = Lazy.of(EffectInfoRecipe::buildEffectProviderCache);
 
-    private static final int lineSpacing = 2;
+    private static final int LINE_SPACING = 2;
 
     private final List<FormattedText> description;
     private final MobEffectInstance effect;
@@ -62,8 +61,8 @@ public class EffectInfoRecipe {
         if (world != null) {
 
             //effects
-            List<EffectProviderRecipe> recipes = getRecipesOfType(world, r -> (r instanceof EffectProviderRecipe ?
-                    ((EffectProviderRecipe) r) : null));
+            List<EffectProviderRecipe> recipes = getRecipesOfType(world, r -> (r instanceof EffectProviderRecipe ep ?
+                    ep : null));
 
             for (EffectProviderRecipe p : recipes) {
                 p.getEffects().forEach(e ->
@@ -71,8 +70,8 @@ public class EffectInfoRecipe {
             }
 
             //potions
-            List<PotionProviderRecipe> potionRecipes = getRecipesOfType(world, r -> (r instanceof PotionProviderRecipe ?
-                    ((PotionProviderRecipe) r) : null));
+            List<PotionProviderRecipe> potionRecipes = getRecipesOfType(world, r -> (r instanceof PotionProviderRecipe pp ?
+                    pp : null));
 
             for (PotionProviderRecipe p : potionRecipes) {
                 for (ItemStack stack : p.getProviders()) {
@@ -132,7 +131,7 @@ public class EffectInfoRecipe {
 
     private static <T> List<T> getRecipesOfType(Level world, Function<Recipe<?>, T> function) {
         return world.getRecipeManager().getRecipes().stream()
-                .map(function).filter(Objects::nonNull).collect(Collectors.toList());
+                .map(function).filter(Objects::nonNull).toList();
 
     }
 
@@ -141,7 +140,7 @@ public class EffectInfoRecipe {
         return inputItems.stream()
                 .filter(s -> !s.isEmpty())
                 .filter(s -> ingredientVisibility.isIngredientVisible(VanillaTypes.ITEM_STACK, s))
-                .collect(Collectors.toList());
+                 .toList();
     }
 
     private static NonNullList<ItemStack> getEffectProviders(MobEffect effect) {
@@ -164,7 +163,7 @@ public class EffectInfoRecipe {
         final int lineCount = descriptionLines.size();
 
         Minecraft minecraft = Minecraft.getInstance();
-        final int maxLinesPerPage = (EffectRecipeCategory.recipeHeight - (Jeed.INGREDIENTS_LIST.get() ? 80 : 0)) / (minecraft.font.lineHeight + lineSpacing);
+        final int maxLinesPerPage = (EffectRecipeCategory.RECIPE_HEIGHT - (Jeed.INGREDIENTS_LIST.get() ? 80 : 0)) / (minecraft.font.lineHeight + LINE_SPACING);
         final int pageCount = divideCeil(lineCount, maxLinesPerPage);
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;
@@ -195,7 +194,7 @@ public class EffectInfoRecipe {
         Minecraft minecraft = Minecraft.getInstance();
         List<FormattedText> descriptionLinesWrapped = new ArrayList<>();
         for (FormattedText descriptionLine : descriptionLines) {
-            List<FormattedText> textLines = minecraft.font.getSplitter().splitLines(descriptionLine, EffectRecipeCategory.recipeWidth, Style.EMPTY);
+            List<FormattedText> textLines = minecraft.font.getSplitter().splitLines(descriptionLine, EffectRecipeCategory.RECIPE_WIDTH, Style.EMPTY);
             descriptionLinesWrapped.addAll(textLines);
         }
         return descriptionLinesWrapped;
