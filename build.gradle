@@ -133,13 +133,17 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
 
-   // implementation fg.deobf("curse.maven:configured-457570:3640884")
-    compileOnly fg.deobf("mezz.jei:jei-1.19-common-api:11.0.2.230")
-    compileOnly fg.deobf("mezz.jei:jei-1.19-forge-api:11.0.2.230")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.19-forge:11.0.2.230")
-    implementation fg.deobf("fuzs.puzzleslib:puzzleslib-forge:4.0.17")
-    implementation fg.deobf("fuzs.stylisheffects:stylisheffects-forge:4.1.0")
-   // implementation fg.deobf("curse.maven:crimson-nbt-tags-445260:3670163")
+    // implementation fg.deobf("curse.maven:configured-457570:3640884")
+   // compileOnly fg.deobf("mezz.jei:jei-1.19-common-api:11.5.0.297")
+   // compileOnly fg.deobf("mezz.jei:jei-1.19-forge-api:11.5.0.297")
+    //runtimeOnly fg.deobf("mezz.jei:jei-1.19-forge:11.5.0.297")
+     //implementation fg.deobf("fuzs.puzzleslib:puzzleslib-forge:4.2.12")
+    // implementation fg.deobf("fuzs.stylisheffects:stylisheffects-forge:4.3.2")
+     implementation fg.deobf("curse.maven:stylish-effects-543661:4030138")
+     implementation fg.deobf("curse.maven:puzzles-lib-495476:4041202")
+     implementation fg.deobf("curse.maven:jei-238222:4239206")
+
+    // implementation fg.deobf("curse.maven:crimson-nbt-tags-445260:3670163")
 
     annotationProcessor "org.spongepowered:mixin:${project.mixin_version}:processor"
 }
@@ -152,16 +156,6 @@ repositories {
     maven {
         name = "Fuzs Mod Resources"
         url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
-    }
-    maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.dev"
     }
 }
 

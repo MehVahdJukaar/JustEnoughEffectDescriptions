@@ -58,7 +58,7 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
         RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, textureatlassprite.atlas().location());
-        int o = offset ? -1 : (Jeed.REI ? 3 : 0);
+        int o = offset ? -1 : 0;
         GuiComponent.blit(matrixStack, o, o, 0, 18, 18, textureatlassprite);
 
         RenderSystem.applyModelViewMatrix();

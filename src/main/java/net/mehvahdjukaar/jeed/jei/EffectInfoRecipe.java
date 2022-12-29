@@ -163,7 +163,7 @@ public class EffectInfoRecipe {
         final int lineCount = descriptionLines.size();
 
         Minecraft minecraft = Minecraft.getInstance();
-        final int maxLinesPerPage = (EffectRecipeCategory.recipeHeight - 80) / (minecraft.font.lineHeight + lineSpacing);
+        final int maxLinesPerPage = (EffectRecipeCategory.RECIPE_HEIGHT - 80) / (minecraft.font.lineHeight + lineSpacing);
         final int pageCount = divideCeil(lineCount, maxLinesPerPage);
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;
@@ -194,7 +194,7 @@ public class EffectInfoRecipe {
         Minecraft minecraft = Minecraft.getInstance();
         List<FormattedText> descriptionLinesWrapped = new ArrayList<>();
         for (FormattedText descriptionLine : descriptionLines) {
-            List<FormattedText> textLines = minecraft.font.getSplitter().splitLines(descriptionLine, EffectRecipeCategory.recipeWidth, Style.EMPTY);
+            List<FormattedText> textLines = minecraft.font.getSplitter().splitLines(descriptionLine, EffectRecipeCategory.RECIPE_WIDTH, Style.EMPTY);
             descriptionLinesWrapped.addAll(textLines);
         }
         return descriptionLinesWrapped;

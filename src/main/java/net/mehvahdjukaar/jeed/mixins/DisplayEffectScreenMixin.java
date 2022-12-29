@@ -18,9 +18,8 @@ import java.util.List;
 @Mixin(EffectRenderingInventoryScreen.class)
 public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
-
-    public DisplayEffectScreenMixin(T p_i51105_1_, Inventory p_i51105_2_, Component p_i51105_3_) {
-        super(p_i51105_1_, p_i51105_2_, p_i51105_3_);
+    protected DisplayEffectScreenMixin(T t, Inventory inventory, Component component) {
+        super(t, inventory, component);
     }
 
     @Override

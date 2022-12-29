@@ -69,7 +69,7 @@ public class JEIPlugin implements IModPlugin {
                 .map(MobEffectInstance::new)
                 .filter(MobEffectInstance::showIcon)
                 .filter(MobEffectInstance::isVisible)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void registerEffectInfo(IRecipeRegistration registration, MobEffectInstance ingredient, IIngredientType<MobEffectInstance> ingredientType, String descriptionKey) {
