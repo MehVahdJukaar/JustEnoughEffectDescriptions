@@ -10,13 +10,14 @@ import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.IPlugin;
 import net.mehvahdjukaar.jeed.plugin.jei.display.EffectInfoRecipe;
 import net.mehvahdjukaar.jeed.plugin.jei.display.EffectRecipeCategory;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceHelper;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
 import net.mehvahdjukaar.jeed.plugin.jei.plugins.VanillaPlugin;
-import net.minecraft.core.Registry;
+import net.mehvahdjukaar.jeed.plugin.rei.display.EffectInfoDisplayCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -75,7 +76,6 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     }
 
 
-
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         //TODO:
@@ -93,6 +93,16 @@ public class JEIPlugin implements IModPlugin, IPlugin {
 
         IRecipesGui recipesGui = JEIPlugin.JEI_RUNTIME.getRecipesGui();
         recipesGui.show(focus);
+    }
+
+    @Override
+    public int getMaxTextWidth() {
+        return EffectCategory.RECIPE_WIDTH;
+    }
+
+    @Override
+    public int getMaxTextHeight() {
+        return EffectCategory.RECIPE_HEIGHT;
     }
 
     //TODO: register keyword

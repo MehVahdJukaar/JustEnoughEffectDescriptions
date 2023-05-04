@@ -1,42 +1,39 @@
 package net.mehvahdjukaar.jeed.plugin.rei.display;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.client.gui.widgets.WidgetWithBounds;
-import net.minecraft.client.gui.GuiComponent;
+import me.shedaniel.math.Point;
+import me.shedaniel.rei.api.client.gui.widgets.Widget;
+import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
+import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.locale.Language;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
 
-public class EffectBox extends WidgetWithBounds {
+public class TextBox extends Widget {
 
     private static final ResourceLocation resource = ContainerScreen.INVENTORY_LOCATION;
 
-    private final Rectangle bounds;
+    private final Point left;
+    private final List<FormattedText> lines;
 
-    public EffectBox(Rectangle bounds) {
-        this.bounds = new Rectangle(Objects.requireNonNull(bounds));
-    }
-
-    @Override
-    public Rectangle getBounds() {
-        return bounds;
+    public TextBox(Point center, List<FormattedText> lines) {
+        this.left = new Point(Objects.requireNonNull(center));
+        this.lines = lines;
     }
 
     @Override
     public void render(PoseStack poseStack, int mouseX, int mouseY, float delta) {
-        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, resource);
-
-        GuiComponent.blit(poseStack, bounds.x, bounds.y, bounds.width, bounds.height, 141f, 166f, 24, 24, 256, 256);
-        RenderSystem.applyModelViewMatrix();
+        int y = 0;
+        for (FormattedText descriptionLine : lines) {
+            font.draw(poseStack, Language.getInstance().getVisualOrder(descriptionLine), left.x, left.y + y, 0xFF000000);
+            y += font.lineHeight + EffectCategory.LINE_SPACING;
+        }
     }
 
     @Override
@@ -51,7 +48,6 @@ public class EffectBox extends WidgetWithBounds {
 
     @Override
     public void setDragging(boolean isDragging) {
-
     }
 
     @Nullable

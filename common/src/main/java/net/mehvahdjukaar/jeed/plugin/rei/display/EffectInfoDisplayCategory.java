@@ -11,11 +11,14 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
+import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.HSLColor;
 import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
 import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -30,6 +33,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class EffectInfoDisplayCategory extends EffectCategory implements DisplayCategory<EffectInfoDisplay> {
+
+    public static final int SIZE_DIFF = 3;
 
     private final Renderer icon = new TabIcon();
 
@@ -49,7 +54,7 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
 
     @Override
     public int getDisplayHeight() {
-        return RECIPE_HEIGHT + 10;
+        return RECIPE_HEIGHT + 14;
     }
 
     @Override
@@ -83,12 +88,15 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
 
         Rectangle rect2 = rect.clone();
         rect2.grow(3, 3);
-        widgets.add(new EffectBox(rect2));
+        widgets.add(Widgets.createTexturedWidget(ContainerScreen.INVENTORY_LOCATION, rect2,
+                141f, 166f, 24, 24, 256, 256));
 
         widgets.add(Widgets.createSlot(rect)
                 .disableBackground()
                 .markInput().entry(display.getOutputEntries().get(0).get(0)));
 
+        widgets.add(new ScrollableTextWidget(new Rectangle(bounds.x+SIZE_DIFF, rect2.getMaxY(), bounds.width-2*SIZE_DIFF, 50), display.getComponents()));
+        //widgets.add(new TextBox(new Point(bounds.x, bounds.y+70), display.getDescription()));
 
         if (Jeed.hasIngredientList()) {
 
