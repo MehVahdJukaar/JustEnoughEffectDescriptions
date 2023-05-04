@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "jepp",
+  "version": "${version}",
+  "name": "Just Enough Painting Previews",
+  "description": "The joy or previewing paintings",
+  "authors": [
+    "Mehvahdjukaar"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/jepp",
+    "sources": "https://github.com/MehVahdJukaar/jepp"
+  },
+  "license": "ARR",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.mehvahdjukaar.jepp.fabric.JeppFabric"
+    ],
+    "rei_client": [
+      "net.mehvahdjukaar.jepp.rei.JeppReiPlugin"
+    ],
+    "jei_mod_plugin": [
+      "net.mehvahdjukaar.jepp.jei.JeppJeiPlugin"
+    ]
+  },
+  "mixins": [
+    "${mod_id}.mixins.json",
+    "${mod_id}-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.2"
+  }
+}
