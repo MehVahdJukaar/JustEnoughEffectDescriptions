@@ -29,4 +29,10 @@ public class EffectInfoRecipe extends EffectInfo {
                 .toList();
     }
 
+
+    public static List<EffectInfoRecipe> create(
+            MobEffectInstance ingredient, String descriptionKey) {
+        return create(ingredient, descriptionKey, EffectInfoRecipe::new);
+    }
+
 }

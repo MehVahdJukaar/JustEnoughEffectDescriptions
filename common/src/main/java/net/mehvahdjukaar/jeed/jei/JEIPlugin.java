@@ -7,12 +7,12 @@ import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
-import mezz.jei.library.plugins.vanilla.VanillaPlugin;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.jei.display.EffectInfoRecipe;
 import net.mehvahdjukaar.jeed.jei.display.EffectRecipeCategory;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceHelper;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
+import net.mehvahdjukaar.jeed.jei.plugins.VanillaPlugin;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -62,8 +62,9 @@ public class JEIPlugin implements IModPlugin {
 
             ResourceLocation name = Registry.MOB_EFFECT.getKey(e.getEffect());
 
-            registerEffectInfo(registry, new MobEffectInstance(e), EFFECT_INGREDIENT_TYPE, "effect." + name.getNamespace() + "." +
+            List<EffectInfoRecipe> recipes = EffectInfoRecipe.create(new MobEffectInstance(e), "effect." + name.getNamespace() + "." +
                     name.getPath() + ".description");
+            registry.addRecipes(EffectInfoRecipe.TYPE, recipes);
         }
     }
 
@@ -76,15 +77,11 @@ public class JEIPlugin implements IModPlugin {
                 .toList();
     }
 
-    public void registerEffectInfo(IRecipeRegistration registration, MobEffectInstance ingredient, IIngredientType<MobEffectInstance> ingredientType, String descriptionKey) {
-
-        List<EffectInfoRecipe> recipes = EffectInfoRecipe.create(ingredient, ingredientType, descriptionKey);
-        registration.addRecipes(EffectRecipeCategory.TYPE, recipes);
-    }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        if (!Jeed.REI) VanillaPlugin.registerGuiHandlers(registration);
+        //TODO:
+        //if (!Jeed.REI) VanillaPlugin.registerGuiHandlers(registration);
     }
 
     @Override

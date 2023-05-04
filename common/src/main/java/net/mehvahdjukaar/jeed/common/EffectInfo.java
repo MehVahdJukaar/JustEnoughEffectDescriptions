@@ -146,14 +146,14 @@ public abstract class EffectInfo {
         return list;
     }
 
-    public static List<EffectInfo> create(
+    protected static <T extends EffectInfo> List<T> create(
             MobEffectInstance ingredient, String descriptionKey,
-            BiFunction<MobEffectInstance, List<FormattedText>, ? extends EffectInfo> constructor) {
+            BiFunction<MobEffectInstance, List<FormattedText>, T> constructor) {
 
         Component text = Component.translatable(descriptionKey);
         if (text.getString().equals(descriptionKey)) text = Component.translatable("jeed.description.missing");
 
-        List<EffectInfo> recipes = new ArrayList<>();
+        List<T> recipes = new ArrayList<>();
         List<FormattedText> descriptionLines = expandNewlines(text);
         descriptionLines = wrapDescriptionLines(descriptionLines);
         final int lineCount = descriptionLines.size();
@@ -165,7 +165,7 @@ public abstract class EffectInfo {
             int startLine = i * maxLinesPerPage;
             int endLine = Math.min((i + 1) * maxLinesPerPage, lineCount);
             List<FormattedText> description = descriptionLines.subList(startLine, endLine);
-            EffectInfo recipe = constructor.apply(ingredient, description);
+            T recipe = constructor.apply(ingredient, description);
             recipes.add(recipe);
         }
 
