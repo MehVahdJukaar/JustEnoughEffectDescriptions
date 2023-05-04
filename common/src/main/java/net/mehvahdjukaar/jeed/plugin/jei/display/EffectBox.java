@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jeed.jei.display;
+package net.mehvahdjukaar.jeed.plugin.jei.display;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

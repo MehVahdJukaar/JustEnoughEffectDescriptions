@@ -1,19 +1,28 @@
-package net.mehvahdjukaar.jeed.rei.display;
+package net.mehvahdjukaar.jeed.plugin.rei.display;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.WidgetWithBounds;
+import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
-import net.mehvahdjukaar.jeed.rei.REIPlugin;
+import net.mehvahdjukaar.jeed.common.HSLColor;
+import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -22,15 +31,16 @@ import java.util.Objects;
 
 public class EffectInfoDisplayCategory extends EffectCategory implements DisplayCategory<EffectInfoDisplay> {
 
+    private final Renderer icon = new TabIcon();
+
     public EffectInfoDisplayCategory() {
         super();
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(Items.PAINTING);
+        return icon;
     }
-
 
     @Override
     public int getDisplayWidth(EffectInfoDisplay display) {
@@ -39,7 +49,7 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
 
     @Override
     public int getDisplayHeight() {
-        return RECIPE_HEIGHT;
+        return RECIPE_HEIGHT + 10;
     }
 
     @Override
@@ -56,8 +66,60 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
     public List<Widget> setupDisplay(EffectInfoDisplay display, Rectangle bounds) {
         final List<Widget> widgets = new ArrayList<>();
 
-        /*
         widgets.add(Widgets.createRecipeBase(bounds));
+
+        MobEffect effect = display.getEffect().getEffect();
+
+        MutableComponent name = (MutableComponent) effect.getDisplayName();
+        int color = HSLColor.getProcessedColor(effect.getColor());
+        name.setStyle(Style.EMPTY.withBold(true).withColor(TextColor.fromRgb(color)));
+
+        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), bounds.y + 6), name)
+                .centered());
+
+        Rectangle rect = new Rectangle(bounds.x + (bounds.width - 18) / 2, bounds.y + Y_OFFSET + 3 + 6,
+                18, 18);
+
+
+        Rectangle rect2 = rect.clone();
+        rect2.grow(3, 3);
+        widgets.add(new EffectBox(rect2));
+
+        widgets.add(Widgets.createSlot(rect)
+                .disableBackground()
+                .markInput().entry(display.getOutputEntries().get(0).get(0)));
+
+
+        if (Jeed.hasIngredientList()) {
+
+            int w = 19;
+            int slotsPerRow = 7;
+            int rows = 2;
+            widgets.add(Widgets.createSlotBase(new Rectangle(bounds.x + (int) (bounds.width / 2f - (w * slotsPerRow) / 2f),
+                    bounds.getMaxY() - w * rows - 7, slotsPerRow * w + 1, rows * w + 1)));
+
+
+            List<List<EntryStack<?>>> slotContents = new ArrayList<>();
+            List<ItemStack> compatible = display.getInputItems();
+
+            for (int slotId = 0; slotId < compatible.size(); slotId++) {
+
+                int ind = slotId % (slotsPerRow * rows);
+                if (slotContents.size() <= ind) slotContents.add(new ArrayList<>());
+                slotContents.get(ind).add(EntryStacks.of((compatible.get(slotId))));
+            }
+
+            for (int slotId = 0; slotId < slotContents.size(); slotId++) {
+                var v = slotContents.get(slotId);
+                if (v == null) break;
+                widgets.add(Widgets.createSlot(new Point(2 + bounds.x + (int) (bounds.width / 2f - (w * slotsPerRow) / 2f + (w * (slotId % slotsPerRow))),
+                                2 + bounds.getMaxY() - w * rows + w * (slotId / slotsPerRow) - 7))
+                        .disableBackground()
+                        .entries(v));
+            }
+        }
+
+        /*
         widgets.add(new PaintingWidget(bounds, display.getPainting()));
 
 

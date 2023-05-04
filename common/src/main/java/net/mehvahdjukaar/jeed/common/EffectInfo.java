@@ -3,7 +3,7 @@ package net.mehvahdjukaar.jeed.common;
 import com.google.common.base.Suppliers;
 import com.mojang.datafixers.util.Pair;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.jei.display.EffectRecipeCategory;
+import net.mehvahdjukaar.jeed.plugin.jei.display.EffectRecipeCategory;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.client.Minecraft;
@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
@@ -44,7 +45,7 @@ public abstract class EffectInfo {
     protected EffectInfo(MobEffectInstance effectInstance, List<FormattedText> description) {
         this.description = description;
         this.effect = effectInstance;
-        this.inputItems = computeEffectProviders(effectInstance.getEffect());
+        this.inputItems = computeEffectProviders(effectInstance.getEffect()).stream().sorted().toList();
     }
 
     public List<ItemStack> getInputItems() {
@@ -147,8 +148,12 @@ public abstract class EffectInfo {
     }
 
     protected static <T extends EffectInfo> List<T> create(
-            MobEffectInstance ingredient, String descriptionKey,
-            BiFunction<MobEffectInstance, List<FormattedText>, T> constructor) {
+            MobEffect effect, BiFunction<MobEffectInstance, List<FormattedText>, T> constructor) {
+
+        ResourceLocation name = Registry.MOB_EFFECT.getKey(effect);
+
+        String descriptionKey =  "effect." + name.getNamespace() + "." +
+                name.getPath() + ".description";
 
         Component text = Component.translatable(descriptionKey);
         if (text.getString().equals(descriptionKey)) text = Component.translatable("jeed.description.missing");
@@ -165,7 +170,7 @@ public abstract class EffectInfo {
             int startLine = i * maxLinesPerPage;
             int endLine = Math.min((i + 1) * maxLinesPerPage, lineCount);
             List<FormattedText> description = descriptionLines.subList(startLine, endLine);
-            T recipe = constructor.apply(ingredient, description);
+            T recipe = constructor.apply(new MobEffectInstance(effect), description);
             recipes.add(recipe);
         }
 

@@ -69,3 +69,4 @@ run/*
 # BlueJ files
 *.ctxt
 /fabric/run/
+/forge/run/

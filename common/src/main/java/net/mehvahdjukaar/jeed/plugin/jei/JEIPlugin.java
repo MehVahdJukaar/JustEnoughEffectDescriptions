@@ -1,20 +1,24 @@
-package net.mehvahdjukaar.jeed.jei;
+package net.mehvahdjukaar.jeed.plugin.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
+import mezz.jei.api.runtime.IRecipesGui;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.jei.display.EffectInfoRecipe;
-import net.mehvahdjukaar.jeed.jei.display.EffectRecipeCategory;
-import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceHelper;
-import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
-import net.mehvahdjukaar.jeed.jei.plugins.VanillaPlugin;
+import net.mehvahdjukaar.jeed.common.IPlugin;
+import net.mehvahdjukaar.jeed.plugin.jei.display.EffectInfoRecipe;
+import net.mehvahdjukaar.jeed.plugin.jei.display.EffectRecipeCategory;
+import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceHelper;
+import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
+import net.mehvahdjukaar.jeed.plugin.jei.plugins.VanillaPlugin;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.List;
@@ -23,7 +27,7 @@ import java.util.List;
  * Author: MehVahdJukaar
  */
 @JeiPlugin
-public class JEIPlugin implements IModPlugin {
+public class JEIPlugin implements IModPlugin, IPlugin {
 
     private static final ResourceLocation ID = Jeed.res("jei_plugin");
 
@@ -32,6 +36,10 @@ public class JEIPlugin implements IModPlugin {
     public static IJeiRuntime JEI_RUNTIME;
     public static IJeiHelpers JEI_HELPERS;
     public static IIngredientVisibility JEI_INGREDIENT_VISIBILITY;
+
+    public JEIPlugin() {
+        Jeed.PLUGIN = this;
+    }
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -45,7 +53,9 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        registration.register(EFFECT_INGREDIENT_TYPE, getEffectList(), new EffectInstanceHelper(), EffectInstanceRenderer.INSTANCE);
+        registration.register(EFFECT_INGREDIENT_TYPE,
+                Jeed.getEffectList().stream().map(MobEffectInstance::new).toList(),
+                new EffectInstanceHelper(), EffectInstanceRenderer.INSTANCE);
     }
 
     @Override
@@ -58,24 +68,12 @@ public class JEIPlugin implements IModPlugin {
         JEI_INGREDIENT_VISIBILITY = registry.getIngredientVisibility();
         JEI_HELPERS = registry.getJeiHelpers();
 
-        for (MobEffectInstance e : getEffectList()) {
-
-            ResourceLocation name = Registry.MOB_EFFECT.getKey(e.getEffect());
-
-            List<EffectInfoRecipe> recipes = EffectInfoRecipe.create(new MobEffectInstance(e), "effect." + name.getNamespace() + "." +
-                    name.getPath() + ".description");
+        for (MobEffect e : Jeed.getEffectList()) {
+            List<EffectInfoRecipe> recipes = EffectInfoRecipe.create(e);
             registry.addRecipes(EffectInfoRecipe.TYPE, recipes);
         }
     }
 
-    private static List<MobEffectInstance> getEffectList() {
-        return Registry.MOB_EFFECT.stream()
-                .filter(e -> !Jeed.getHiddenEffects().contains(Registry.MOB_EFFECT.getKey(e).toString()))
-                .map(MobEffectInstance::new)
-                .filter(MobEffectInstance::showIcon)
-                .filter(MobEffectInstance::isVisible)
-                .toList();
-    }
 
 
     @Override
@@ -87,6 +85,14 @@ public class JEIPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         VanillaPlugin.registerRecipeCatalysts(registration);
+    }
+
+    @Override
+    public void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
+        var focus = JEIPlugin.JEI_HELPERS.getFocusFactory().createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT_INGREDIENT_TYPE, effect);
+
+        IRecipesGui recipesGui = JEIPlugin.JEI_RUNTIME.getRecipesGui();
+        recipesGui.show(focus);
     }
 
     //TODO: register keyword

@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jeed.jei.ingredient;//
+package net.mehvahdjukaar.jeed.plugin.jei.ingredient;//
 
 
 import com.google.common.base.MoreObjects;
@@ -6,11 +6,13 @@ import com.google.common.base.MoreObjects.ToStringHelper;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
-import net.mehvahdjukaar.jeed.jei.JEIPlugin;
+import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
 import net.minecraft.client.renderer.EffectInstance;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +22,8 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance> {
 
@@ -62,19 +66,20 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
                 Collections.singletonList(normalizeIngredient(ingredient)));
     }
 
-    /**
-     * Get a list of tags that include this ingredient.
-     * Used for searching by tags.
-     */
     @Override
-    public Collection<ResourceLocation> getTags(MobEffectInstance ingredient) {
-        return Collections.singletonList(new ResourceLocation("jeed", "effects"));
+    public Stream<ResourceLocation> getTagStream(MobEffectInstance ingredient) {
+        return  Registry.MOB_EFFECT
+                .getResourceKey(ingredient.getEffect())
+                .flatMap(Registry.MOB_EFFECT::getHolder)
+                .map(Holder::tags)
+                .orElse(Stream.of())
+                .map(TagKey::location);
     }
 
     @Override
     public MobEffectInstance copyIngredient(MobEffectInstance ingredient) {
         return new MobEffectInstance(ingredient.getEffect(), ingredient.getDuration(), ingredient.getAmplifier(),
-                ingredient.isAmbient(), ingredient.isVisible(), ingredient.showIcon());
+                ingredient.isAmbient(), ingredient.isVisible(), ingredient.showIcon(), ingredient.hiddenEffect, ingredient.getFactorData());
     }
 
     @Override

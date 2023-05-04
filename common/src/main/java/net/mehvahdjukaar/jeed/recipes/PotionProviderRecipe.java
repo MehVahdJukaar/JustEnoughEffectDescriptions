@@ -88,7 +88,7 @@ public class PotionProviderRecipe implements Recipe<CraftingContainer> {
     }
 
     public List<Potion> getPotions() {
-        return potions;
+        return potions.isEmpty() ? Registry.POTION.stream().toList() : potions;
     }
 
     public static class Serializer implements RecipeSerializer<PotionProviderRecipe> {
@@ -98,8 +98,12 @@ public class PotionProviderRecipe implements Recipe<CraftingContainer> {
 
             NonNullList<Ingredient> providers = JsonHelper.readIngredients(GsonHelper.getAsJsonArray(json, "providers"));
 
-            List<Potion> potions = JsonHelper.readPotionList(GsonHelper.getAsJsonArray(json, "potions"));
-
+            List<Potion> potions;
+            try {
+                potions = JsonHelper.readPotionList(GsonHelper.getAsJsonArray(json, "potions"));
+            } catch (Exception ignored) {
+                potions = new ArrayList<>();
+            }
             if (providers.isEmpty()) {
                 throw new JsonParseException("No effect providers for recipe");
             } else {

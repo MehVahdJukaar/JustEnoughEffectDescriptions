@@ -34,8 +34,8 @@ dependencies {
 
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:9.1.595"
 
-    modImplementation("curse.maven:stylish-effects-543661:4462746")
-    modImplementation("curse.maven:puzzles-lib-495476:4499053")
+    modCompileOnly("curse.maven:stylish-effects-543661:4462746")
+    modCompileOnly("curse.maven:puzzles-lib-495476:4499053")
 
     modRuntimeOnly("curse.maven:architectury-api-419699:4476083")
     modCompileOnly("curse.maven:jei-238222:4494409")

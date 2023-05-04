@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jeed.jei.display;
+package net.mehvahdjukaar.jeed.plugin.jei.display;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -14,8 +14,8 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.HSLColor;
-import net.mehvahdjukaar.jeed.jei.JEIPlugin;
-import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
+import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
+import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.NonNullList;
@@ -118,7 +118,7 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
             for (int slotId = 0; slotId < slotContents.size(); slotId++) {
                 int x = 1 + (int) (RECIPE_WIDTH / 2f + (19f * ((slotId % 7) - 7 / 2f)));
                 int y = 1 + RECIPE_HEIGHT - 19 * (2 - (slotId / 7));
-                builder.addSlot(RecipeIngredientRole.OUTPUT, x, y)
+                builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                         .addItemStacks(slotContents.get(slotId));
             }
         }

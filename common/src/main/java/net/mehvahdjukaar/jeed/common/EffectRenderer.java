@@ -1,10 +1,9 @@
-package net.mehvahdjukaar.jeed.jei.ingredient;
+package net.mehvahdjukaar.jeed.common;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
-import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -31,46 +30,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInstance> {
+public abstract class EffectRenderer {
 
-    public static final EffectInstanceRenderer INSTANCE = new EffectInstanceRenderer(true);
+    protected final Minecraft mc;
+    protected final boolean offset;
 
-    public static final EffectInstanceRenderer INSTANCE_SLOT = new EffectInstanceRenderer(false);
-
-    private final Minecraft MC;
-
-    private final boolean offset;
-
-    public EffectInstanceRenderer(boolean offset) {
-        MC = Minecraft.getInstance();
+    protected EffectRenderer(boolean offset) {
+        this.mc = Minecraft.getInstance();
         this.offset = offset;
     }
-
-    @Override
     public void render(PoseStack matrixStack, MobEffectInstance effectInstance) {
         MobEffect effect = effectInstance.getEffect();
 
+        MobEffectTextureManager textures = mc.getMobEffectTextures();
+        TextureAtlasSprite sprite = textures.get(effect);
 
-        MobEffectTextureManager potionspriteuploader = MC.getMobEffectTextures();
-        TextureAtlasSprite textureatlassprite = potionspriteuploader.get(effect);
+        render(matrixStack, sprite);
+    }
 
+    public void render(PoseStack matrixStack, TextureAtlasSprite sprite) {
 
         RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, textureatlassprite.atlas().location());
+        RenderSystem.setShaderTexture(0, sprite.atlas().location());
         int o = offset ? -1 : 0;
-        GuiComponent.blit(matrixStack, o, o, 0, 18, 18, textureatlassprite);
+        GuiComponent.blit(matrixStack, o, o, 0, 18, 18, sprite);
 
         RenderSystem.applyModelViewMatrix();
     }
 
 
-    @Override
-    public List<Component> getTooltip(MobEffectInstance effectInstance, TooltipFlag tooltipFlag) {
-        return this.getTooltipsWithDescription(effectInstance, tooltipFlag, false);
-    }
-
-    public List<Component> getTooltipsWithDescription(MobEffectInstance effectInstance, TooltipFlag tooltipFlag, boolean reactsToShift) {
+    public static List<Component> getTooltipsWithDescription(MobEffectInstance effectInstance, TooltipFlag tooltipFlag, boolean reactsToShift) {
         List<Component> tooltip = new ArrayList<>();
         if (effectInstance != null) {
 
@@ -158,13 +148,4 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
         return tooltip;
     }
 
-    @Override
-    public int getWidth() {
-        return offset ? 16 : 18;
-    }
-
-    @Override
-    public int getHeight() {
-        return offset ? 16 : 18;
-    }
 }

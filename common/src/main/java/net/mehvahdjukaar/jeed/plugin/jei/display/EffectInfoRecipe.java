@@ -1,12 +1,13 @@
-package net.mehvahdjukaar.jeed.jei.display;
+package net.mehvahdjukaar.jeed.plugin.jei.display;
 
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.runtime.IIngredientVisibility;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectInfo;
-import net.mehvahdjukaar.jeed.jei.JEIPlugin;
+import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
 import net.minecraft.network.chat.FormattedText;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 
@@ -30,9 +31,8 @@ public class EffectInfoRecipe extends EffectInfo {
     }
 
 
-    public static List<EffectInfoRecipe> create(
-            MobEffectInstance ingredient, String descriptionKey) {
-        return create(ingredient, descriptionKey, EffectInfoRecipe::new);
+    public static List<EffectInfoRecipe> create(MobEffect effect) {
+        return create(effect, EffectInfoRecipe::new);
     }
 
 }

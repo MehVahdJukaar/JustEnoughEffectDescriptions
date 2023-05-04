@@ -6,8 +6,12 @@ import net.mehvahdjukaar.jeed.compat.NativeModCompat;
 import net.mehvahdjukaar.jeed.compat.forge.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
@@ -22,6 +26,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Author: MehVahdJukaar
@@ -122,6 +127,43 @@ public class JeedImpl {
         return effectColor.get();
     }
 
+    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
+        int minX;
+        boolean cancelShift = false;
+        if (cancelShift)
+            minX = (screen.width - screen.getXSize()) / 2;
+        else
+            minX = screen.getGuiLeft() + screen.getXSize() + 2;
+        int x = screen.width - minX;
+        Collection<MobEffectInstance> collection = Minecraft.getInstance().player.getActiveEffects();
+        if (!collection.isEmpty() && x >= 32) {
+
+            boolean full = x >= 120;
+            var event = ForgeHooksClient.onScreenPotionSize(screen, x, !full, minX);
+            if (event.isCanceled()) return null;
+            full = !event.isCompact();
+            minX = event.getHorizontalOffset();
+            if (!full && ignoreIfSmall) return null;
+            int width = full ? 120 : 32;
+            if (mouseX > minX && mouseX < minX + width) {
+
+                int spacing = 33;
+                if (collection.size() > 5) {
+                    spacing = 132 / (collection.size() - 1);
+                }
+
+
+                List<MobEffectInstance> iterable = collection.stream().filter(ForgeHooksClient::shouldRenderEffect).sorted().collect(Collectors.toList());
+
+                int minY = screen.getGuiTop();
+                int maxHeight = iterable.size() * spacing;
+
+                if (mouseY > minY && mouseY < minY + maxHeight) {
+                    return iterable.get((int) ((mouseY - minY) / spacing));
+                }
+            }
+        }
+        return null;
+    }
 
 }
-

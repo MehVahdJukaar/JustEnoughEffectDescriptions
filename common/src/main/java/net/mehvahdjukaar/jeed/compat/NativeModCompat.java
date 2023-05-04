@@ -1,8 +1,8 @@
 package net.mehvahdjukaar.jeed.compat;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
-import net.mehvahdjukaar.jeed.jei.plugins.InventoryScreenHandler;
+import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.common.EffectRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -15,15 +15,15 @@ public class NativeModCompat implements IModCompat {
 
     @Override
     public MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
-        return InventoryScreenHandler.getHoveredEffect(screen, mouseX, mouseY, ignoreIfSmall);
+        return Jeed.getHoveredEffect(screen, mouseX, mouseY, ignoreIfSmall);
     }
 
     @Override
     public void handleEffectRenderTooltip(AbstractContainerScreen<?> screen, PoseStack matrixStack, int x, int y) {
-        MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(screen, x, y, true);
+        MobEffectInstance effect = Jeed.getHoveredEffect(screen, x, y, true);
 
         TooltipFlag flag = Minecraft.getInstance().options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
-        List<Component> tooltip = EffectInstanceRenderer.INSTANCE.getTooltipsWithDescription(effect, flag, false);
+        List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, false);
         if (!tooltip.isEmpty()) {
             screen.renderComponentTooltip(matrixStack, tooltip, x, y);
         }
@@ -31,9 +31,9 @@ public class NativeModCompat implements IModCompat {
 
     @Override
     public boolean handleEffectMouseClicked(AbstractContainerScreen<?> screen, double x, double y, int activeButton) {
-        MobEffectInstance effect = InventoryScreenHandler.getHoveredEffect(screen, x, y, false);
+        MobEffectInstance effect = Jeed.getHoveredEffect(screen, x, y, false);
         if (effect != null) {
-            InventoryScreenHandler.onClickedEffect(effect, x, y, activeButton);
+            Jeed.PLUGIN.onClickedEffect(effect, x, y, activeButton);
             return true;
         }
         return false;

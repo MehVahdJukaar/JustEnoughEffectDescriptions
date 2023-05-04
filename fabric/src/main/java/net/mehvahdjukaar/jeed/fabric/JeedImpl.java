@@ -8,8 +8,10 @@ import net.mehvahdjukaar.jeed.compat.NativeModCompat;
 import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -34,7 +36,7 @@ public class JeedImpl implements ClientModInitializer {
     public static final RecipeSerializer<EffectProviderRecipe> EFFECT_PROVIDER_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER,
             Jeed.res("effect_provider"), new EffectProviderRecipe.Serializer());
     public static final RecipeSerializer<PotionProviderRecipe> POTION_PROVIDER_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER,
-            "potion_provider", new PotionProviderRecipe.Serializer());
+            Jeed.res("potion_provider"), new PotionProviderRecipe.Serializer());
 
     static <T extends Recipe<?>> RecipeType<T> makeRecipe(ResourceLocation name) {
         final String toString = name.toString();
@@ -85,5 +87,9 @@ public class JeedImpl implements ClientModInitializer {
 
     public static boolean hasEffectColor() {
         return true;
+    }
+
+    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
+        return null;
     }
 }

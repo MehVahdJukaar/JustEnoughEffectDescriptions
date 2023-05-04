@@ -19,10 +19,10 @@
       "net.mehvahdjukaar.jeed.fabric.JeedImpl"
     ],
     "rei_client": [
-      "net.mehvahdjukaar.jeed.rei.REIPlugin"
+      "net.mehvahdjukaar.jeed.plugin.rei.REIPlugin"
     ],
     "jei_mod_plugin": [
-      "net.mehvahdjukaar.jeed.jei.JEIPlugin"
+      "net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin"
     ]
   },
   "mixins": [
