@@ -52,7 +52,7 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
 
     @Override
     public CategoryIdentifier<? extends PaintingInfoDisplay> getCategoryIdentifier() {
-        return JeppReiPlugin.PAINTING_INFO_TYPE;
+        return REIPlugin.PAINTING_INFO_TYPE;
     }
 
     @Override

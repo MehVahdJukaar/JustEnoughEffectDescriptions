@@ -3,11 +3,14 @@ package net.mehvahdjukaar.jeed.recipes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.JeedPlatform;
+import net.mehvahdjukaar.jeed.common.JsonHelper;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,22 +18,20 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 //items that can accept any potion
-public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
+public class PotionProviderRecipe implements Recipe<CraftingContainer> {
 
     private final ResourceLocation id;
-    private final NonNullList<ItemStack> providers;
+    private final NonNullList<Ingredient> providers;
     //empty potions list means it applies to all of them
     private final List<Potion> potions;
 
-    public PotionProviderRecipe(ResourceLocation id, NonNullList<ItemStack> providers, List<Potion> potions) {
+    public PotionProviderRecipe(ResourceLocation id, NonNullList<Ingredient> providers, List<Potion> potions) {
         this.id = id;
         this.providers = providers;
         this.potions = potions;
@@ -48,24 +49,21 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> nonNullList = NonNullList.create();
-        nonNullList.add(Ingredient.EMPTY);
-        return nonNullList;
+        return providers;
     }
 
-    //let's hope this won't cause troubles
     @Override
     public ItemStack getResultItem() {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, Level worldIn) {
+    public boolean matches(CraftingContainer inv, Level worldIn) {
         return false;
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper wrapper) {
+    public ItemStack assemble(CraftingContainer wrapper) {
         return ItemStack.EMPTY;
     }
 
@@ -81,16 +79,12 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Jeed.POTION_PROVIDER_SERIALIZER.get();
+        return JeedPlatform.getPotionProviderSerializer();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return Jeed.POTION_PROVIDER_TYPE.get();
-    }
-
-    public NonNullList<ItemStack> getProviders() {
-        return providers;
+        return JeedPlatform.getPotionProviderType();
     }
 
     public List<Potion> getPotions() {
@@ -102,14 +96,9 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
         @Override
         public PotionProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 
-            NonNullList<ItemStack> providers = JsonHelper.readItemStackList(GsonHelper.getAsJsonArray(json, "providers"));
+            NonNullList<Ingredient> providers = JsonHelper.readIngredients(GsonHelper.getAsJsonArray(json, "providers"));
 
-            List<Potion> potions;
-            try {
-                potions = JsonHelper.readPotionList(GsonHelper.getAsJsonArray(json, "potions"));
-            } catch (Exception ignored) {
-                potions = new ArrayList<>();
-            }
+            List<Potion> potions = JsonHelper.readPotionList(GsonHelper.getAsJsonArray(json, "potions"));
 
             if (providers.isEmpty()) {
                 throw new JsonParseException("No effect providers for recipe");
@@ -122,11 +111,9 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
         @Nullable
         public PotionProviderRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int i = buffer.readVarInt();
-            NonNullList<ItemStack> providers = NonNullList.withSize(i, ItemStack.EMPTY);
+            NonNullList<Ingredient> providers = NonNullList.withSize(i, Ingredient.EMPTY);
 
-            for (int j = 0; j < providers.size(); ++j) {
-                providers.set(j, buffer.readItem());
-            }
+            providers.replaceAll(ignored -> Ingredient.fromNetwork(buffer));
 
             int x = buffer.readVarInt();
             List<Potion> potions = new ArrayList<>();
@@ -142,14 +129,14 @@ public class PotionProviderRecipe implements Recipe<RecipeWrapper> {
         public void toNetwork(FriendlyByteBuf buffer, PotionProviderRecipe recipe) {
             buffer.writeVarInt(recipe.providers.size());
 
-            for (ItemStack result : recipe.providers) {
-                buffer.writeItem(result);
+            for (Ingredient result : recipe.providers) {
+                result.toNetwork(buffer);
             }
 
             buffer.writeVarInt(recipe.potions.size());
 
             for (Potion potion : recipe.potions) {
-                buffer.writeResourceLocation(ForgeRegistries.POTIONS.getKey(potion));
+                buffer.writeResourceLocation(Registry.POTION.getKey(potion));
             }
         }
     }

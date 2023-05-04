@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:glowing",
+  "providers": [
+    {
+      "item": "minecraft:spectral_arrow"
+    }
+  ]
+}

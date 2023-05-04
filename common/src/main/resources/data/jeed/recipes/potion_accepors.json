@@ -1,0 +1,18 @@
+{
+  "type": "jeed:potion_provider",
+  "effect": "all",
+  "providers": [
+    {
+      "item": "minecraft:potion"
+    },
+    {
+      "item": "minecraft:splash_potion"
+    },
+    {
+      "item": "minecraft:lingering_potion"
+    },
+    {
+      "item": "minecraft:tipped_arrow"
+    }
+  ]
+}

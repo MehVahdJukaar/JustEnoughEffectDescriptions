@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:hero_of_the_village",
+  "providers": [
+    {
+      "item": "minecraft:villager_spawn_egg"
+    }
+  ]
+}

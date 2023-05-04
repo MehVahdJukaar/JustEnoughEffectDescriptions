@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:levitation",
+  "providers": [
+    {
+      "item": "minecraft:shulker_spawn_egg"
+    }
+  ]
+}

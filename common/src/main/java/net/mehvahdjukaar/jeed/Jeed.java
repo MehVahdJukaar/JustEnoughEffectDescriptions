@@ -1,94 +1,82 @@
 package net.mehvahdjukaar.jeed;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.mehvahdjukaar.jeed.compat.IModCompat;
-import net.mehvahdjukaar.jeed.compat.NativeModCompat;
-import net.mehvahdjukaar.jeed.compat.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.IExtensionPoint;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Author: MehVahdJukaar
  */
-@Mod(Jeed.MOD_ID)
 public class Jeed {
 
     public static final String MOD_ID = "jeed";
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger("Jeed");
 
-
-    private static final DeferredRegister<RecipeSerializer<?>> RECIPES_SERIALIZERS = DeferredRegister.create(
-            ForgeRegistries.RECIPE_SERIALIZERS, MOD_ID);
-    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(
-            ForgeRegistries.RECIPE_TYPES, MOD_ID);
-
-    public static final RegistryObject<RecipeType<?>> EFFECT_PROVIDER_TYPE = RECIPE_TYPES.register(
-            "effect_provider", () -> RecipeType.simple(res("effect_provider")));
-    public static final RegistryObject<RecipeType<?>> POTION_PROVIDER_TYPE = RECIPE_TYPES.register(
-            "potion_provider", () -> RecipeType.simple(res("potion_provider")));
-
-    public static final RegistryObject<RecipeSerializer<?>> EFFECT_PROVIDER_SERIALIZER = RECIPES_SERIALIZERS.register(
-            "effect_provider", EffectProviderRecipe.Serializer::new);
-    public static final RegistryObject<RecipeSerializer<?>> POTION_PROVIDER_SERIALIZER = RECIPES_SERIALIZERS.register(
-            "potion_provider", PotionProviderRecipe.Serializer::new);
-
-    public static boolean REI;
-
-    public static IModCompat MOD_COMPAT;
+    public static final IModCompat MOD_COMPAT = initModCompat();
 
     public static ResourceLocation res(String name) {
         return new ResourceLocation(MOD_ID, name);
     }
 
-    public Jeed() {
+    public static void init() {
 
-        ModLoadingContext modLoader = ModLoadingContext.get();
-        modLoader.registerExtensionPoint(IExtensionPoint.DisplayTest.class,
-                () -> new IExtensionPoint.DisplayTest(() -> "ANY", (remote, isServer) -> true));
-
-        var bus = FMLJavaModLoadingContext.get().getModEventBus();
-        RECIPES_SERIALIZERS.register(bus);
-        RECIPE_TYPES.register(bus);
-
-        createConfigs();
-
-        //mod compat
-
-
-        REI = ModList.get().isLoaded("roughlyenoughitems");
-
-        //credits to Fuzss for all the Stylish Effects mod compat
-        if (ModList.get().isLoaded("stylisheffects")) {
-            MOD_COMPAT = new StylishEffectsCompat();
-        } else {
-            MOD_COMPAT = new NativeModCompat();
-        }
         //add here more mod compat for other mods that move effects
 
         MOD_COMPAT.registerHandlers();
 
+
         //TODO: check if this works with forge latest effect render event changes
 
         //TODO: render mob as entities instead of spawn eggs
+    }
 
+    @ExpectPlatform
+    private static IModCompat initModCompat() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static Collection<String> getHiddenEffects() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static RecipeSerializer<?> getEffectProviderSerializer() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static RecipeType<EffectProviderRecipe> getEffectProviderType() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static RecipeSerializer<?> getPotionProviderSerializer() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static RecipeType<PotionProviderRecipe> getPotionProviderType() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean hasIngredientList() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean hasEffectBox() {
+        throw new AssertionError();
     }
 
 }

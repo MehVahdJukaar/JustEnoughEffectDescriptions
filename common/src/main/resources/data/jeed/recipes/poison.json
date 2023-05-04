@@ -1,0 +1,12 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:poison",
+  "providers": [
+    {
+      "item": "minecraft:cave_spider_spawn_egg"
+    },
+    {
+      "item": "minecraft:witch_spawn_egg"
+    }
+  ]
+}

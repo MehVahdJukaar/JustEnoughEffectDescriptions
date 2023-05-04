@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:fire_resistance",
+  "providers": [
+    {
+      "item": "minecraft:totem_of_undying"
+    }
+  ]
+}

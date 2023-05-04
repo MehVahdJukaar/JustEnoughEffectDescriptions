@@ -1,0 +1,12 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:darkness",
+  "providers": [
+    {
+      "item": "minecraft:warden_spawn_egg"
+    },
+    {
+      "item": "minecraft:sculk_shrieker"
+    }
+  ]
+}

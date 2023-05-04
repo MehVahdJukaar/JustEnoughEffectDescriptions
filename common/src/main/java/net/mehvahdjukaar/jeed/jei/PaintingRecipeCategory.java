@@ -38,7 +38,7 @@ public class PaintingRecipeCategory extends PaintingCategory implements IRecipeC
 
     @Override
     public RecipeType<PaintingInfo> getRecipeType() {
-        return JeppJeiPlugin.PAINTING_INFO_TYPE;
+        return JEIPlugin.PAINTING_INFO_TYPE;
     }
 
     @Override

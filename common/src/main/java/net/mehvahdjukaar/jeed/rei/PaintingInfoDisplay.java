@@ -28,6 +28,6 @@ public class PaintingInfoDisplay extends PaintingInfo implements Display {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return JeppReiPlugin.PAINTING_INFO_TYPE;
+        return REIPlugin.PAINTING_INFO_TYPE;
     }
 }

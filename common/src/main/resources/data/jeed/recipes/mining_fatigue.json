@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:mining_fatigue",
+  "providers": [
+    {
+      "item": "minecraft:elder_guardian_spawn_egg"
+    }
+  ]
+}

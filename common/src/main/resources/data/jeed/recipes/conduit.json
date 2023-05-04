@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:conduit_power",
+  "providers": [
+    {
+      "item": "minecraft:conduit"
+    }
+  ]
+}

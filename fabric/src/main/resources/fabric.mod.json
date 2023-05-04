@@ -1,28 +1,28 @@
 {
   "schemaVersion": 1,
-  "id": "jepp",
+  "id": "jeed",
   "version": "${version}",
-  "name": "Just Enough Painting Previews",
-  "description": "The joy or previewing paintings",
+  "name": "Just Enough Effects Descriptions",
+  "description": "JEI/REI addon to show mob effects descriptions and source",
   "authors": [
-    "Mehvahdjukaar"
+    "Mehvahdjukaar", "Plantkillable"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/jepp",
-    "sources": "https://github.com/MehVahdJukaar/jepp"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/jeed",
+    "sources": "https://github.com/MehVahdJukaar/jeed"
   },
   "license": "ARR",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.mehvahdjukaar.jepp.fabric.JeppFabric"
+      "net.mehvahdjukaar.jeed.fabric.JeedImpl"
     ],
     "rei_client": [
-      "net.mehvahdjukaar.jepp.rei.JeppReiPlugin"
+      "net.mehvahdjukaar.jeed.rei.REIPlugin"
     ],
     "jei_mod_plugin": [
-      "net.mehvahdjukaar.jepp.jei.JeppJeiPlugin"
+      "net.mehvahdjukaar.jeed.jei.JEIPlugin"
     ]
   },
   "mixins": [

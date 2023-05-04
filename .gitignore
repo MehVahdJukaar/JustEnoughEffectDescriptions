@@ -68,3 +68,4 @@ run/*
 
 # BlueJ files
 *.ctxt
+/fabric/run/

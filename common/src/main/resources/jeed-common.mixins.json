@@ -6,6 +6,7 @@
   "client": [
   ],
   "mixins": [
+    "DisplayEffectScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

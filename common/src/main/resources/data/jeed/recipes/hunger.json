@@ -1,0 +1,9 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:hunger",
+  "providers": [
+    {
+      "item": "minecraft:husk_spawn_egg"
+    }
+  ]
+}
