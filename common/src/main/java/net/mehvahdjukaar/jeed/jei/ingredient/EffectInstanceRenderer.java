@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MobEffectTextureManager;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -25,7 +26,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +84,7 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
 
             tooltip.add(Component.literal(name));
 
-            if(Jeed.EFFECT_COLOR.get()) {
+            if(Jeed.hasEffectColor()) {
                 MutableComponent colorValue = Component.literal("#" + Integer.toHexString(effect.getColor()));
                 colorValue.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(effect.getColor())));
 
@@ -104,7 +104,7 @@ public class EffectInstanceRenderer implements IIngredientRenderer<MobEffectInst
             //show full description with shift
             ResourceLocation res = null;
             if(showDescription || tooltipFlag.isAdvanced()){
-                res = ForgeRegistries.MOB_EFFECTS.getKey(effect);
+                res = Registry.MOB_EFFECT.getKey(effect);
             }
 
             if(showDescription){

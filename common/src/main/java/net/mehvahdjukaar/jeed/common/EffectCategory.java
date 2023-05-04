@@ -1,0 +1,14 @@
+package net.mehvahdjukaar.jeed.common;
+
+import net.minecraft.network.chat.Component;
+
+public abstract class EffectCategory {
+    public static final int RECIPE_WIDTH = 160;
+    public static final int RECIPE_HEIGHT = 125;
+    protected static final int LINE_SPACING = 2;
+
+    protected static final int Y_OFFSET = 12;
+
+    protected final Component localizedName = Component.translatable("jeed.category.effect_info");
+
+}

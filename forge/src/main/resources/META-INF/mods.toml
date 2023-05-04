@@ -7,7 +7,7 @@ license="ARR"
 
 [[mods]] #mandatory
 
-modId= "jepp" #mandatory
+modId= "jeed" #mandatory
 
 version = "${version}"
 
@@ -27,18 +27,18 @@ The joy of previewing paintings
 
 displayTest="IGNORE_ALL_VERSION"
 
-[modproperties.jepp]
-    catalogueItemIcon = "minecraft:painting" #catalogue icon
+[modproperties.jeed]
+    catalogueItemIcon = "minecraft:potion" #catalogue icon
 
 
-[[dependencies.jepp]] #optional
+[[dependencies.jeed]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
     versionRange="[40,)" #mandatory
     ordering="NONE"
     side="CLIENT"
 
-[[dependencies.jepp]]
+[[dependencies.jeed]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19.2,1.20)"

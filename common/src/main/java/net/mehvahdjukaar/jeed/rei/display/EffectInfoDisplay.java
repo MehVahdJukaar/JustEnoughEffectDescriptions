@@ -1,19 +1,22 @@
-package net.mehvahdjukaar.jeed.rei;
+package net.mehvahdjukaar.jeed.rei.display;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.mehvahdjukaar.jeed.PaintingInfo;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.mehvahdjukaar.jeed.common.EffectInfo;
+import net.mehvahdjukaar.jeed.rei.REIPlugin;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
 
-public class PaintingInfoDisplay extends PaintingInfo implements Display {
+public class EffectInfoDisplay extends EffectInfo implements Display {
 
-    public PaintingInfoDisplay(PaintingVariant painting) {
-        super(painting);
+
+    protected EffectInfoDisplay(MobEffectInstance effectInstance, List<FormattedText> description) {
+        super(effectInstance, description);
     }
 
     @Override
@@ -28,6 +31,6 @@ public class PaintingInfoDisplay extends PaintingInfo implements Display {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return REIPlugin.PAINTING_INFO_TYPE;
+        return REIPlugin.EFFECTS_INFO_CATEGORY;
     }
 }

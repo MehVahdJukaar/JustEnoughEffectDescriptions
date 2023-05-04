@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.client.ForgeHooksClient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -19,12 +18,16 @@ import java.util.stream.Collectors;
 
 public class InventoryScreenHandler<C extends AbstractContainerMenu, T extends EffectRenderingInventoryScreen<C>> implements IGuiContainerHandler<T> {
 
+    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
+        return null;
+    }
+
     @Nullable
     @Override
     public Object getIngredientUnderMouse(T screen, double x, double y) {
         return Jeed.MOD_COMPAT.getHoveredEffect(screen, x, y, false);
     }
-
+/*
     //TODO: re add this for to work with effects on left & right
     @Nullable
     public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
@@ -65,9 +68,9 @@ public class InventoryScreenHandler<C extends AbstractContainerMenu, T extends E
         }
         return null;
     }
-
+*/
     public static void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
-        var focus = JEIPlugin.JEI_HELPERS.getFocusFactory().createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT, effect);
+        var focus = JEIPlugin.JEI_HELPERS.getFocusFactory().createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT_INGREDIENT_TYPE, effect);
 
         IRecipesGui recipesGui = JEIPlugin.JEI_RUNTIME.getRecipesGui();
         recipesGui.show(focus);

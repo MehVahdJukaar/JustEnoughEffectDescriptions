@@ -3,13 +3,12 @@ package net.mehvahdjukaar.jeed.forge;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.compat.IModCompat;
 import net.mehvahdjukaar.jeed.compat.NativeModCompat;
-import net.mehvahdjukaar.jeed.compat.StylishEffectsCompat;
+import net.mehvahdjukaar.jeed.compat.forge.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -117,6 +116,10 @@ public class JeedImpl {
 
     public static boolean hasEffectBox() {
         return effectBox.get();
+    }
+
+    public static boolean hasEffectColor() {
+        return effectColor.get();
     }
 
 

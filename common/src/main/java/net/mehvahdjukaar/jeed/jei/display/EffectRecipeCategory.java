@@ -12,6 +12,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.HSLColor;
 import net.mehvahdjukaar.jeed.jei.JEIPlugin;
 import net.mehvahdjukaar.jeed.jei.ingredient.EffectInstanceRenderer;
@@ -27,19 +28,12 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Arrays;
 import java.util.List;
 
-public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
-
-    public static final int RECIPE_WIDTH = 160;
-    public static final int RECIPE_HEIGHT = 125;
-    private static final int LINE_SPACING = 2;
-
-    private static final int Y_OFFSET = 12;
+public class EffectRecipeCategory extends EffectCategory implements IRecipeCategory<EffectInfoRecipe> {
 
     private final IDrawable background;
     private final IDrawable icon;
     private final IDrawable slotBackground;
     private final IDrawable effectBackground;
-    private final Component localizedName;
 
     public EffectRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(RECIPE_WIDTH, RECIPE_HEIGHT);
@@ -47,7 +41,6 @@ public class EffectRecipeCategory implements IRecipeCategory<EffectInfoRecipe> {
 
         this.icon = new TabIcon();
         this.slotBackground = guiHelper.getSlotDrawable();
-        this.localizedName = Component.translatable("jeed.category.effect_info");
     }
 
     @Override

@@ -1,20 +1,17 @@
-package net.mehvahdjukaar.jeed.rei;
+package net.mehvahdjukaar.jeed.rei.display;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.gui.widgets.WidgetWithBounds;
-import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.mehvahdjukaar.jeed.PaintingCategory;
+import net.mehvahdjukaar.jeed.common.EffectCategory;
+import net.mehvahdjukaar.jeed.rei.REIPlugin;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
@@ -23,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PaintingRecipeCategory extends PaintingCategory implements DisplayCategory<PaintingInfoDisplay> {
+public class EffectInfoDisplayCategory extends EffectCategory implements DisplayCategory<EffectInfoDisplay> {
 
-    public PaintingRecipeCategory() {
+    public EffectInfoDisplayCategory() {
         super();
     }
 
@@ -36,7 +33,7 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
 
 
     @Override
-    public int getDisplayWidth(PaintingInfoDisplay display) {
+    public int getDisplayWidth(EffectInfoDisplay display) {
         return RECIPE_WIDTH - 4;
     }
 
@@ -51,14 +48,15 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
     }
 
     @Override
-    public CategoryIdentifier<? extends PaintingInfoDisplay> getCategoryIdentifier() {
-        return REIPlugin.PAINTING_INFO_TYPE;
+    public CategoryIdentifier<? extends EffectInfoDisplay> getCategoryIdentifier() {
+        return REIPlugin.EFFECTS_INFO_CATEGORY;
     }
 
     @Override
-    public List<Widget> setupDisplay(PaintingInfoDisplay display, Rectangle bounds) {
+    public List<Widget> setupDisplay(EffectInfoDisplay display, Rectangle bounds) {
         final List<Widget> widgets = new ArrayList<>();
 
+        /*
         widgets.add(Widgets.createRecipeBase(bounds));
         widgets.add(new PaintingWidget(bounds, display.getPainting()));
 
@@ -70,17 +68,17 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
         widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), bounds.getMaxY() - 8 - 6), display.getDescription())
                 .noShadow()
                 .color(0xFF404040, 0xFFBBBBBB));
-
+*/
         return widgets;
 
     }
 
-    private static class PaintingWidget extends WidgetWithBounds {
+    private static class EffectWidget extends WidgetWithBounds {
 
         private final Rectangle bounds;
         private final PaintingVariant painting;
 
-        public PaintingWidget(Rectangle bounds, PaintingVariant paintingVariant) {
+        public EffectWidget(Rectangle bounds, PaintingVariant paintingVariant) {
             this.bounds = new Rectangle(Objects.requireNonNull(bounds));
             this.painting = paintingVariant;
         }
@@ -91,7 +89,6 @@ public class PaintingRecipeCategory extends PaintingCategory implements DisplayC
             poseStack.pushPose();
             poseStack.translate(bounds.getCenterX(), bounds.getCenterY(), 0);
 
-            renderPainting(painting, poseStack, RECIPE_WIDTH - 14, RECIPE_HEIGHT - 14);
             poseStack.popPose();
         }
 

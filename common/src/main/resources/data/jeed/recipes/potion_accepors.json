@@ -1,6 +1,5 @@
 {
   "type": "jeed:potion_provider",
-  "effect": "all",
   "providers": [
     {
       "item": "minecraft:potion"

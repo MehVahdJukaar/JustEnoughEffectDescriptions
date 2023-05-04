@@ -3,7 +3,7 @@ package net.mehvahdjukaar.jeed.recipes;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.mehvahdjukaar.jeed.JeedPlatform;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.JsonHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -79,12 +79,12 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return JeedPlatform.getEffectProviderSerializer();
+        return Jeed.getEffectProviderSerializer();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return JeedPlatform.getEffectProviderType();
+        return Jeed.getEffectProviderType();
     }
 
     public Collection<MobEffect> getEffects() {

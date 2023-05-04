@@ -79,4 +79,8 @@ public class Jeed {
         throw new AssertionError();
     }
 
+    @ExpectPlatform
+    public static boolean hasEffectColor() {
+        throw new AssertionError();
+    }
 }
