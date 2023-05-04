@@ -92,11 +92,16 @@
   "effect.caverns_and_chasms.affliction.description": "Once the effect ends, inflicts 3 magic damage per effect level.",
   "effect.caverns_and_chasms.rewind.description": "At the end of the effect, teleports the user to the position where the effect was initially gained.",
 
+  "effect.create_confectionery.rest.description": "Makes phantoms disappear.",
+  "effect.create_confectionery.stimulation.description": "Removes mining fatigue and slowness",
+
   "effect.environmental.panic.description": "Increases speed the lower the user health is.",
   "effect.environmental.serenity.description": "Koi fish stop hostile mobs spawns in a 32x32x8 radius. The serenity effect indicates if the player is in that radius.",
 
   "effect.farmersdelight.comfort.description": "Removes and grants immunity to Slowness, Hunger and Weakness.",
-  "effect.farmersdelight.nourished.description": "Prevents players from losing hunger or saturation from any other source other than replenishing health points.",
+  "effect.farmersdelight.nourishment.description": "Prevents players from losing hunger or saturation from any other source other than replenishing health points.",
+
+  "effect.farmersrespite.caffeinated.description": "Increases the target's walk and attack speed.",
 
   "effect.fruitful.sustaining.description": "Increases hunger yield from any food eaten.",
 
@@ -126,7 +131,8 @@
   "effect.rats.plague.description": "Disables natural health regeneration and turns hearts into plague hearts. Plague can be spread to other entities via interaction",
   "effect.rats.synesthesia.description": "Provides unlimited saturation along with a full row of absorption hearts and heavily increased attack speed. When the effect is applied the field of view will zoom in and out and will be tinted orange. The opposite thing happens when the effect runs out.",
 
-  "effect.savageandravage.frostbite.description": "Inflicts severe slowness to the target as well as a very slow damage over time.",
+  "effect.savage_and_ravage.weigth.description": "Makes the target really heavy.",
+
 
   "effect.seasonals.fall_flavour.description": "Gives the user immunity to spiky plants and thorns damage.",
   "effect.seasonals.puppeteering.description": "Allows the player pick up and move mobs with lower health.",
@@ -161,7 +167,6 @@
   "effect.apotheosis.acient_knowledge.description": "Quadruples all experience earned from entity kills. The effect doubles with each level.",
 
   "effect.fantasy.glowing_vision.description": "Causes Unicorns in a radius of 500 blocks to obtain the glowing effect, making them easier to locate.",
-
 
 
   "effect.forbidden_arcanus.darkened.description": "A mix of blindness and slowness.",
@@ -199,8 +204,9 @@
   "effect.twist.hazy.description": "Not obtainable.",
   "effect.twist.mold.description": "Causes the user's heart to rush when on a Charger's turf.",
   "effect.twist.outzimpled.description": "Stops the user from popping Zimples.",
-  "effect.twist.parasite.description": "Not obtainable."
+  "effect.twist.parasite.description": "Not obtainable.",
 
+  "effect.untitledduckmod.intimidation.description": "Makes illagers afraid of the target.",
 
-
+  "effect.windswept.thorns.description": "Damages any mob or player who attacks the target."
 }

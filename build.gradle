@@ -51,12 +51,14 @@ subprojects {
                 dependencies {
                     required.project "fabric-api"
                     optional.project "jei"
-                    optional.project "roughlyenoughitems"
+                    optional.project "rei"
+                    optional.project "stylish-effects"
                 }
             } else {
                 dependencies {
                     optional.project "jei"
-                    optional.project "roughlyenoughitems"
+                    optional.project "rei"
+                    optional.project "stylish-effects"
                 }
             }
         }
@@ -78,12 +80,14 @@ subprojects {
                     relations {
                         requiredDependency "fabric-api"
                         optionalDependency "jei"
-                        optionalDependency "roughlyenoughitems"
+                        optionalDependency "roughly-enough-items"
+                        optionalDependency "stylish-effects"
                     }
                 } else {
                     relations {
                         optionalDependency "jei"
-                        optionalDependency "roughlyenoughitems"
+                        optionalDependency "roughly-enough-items"
+                        optionalDependency "stylish-effects"
                     }
                 }
             }
