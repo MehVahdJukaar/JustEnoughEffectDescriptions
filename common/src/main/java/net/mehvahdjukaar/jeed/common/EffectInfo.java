@@ -186,7 +186,7 @@ public abstract class EffectInfo {
     public static int getListHeight(List<ItemStack> inputs) {
         int listH = 0;
         if (Jeed.hasIngredientList() && !inputs.isEmpty()) {
-            listH = EffectCategory.EMPTY_LIST_EXTRA_HEIGHT;
+            listH = EffectCategory.MAX_BOX_HEIGHT;
             if (inputs.size() <= EffectCategory.SLOTS_PER_ROW) {
                 listH /= 2;
             }

@@ -75,11 +75,6 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
     }
 
     @Override
-    public int getMaxTextHeight() {
-        return 99999;
-    }
-
-    @Override
     public void registerScreens(ScreenRegistry registry) {
         registry.registerFocusedStack((screen, mouse) -> {
             var ext = ScreenExtensionsHandler.getExtension(screen);

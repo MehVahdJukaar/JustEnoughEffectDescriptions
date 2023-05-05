@@ -24,14 +24,16 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
             Jeed.PLUGIN.onClickedEffect(evt.effectInstance(), x, y, button);
             return true;
         });
+        /*
         MobEffectWidgetEvents.TOOLTIP.register((evt, lines, flag) -> {
             lines.clear();
             List<Component> newTooltip = EffectInstanceRenderer.getTooltipsWithDescription(evt.effectInstance(), flag, false);
             lines.addAll(newTooltip);
-        });
+        });*/
 
-        JeedAPI.registerScreenExtension(CreativeModeInventoryScreen.class, new StylishEffectsCompat<>());
+        JeedAPI.registerScreenExtension(EffectRenderingInventoryScreen.class, new StylishEffectsCompat<>());
         JeedAPI.registerScreenExtension(InventoryScreen.class, new StylishEffectsCompat<>());
+        JeedAPI.registerScreenExtension(CreativeModeInventoryScreen.class, new StylishEffectsCompat<>());
     }
 
     @Nullable

@@ -101,12 +101,6 @@ public class JEIPlugin implements IModPlugin, IPlugin {
         return EffectCategory.RECIPE_WIDTH;
     }
 
-    @Override
-    public int getMaxTextHeight() {
-        return EffectCategory.RECIPE_HEIGHT;
-    }
-
-
 
     //TODO: register keyword
 

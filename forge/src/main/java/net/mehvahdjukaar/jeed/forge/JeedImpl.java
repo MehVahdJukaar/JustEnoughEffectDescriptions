@@ -1,9 +1,8 @@
 package net.mehvahdjukaar.jeed.forge;
 
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.compat.IInventoryScreenExtension;
-import net.mehvahdjukaar.jeed.compat.forge.StylishEffectsScreenExtension;
-import net.mehvahdjukaar.jeed.compat.forge.VanillaScreenExtension;
+import net.mehvahdjukaar.jeed.compat.forge.NativeCompat;
+import net.mehvahdjukaar.jeed.compat.forge.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -11,14 +10,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.loading.RuntimeDistCleaner;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -44,8 +41,14 @@ public class JeedImpl {
 
         createConfigs();
 
-        if(FMLEnvironment.dist == Dist.CLIENT) {
-            IInventoryScreenExtension.INSTANCE.registerHandlers();
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            //credits to Fuzss for all the Stylish Effects mod compat
+            if (ModList.get().isLoaded("stylisheffects")) {
+                StylishEffectsCompat.init();
+            } else {
+                NativeCompat.init();
+            }
+
         }
     }
 
@@ -83,16 +86,6 @@ public class JeedImpl {
                 .define("ingredients_list", true);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, builder.build());
-    }
-
-
-    public static IInventoryScreenExtension initModCompat() {
-        //credits to Fuzss for all the Stylish Effects mod compat
-        if (ModList.get().isLoaded("stylisheffects")) {
-            return new StylishEffectsScreenExtension();
-        } else {
-            return new VanillaScreenExtension();
-        }
     }
 
     public static RecipeSerializer<?> getEffectProviderSerializer() {

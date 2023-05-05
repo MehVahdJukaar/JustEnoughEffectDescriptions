@@ -16,6 +16,7 @@ public class NativeCompat<T extends EffectRenderingInventoryScreen<?>> implement
     public static void init() {
         JeedAPI.registerScreenExtension(CreativeModeInventoryScreen.class, new NativeCompat<>());
         JeedAPI.registerScreenExtension(InventoryScreen.class, new NativeCompat<>());
+        JeedAPI.registerScreenExtension(EffectRenderingInventoryScreen.class, new NativeCompat<>());
     }
 
     @Override

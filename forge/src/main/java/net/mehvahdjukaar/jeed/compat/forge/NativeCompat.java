@@ -1,9 +1,11 @@
 package net.mehvahdjukaar.jeed.compat.forge;
 
-import net.mehvahdjukaar.jeed.compat.AbstractVanillaScreenExtension;
-import net.mehvahdjukaar.jeed.compat.IInventoryScreenExtension;
+import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
+import net.mehvahdjukaar.jeed.api.JeedAPI;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.client.ForgeHooksClient;
 
@@ -11,11 +13,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VanillaScreenExtension extends AbstractVanillaScreenExtension implements IInventoryScreenExtension {
 
+public class NativeCompat<T extends EffectRenderingInventoryScreen<?>> implements IEffectScreenExtension<T> {
+
+    public static void init() {
+        //JeedAPI.registerScreenExtension(CreativeModeInventoryScreen.class, new NativeCompat<>());
+        //JeedAPI.registerScreenExtension(InventoryScreen.class, new NativeCompat<>());
+        JeedAPI.registerScreenExtension(EffectRenderingInventoryScreen.class, new NativeCompat<>());
+    }
 
     @Override
-    public MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
+    public MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
         int minX;
         boolean cancelShift = false;
         if (cancelShift)

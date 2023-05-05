@@ -51,7 +51,7 @@ public class EffectInfoRecipe extends EffectInfo {
         final int lineCount = descriptionLines.size();
 
 
-        final int maxLinesPerPage = (EffectCategory.RECIPE_HEIGHT - listH) / (minecraft.font.lineHeight + EffectCategory.LINE_SPACING);
+        final int maxLinesPerPage = (EffectCategory.RECIPE_HEIGHT - 35 - listH) / (minecraft.font.lineHeight + EffectCategory.LINE_SPACING);
         final int pageCount = divideCeil(lineCount, maxLinesPerPage);
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;

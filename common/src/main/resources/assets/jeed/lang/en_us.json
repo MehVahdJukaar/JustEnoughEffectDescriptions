@@ -35,7 +35,7 @@
   "effect.minecraft.slowness.description": "Decreases walking speed; higher levels make the user slower and decrease their field of view.",
   "effect.minecraft.speed.description": "Increases walking speed; higher levels make the user faster and increase their field of view.",
   "effect.minecraft.strength.description": "Increases melee damage; higher levels increase the damage boost power.",
-  "effect.minecraft.unluck.description": " aaaaaaaaaaaaaaaa aaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaa aaaaaaaaaa Can reduce chances of high-quality and more loot; higher levels reduce the chance of good loot.",
+  "effect.minecraft.unluck.description": " aaaaaaaaaaaaaaaa aaaaaaaaaa aaaaaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaaa  aaaaaaaa aaaaa aaaaaaa aaaaaaaaa aaaaaaa aaaaaaaaaa Can reduce chances of high-quality and more loot; higher levels reduce the chance of good loot.",
   "effect.minecraft.water_breathing.description": "Prevents drowning and allows to breathe underwater.",
   "effect.minecraft.weakness.description": "Decreases melee damage; higher levels decrease damage dealt further.",
   "effect.minecraft.wither.description": "Inflicts lethal damage over time; higher levels do more damage per second.",

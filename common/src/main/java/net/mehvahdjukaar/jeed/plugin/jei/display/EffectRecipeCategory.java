@@ -18,14 +18,13 @@ import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.core.NonNullList;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EffectRecipeCategory extends EffectCategory implements IRecipeCategory<EffectInfoRecipe> {
@@ -85,8 +84,15 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
             yPos += font.lineHeight + LINE_SPACING;
         }
 
-        for (int slotId = 0; slotId < 14; slotId++) {
-            this.slotBackground.draw(matrixStack, (int) (RECIPE_WIDTH / 2f + (19f * ((slotId % 7) - 7 / 2f))), RECIPE_HEIGHT - 19 * (1 + slotId / 7));
+        if (Jeed.hasIngredientList()) {
+            int size = recipe.getInputItems().size();
+            if (size != 0) {
+                int maxSlots = size <= SLOTS_PER_ROW ? SLOTS_PER_ROW : SLOTS_PER_ROW * ROWS;
+                for (int slotId = 0; slotId < maxSlots; slotId++) {
+                    this.slotBackground.draw(matrixStack, (int) (RECIPE_WIDTH / 2f + ((float) SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f))),
+                            RECIPE_HEIGHT - SLOT_W * (1 + slotId / SLOTS_PER_ROW));
+                }
+            }
         }
     }
 
@@ -108,16 +114,23 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
         }
 
         if (Jeed.hasIngredientList()) {
-            List<List<ItemStack>> slotContents = Arrays.asList(NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create(), NonNullList.create());
-            List<ItemStack> compatible = recipe.getInputItems();
+            List<ItemStack> inputItems = recipe.getInputItems();
 
-            for (int slotId = 0; slotId < compatible.size(); slotId++) {
-                slotContents.get(slotId % slotContents.size()).add(compatible.get(slotId));
+            List<List<ItemStack>> slotContents = new ArrayList<>();
+
+            for (int slotId = 0; slotId < inputItems.size(); slotId++) {
+
+                int ind = slotId % (SLOTS_PER_ROW * ROWS);
+                if (slotContents.size() <= ind) slotContents.add(new ArrayList<>());
+                slotContents.get(ind).add(inputItems.get(slotId));
             }
 
+            int r = inputItems.size() <= SLOTS_PER_ROW ? 1 : ROWS;
+
+
             for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-                int x = 1 + (int) (RECIPE_WIDTH / (float)ROWS + (SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f)));
-                int y = 1 + RECIPE_HEIGHT - SLOT_W * (ROWS - (slotId / SLOTS_PER_ROW));
+                int x = 1 + (int) (RECIPE_WIDTH / (float) ROWS + (SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f)));
+                int y = 1 + RECIPE_HEIGHT - SLOT_W * (r - (slotId / SLOTS_PER_ROW));
                 builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                         .addItemStacks(slotContents.get(slotId));
             }

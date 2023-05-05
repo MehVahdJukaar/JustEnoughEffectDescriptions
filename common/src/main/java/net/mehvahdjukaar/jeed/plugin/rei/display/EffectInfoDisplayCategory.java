@@ -98,7 +98,7 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
 
         widgets.add(new ScrollableTextWidget(new Rectangle(bounds.x + SIZE_DIFF,
                 rect2.getMaxY() + 1, bounds.width - 2 * SIZE_DIFF,
-                50 + EffectCategory.EMPTY_LIST_EXTRA_HEIGHT - listH), display.getComponents()));
+                50 + EffectCategory.MAX_BOX_HEIGHT - listH), display.getComponents()));
 
         if (listH != 0) {
 
@@ -132,55 +132,5 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
         return widgets;
 
     }
-
-    private static class EffectWidget extends WidgetWithBounds {
-
-        private final Rectangle bounds;
-        private final PaintingVariant painting;
-
-        public EffectWidget(Rectangle bounds, PaintingVariant paintingVariant) {
-            this.bounds = new Rectangle(Objects.requireNonNull(bounds));
-            this.painting = paintingVariant;
-        }
-
-        @Override
-        public void render(PoseStack poseStack, int i, int j, float f) {
-            //render painting
-            poseStack.pushPose();
-            poseStack.translate(bounds.getCenterX(), bounds.getCenterY(), 0);
-
-            poseStack.popPose();
-        }
-
-        @Override
-        public List<? extends GuiEventListener> children() {
-            return List.of();
-        }
-
-        @Override
-        public boolean isDragging() {
-            return false;
-        }
-
-        @Override
-        public void setDragging(boolean isDragging) {
-        }
-
-        @Nullable
-        @Override
-        public GuiEventListener getFocused() {
-            return null;
-        }
-
-        @Override
-        public void setFocused(@Nullable GuiEventListener focused) {
-        }
-
-        @Override
-        public Rectangle getBounds() {
-            return bounds;
-        }
-    }
-
 
 }
