@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jeed.plugin.jei.plugins;
+package net.mehvahdjukaar.jeed.plugin.jei;
 
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -14,12 +14,6 @@ import java.util.Optional;
 public abstract class InventoryScreenHandler<C extends AbstractContainerMenu, T extends EffectRenderingInventoryScreen<C>> implements IGuiContainerHandler<T>{
 
 
-    public static void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
-        var focus = JEIPlugin.JEI_HELPERS.getFocusFactory().createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT_INGREDIENT_TYPE, effect);
-
-        IRecipesGui recipesGui = JEIPlugin.JEI_RUNTIME.getRecipesGui();
-        recipesGui.show(focus);
-    }
 
     @Override
     public Optional<IClickableIngredient<?>> getClickableIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {

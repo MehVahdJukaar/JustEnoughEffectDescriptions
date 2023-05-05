@@ -2,14 +2,12 @@ package net.mehvahdjukaar.jeed;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.mehvahdjukaar.jeed.common.IPlugin;
-import net.mehvahdjukaar.jeed.compat.IModCompat;
+import net.mehvahdjukaar.jeed.compat.IInventoryScreenExtension;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.apache.logging.log4j.LogManager;
@@ -27,28 +25,10 @@ public class Jeed {
 
     public static final Logger LOGGER = LogManager.getLogger("Jeed");
 
-    public static final IModCompat MOD_COMPAT = initModCompat();
     public static IPlugin PLUGIN;
 
     public static ResourceLocation res(String name) {
         return new ResourceLocation(MOD_ID, name);
-    }
-
-    public static void init() {
-
-        //add here more mod compat for other mods that move effects
-
-        MOD_COMPAT.registerHandlers();
-
-
-        //TODO: check if this works with forge latest effect render event changes
-
-        //TODO: render mob as entities instead of spawn eggs
-    }
-
-    @ExpectPlatform
-    private static IModCompat initModCompat() {
-        throw new AssertionError();
     }
 
     @ExpectPlatform
@@ -88,11 +68,6 @@ public class Jeed {
 
     @ExpectPlatform
     public static boolean hasEffectColor() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
         throw new AssertionError();
     }
 

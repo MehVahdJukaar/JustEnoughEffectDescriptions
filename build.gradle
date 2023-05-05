@@ -41,7 +41,7 @@ subprojects {
 
     if (env.MODRINTH_TOKEN) {
         modrinth {
-            projectId = rootProject.mod_id
+            projectId = "just-enough-effect-descriptions-jeed"
             uploadFile = tasks.remapJar
             gameVersions = [rootProject.minecraft_version]
             loaders = [modLoader]

@@ -1,3 +1,2 @@
-- Added native REI support
-- Improved a bunch of little things
-- Works on Fabric and Forge with both mods
+- now works on servers
+- mod is required on both sides as it adds recipes

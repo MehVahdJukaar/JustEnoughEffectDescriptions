@@ -1,0 +1,12 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:bad_omen",
+  "providers": [
+    {
+      "item": "minecraft:pillager_spawn_egg"
+    },
+    {
+      "item": "minecraft:vindicator_spawn_egg"
+    }
+  ]
+}

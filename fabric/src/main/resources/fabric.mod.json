@@ -15,7 +15,7 @@
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
+    "main": [
       "net.mehvahdjukaar.jeed.fabric.JeedImpl"
     ],
     "rei_client": [

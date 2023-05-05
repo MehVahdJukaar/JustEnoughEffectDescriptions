@@ -1,10 +1,14 @@
 package net.mehvahdjukaar.jeed.compat;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.effect.MobEffectInstance;
 
-public interface IModCompat {
+//client class
+public interface IInventoryScreenExtension {
+
+    IInventoryScreenExtension INSTANCE = IInventoryScreenExtension.createInstance();
 
     default void registerHandlers() {
 
@@ -18,5 +22,11 @@ public interface IModCompat {
 
     default void handleEffectRenderTooltip(AbstractContainerScreen<?> screen, PoseStack matrixStack, int x, int y) {
 
+    }
+
+
+    @ExpectPlatform
+    static IInventoryScreenExtension createInstance() {
+        throw new AssertionError();
     }
 }

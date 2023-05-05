@@ -22,7 +22,7 @@ public class EffectInfoDisplay extends EffectInfo implements Display {
     protected EffectInfoDisplay(MobEffectInstance effectInstance, Component description) {
         super(effectInstance, List.of(description));
         this.inputEntries = inputItems.stream().map(EntryIngredients::of).toList();
-        this.outputEntries = List.of(EntryIngredient.of(EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, effectInstance)));
+        this.outputEntries = List.of(EntryIngredient.of(EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, effectInstance).normalize()));
         this.componentList = List.of(description);
     }
 

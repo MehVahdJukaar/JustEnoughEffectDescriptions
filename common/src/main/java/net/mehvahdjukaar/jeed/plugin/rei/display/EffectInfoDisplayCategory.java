@@ -25,6 +25,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -95,8 +96,7 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
                 .disableBackground()
                 .markInput().entry(display.getOutputEntries().get(0).get(0)));
 
-        widgets.add(new ScrollableTextWidget(new Rectangle(bounds.x+SIZE_DIFF, rect2.getMaxY(), bounds.width-2*SIZE_DIFF, 50), display.getComponents()));
-        //widgets.add(new TextBox(new Point(bounds.x, bounds.y+70), display.getDescription()));
+        widgets.add(new ScrollableTextWidget(new Rectangle(bounds.x+SIZE_DIFF, rect2.getMaxY()+1, bounds.width-2*SIZE_DIFF, 50), display.getComponents()));
 
         if (Jeed.hasIngredientList()) {
 

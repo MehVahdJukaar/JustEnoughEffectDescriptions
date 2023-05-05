@@ -16,8 +16,6 @@ import net.mehvahdjukaar.jeed.plugin.jei.display.EffectInfoRecipe;
 import net.mehvahdjukaar.jeed.plugin.jei.display.EffectRecipeCategory;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceHelper;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
-import net.mehvahdjukaar.jeed.plugin.jei.plugins.VanillaPlugin;
-import net.mehvahdjukaar.jeed.plugin.rei.display.EffectInfoDisplayCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -79,12 +77,14 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         //TODO:
+        //.addGuiContainerHandler(EffectRenderingInventoryScreen.class, new InventoryScreenHelper<>());
+
         //if (!Jeed.REI) VanillaPlugin.registerGuiHandlers(registration);
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        VanillaPlugin.registerRecipeCatalysts(registration);
+        //VanillaPlugin.registerRecipeCatalysts(registration);
     }
 
     @Override
@@ -104,6 +104,8 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     public int getMaxTextHeight() {
         return EffectCategory.RECIPE_HEIGHT;
     }
+
+
 
     //TODO: register keyword
 

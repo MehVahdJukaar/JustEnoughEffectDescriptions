@@ -4,9 +4,9 @@
   "package": "net.mehvahdjukaar.jeed.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "DisplayEffectScreenMixin"
   ],
   "mixins": [
-    "DisplayEffectScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

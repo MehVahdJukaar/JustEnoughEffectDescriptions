@@ -11,16 +11,11 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-public class NativeModCompat implements IModCompat {
-
-    @Override
-    public MobEffectInstance getHoveredEffect(AbstractContainerScreen<?> screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
-        return Jeed.getHoveredEffect(screen, mouseX, mouseY, ignoreIfSmall);
-    }
+public abstract class AbstractVanillaScreenExtension implements IInventoryScreenExtension {
 
     @Override
     public void handleEffectRenderTooltip(AbstractContainerScreen<?> screen, PoseStack matrixStack, int x, int y) {
-        MobEffectInstance effect = Jeed.getHoveredEffect(screen, x, y, true);
+        MobEffectInstance effect = getHoveredEffect(screen, x, y, true);
 
         TooltipFlag flag = Minecraft.getInstance().options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
         List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, false);
@@ -31,11 +26,12 @@ public class NativeModCompat implements IModCompat {
 
     @Override
     public boolean handleEffectMouseClicked(AbstractContainerScreen<?> screen, double x, double y, int activeButton) {
-        MobEffectInstance effect = Jeed.getHoveredEffect(screen, x, y, false);
+        MobEffectInstance effect = getHoveredEffect(screen, x, y, false);
         if (effect != null) {
             Jeed.PLUGIN.onClickedEffect(effect, x, y, activeButton);
             return true;
         }
         return false;
     }
+
 }
