@@ -19,6 +19,7 @@ import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.Items;
 
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class JEIPlugin implements IModPlugin, IPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        //VanillaPlugin.registerRecipeCatalysts(registration);
+        registration.addRecipeCatalyst(Items.POTION.getDefaultInstance(),EffectInfoRecipe.TYPE);
     }
 
     @Override

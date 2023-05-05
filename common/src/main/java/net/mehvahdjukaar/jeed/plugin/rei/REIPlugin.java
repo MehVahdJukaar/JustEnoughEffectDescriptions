@@ -1,11 +1,13 @@
 package net.mehvahdjukaar.jeed.plugin.rei;
 
 import dev.architectury.event.CompoundEventResult;
+import me.shedaniel.rei.REIModMenuEntryPoint;
 import me.shedaniel.rei.api.client.REIRuntime;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
+import me.shedaniel.rei.api.client.view.ViewSearchBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.EntryType;
@@ -67,16 +69,14 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
         }
     }
 
-
-
     @Override
     public void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
-
+        ViewSearchBuilder.builder().addRecipesFor(EntryStack.of(EFFECT_ENTRY_TYPE, effect)).open();
     }
 
     @Override
     public int getMaxTextWidth() {
-        return EffectCategory.RECIPE_WIDTH - EffectInfoDisplayCategory.SIZE_DIFF * 2;
+        return EffectInfoDisplayCategory.RECIPE_WIDTH - EffectInfoDisplayCategory.SIZE_DIFF * 2;
     }
 
     @Override
