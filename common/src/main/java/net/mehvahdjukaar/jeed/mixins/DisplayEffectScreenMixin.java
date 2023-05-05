@@ -1,8 +1,6 @@
 package net.mehvahdjukaar.jeed.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.compat.IInventoryScreenExtension;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.network.chat.Component;
@@ -19,7 +17,7 @@ public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> 
 
     @Override
     public boolean mouseClicked(double x, double y, int activeButton) {
-        if (IInventoryScreenExtension.INSTANCE.handleEffectMouseClicked(this, x, y, activeButton)) return true;
+      //  if (IInventoryScreenExtension.INSTANCE.handleEffectMouseClicked(this, x, y, activeButton)) return true;
 
         return super.mouseClicked(x, y, activeButton);
     }
@@ -27,7 +25,7 @@ public abstract class DisplayEffectScreenMixin<T extends AbstractContainerMenu> 
     @Override
     protected void renderTooltip(PoseStack matrixStack, int x, int y) {
         if (this.hoveredSlot == null && this.menu.getCarried().isEmpty()) {
-            IInventoryScreenExtension.INSTANCE.handleEffectRenderTooltip(this, matrixStack, x, y);
+         //   IInventoryScreenExtension.INSTANCE.handleEffectRenderTooltip(this, matrixStack, x, y);
         }
         super.renderTooltip(matrixStack, x, y);
 

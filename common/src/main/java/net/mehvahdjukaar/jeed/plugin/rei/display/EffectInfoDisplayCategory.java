@@ -11,8 +11,6 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
-import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.HSLColor;
@@ -25,7 +23,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.entity.monster.Pillager;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,9 +93,13 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
                 .disableBackground()
                 .markInput().entry(display.getOutputEntries().get(0).get(0)));
 
-        widgets.add(new ScrollableTextWidget(new Rectangle(bounds.x+SIZE_DIFF, rect2.getMaxY()+1, bounds.width-2*SIZE_DIFF, 50), display.getComponents()));
+        boolean hasList = Jeed.hasIngredientList() && !display.getInputEntries().isEmpty();
 
-        if (Jeed.hasIngredientList()) {
+        widgets.add(new ScrollableTextWidget(new Rectangle(bounds.x + SIZE_DIFF,
+                rect2.getMaxY() + 1, bounds.width - 2 * SIZE_DIFF,
+                hasList ? 50 : 50 + EffectCategory.EMPTY_LIST_EXTRA_HEIGHT), display.getComponents()));
+
+        if (hasList) {
 
             int w = 19;
             int slotsPerRow = 7;

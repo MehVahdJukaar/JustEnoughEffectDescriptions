@@ -35,20 +35,23 @@ public abstract class EffectInfo {
     protected final MobEffectInstance effect;
     protected final List<ItemStack> inputItems;
 
-    protected EffectInfo(MobEffectInstance effectInstance, List<FormattedText> description) {
+    protected EffectInfo(MobEffectInstance effectInstance, List<ItemStack> input, List<FormattedText> description) {
         this.description = description;
         this.effect = effectInstance;
-        this.inputItems = computeEffectProviders(effectInstance.getEffect()).stream()
-                .sorted(COMPARATOR).toList();
+        this.inputItems = input;
     }
 
     public static final Comparator<ItemStack> COMPARATOR = (o1, o2) -> {
         var r1 = Registry.ITEM.getKey(o1.getItem());
         var r2 = Registry.ITEM.getKey(o2.getItem());
-        if (r1.equals(r2)) {
-            return o1.getDisplayName().getString().compareTo(o2.getDisplayName().getString());
+        int i = r1.getNamespace().compareTo(r2.getNamespace());
+        if (i == 0) {
+            i = r1.getPath().compareTo(r1.getPath());
+            if(i == 0){
+                return o1.getDisplayName().getString().compareTo(o2.getDisplayName().getString());
+            }
         }
-        return r1.compareTo(r2);
+        return i;
     };
 
     public List<ItemStack> getInputItems() {
@@ -100,7 +103,7 @@ public abstract class EffectInfo {
         return effectProvidingItems;
     }
 
-    private static List<ItemStack> computeEffectProviders(MobEffect effect) {
+    public static List<ItemStack> computeEffectProviders(MobEffect effect) {
 
         ItemStackList list = new ItemStackList();
 
@@ -147,6 +150,7 @@ public abstract class EffectInfo {
         var stat = STATIC_CACHE.get().get(effect);
         if (stat != null) list.addAll(stat);
 
+        list.sort(COMPARATOR);
         return list;
     }
 

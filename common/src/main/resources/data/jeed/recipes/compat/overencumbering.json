@@ -1,0 +1,21 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "supplementaries",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "jeed:effect_provider",
+        "providers": [
+          {
+            "tag": "supplementaries:overencumbering"
+          }
+        ]
+      }
+    }
+  ]
+}

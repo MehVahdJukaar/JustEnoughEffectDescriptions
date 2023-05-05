@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.jeed.plugin.jei.ingredient;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.mehvahdjukaar.jeed.common.EffectRenderer;
 import net.minecraft.network.chat.Component;
@@ -19,7 +20,7 @@ public class EffectInstanceRenderer extends EffectRenderer implements IIngredien
 
     @Override
     public List<Component> getTooltip(MobEffectInstance effectInstance, TooltipFlag tooltipFlag) {
-        return this.getTooltipsWithDescription(effectInstance, tooltipFlag, false);
+        return getTooltipsWithDescription(effectInstance, tooltipFlag, false);
     }
 
     @Override

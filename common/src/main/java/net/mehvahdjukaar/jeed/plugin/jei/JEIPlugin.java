@@ -9,6 +9,7 @@ import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
+import mezz.jei.library.plugins.vanilla.VanillaPlugin;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.IPlugin;
@@ -16,6 +17,7 @@ import net.mehvahdjukaar.jeed.plugin.jei.display.EffectInfoRecipe;
 import net.mehvahdjukaar.jeed.plugin.jei.display.EffectRecipeCategory;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceHelper;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -77,10 +79,8 @@ public class JEIPlugin implements IModPlugin, IPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        //TODO:
-        //.addGuiContainerHandler(EffectRenderingInventoryScreen.class, new InventoryScreenHelper<>());
-
-        //if (!Jeed.REI) VanillaPlugin.registerGuiHandlers(registration);
+        //already handled by mixin
+       // registration.addGuiContainerHandler(EffectRenderingInventoryScreen.class, new InventoryScreenHandler<>());
     }
 
     @Override

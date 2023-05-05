@@ -10,6 +10,7 @@ import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class EffectInfoDisplay extends EffectInfo implements Display {
     private final List<EntryIngredient> outputEntries;
     private final List<Component> componentList;
 
-    protected EffectInfoDisplay(MobEffectInstance effectInstance, Component description) {
-        super(effectInstance, List.of(description));
+    protected EffectInfoDisplay(MobEffectInstance effectInstance, List<ItemStack> inputs, Component description) {
+        super(effectInstance, inputs, List.of(description));
         this.inputEntries = inputItems.stream().map(EntryIngredients::of).toList();
         this.outputEntries = List.of(EntryIngredient.of(EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, effectInstance).normalize()));
         this.componentList = List.of(description);
@@ -48,6 +49,6 @@ public class EffectInfoDisplay extends EffectInfo implements Display {
     public static EffectInfoDisplay create(MobEffect effect) {
         Component text = getDescription(effect);
 
-        return new EffectInfoDisplay(new MobEffectInstance(effect), text);
+        return new EffectInfoDisplay(new MobEffectInstance(effect), computeEffectProviders(effect), text);
     }
 }

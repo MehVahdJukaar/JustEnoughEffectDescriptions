@@ -1,12 +1,11 @@
 package net.mehvahdjukaar.jeed.plugin.rei;
 
 import dev.architectury.event.CompoundEventResult;
-import me.shedaniel.rei.REIModMenuEntryPoint;
-import me.shedaniel.rei.api.client.REIRuntime;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
+import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.client.view.ViewSearchBuilder;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
@@ -16,7 +15,7 @@ import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.forge.REIPluginClient;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.common.EffectCategory;
+import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.common.IPlugin;
 import net.mehvahdjukaar.jeed.plugin.rei.display.EffectInfoDisplay;
 import net.mehvahdjukaar.jeed.plugin.rei.display.EffectInfoDisplayCategory;
@@ -69,10 +68,6 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
         }
     }
 
-    @Override
-    public void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
-        ViewSearchBuilder.builder().addRecipesFor(EntryStack.of(EFFECT_ENTRY_TYPE, effect)).open();
-    }
 
     @Override
     public int getMaxTextWidth() {
@@ -83,4 +78,24 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
     public int getMaxTextHeight() {
         return 99999;
     }
+
+    @Override
+    public void registerScreens(ScreenRegistry registry) {
+        registry.registerFocusedStack((screen, mouse) -> {
+            var ext = ScreenExtensionsHandler.getExtension(screen);
+            if (ext != null) {
+                var e = ext.getEffectAtPosition(screen, mouse.x, mouse.y, false);
+                if (e != null) {
+                    return CompoundEventResult.interruptTrue(EntryStack.of(EFFECT_ENTRY_TYPE, e));
+                }
+            }
+            return CompoundEventResult.pass();
+        });
+    }
+
+    @Override
+    public void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
+        ViewSearchBuilder.builder().addRecipesFor(EntryStack.of(EFFECT_ENTRY_TYPE, effect).normalize()).open();
+    }
+
 }

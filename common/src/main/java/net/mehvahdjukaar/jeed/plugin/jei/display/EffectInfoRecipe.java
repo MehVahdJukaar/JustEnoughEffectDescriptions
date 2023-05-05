@@ -25,8 +25,8 @@ public class EffectInfoRecipe extends EffectInfo {
 
     public static final RecipeType<EffectInfoRecipe> TYPE = RecipeType.create(Jeed.MOD_ID, "effect_info", EffectInfoRecipe.class);
 
-    protected EffectInfoRecipe(MobEffectInstance effectInstance, List<FormattedText> description) {
-        super(effectInstance, description);
+    protected EffectInfoRecipe(MobEffectInstance effectInstance, List<ItemStack> input, List<FormattedText> description) {
+        super(effectInstance, input, description);
     }
 
     @Override
@@ -41,6 +41,7 @@ public class EffectInfoRecipe extends EffectInfo {
     public static List<EffectInfoRecipe> create(MobEffect effect) {
 
         Component text = getDescription(effect);
+        List<ItemStack> inputs = computeEffectProviders(effect);
 
         List<EffectInfoRecipe> recipes = new ArrayList<>();
         List<FormattedText> descriptionLines = expandNewlines(text);
@@ -48,7 +49,8 @@ public class EffectInfoRecipe extends EffectInfo {
         final int lineCount = descriptionLines.size();
 
         Minecraft minecraft = Minecraft.getInstance();
-        final int maxLinesPerPage = (Jeed.PLUGIN.getMaxTextHeight() - (Jeed.hasIngredientList() ? 80 : 0)) / (minecraft.font.lineHeight + EffectCategory.LINE_SPACING);
+        boolean hasList = Jeed.hasIngredientList() && !inputs.isEmpty();
+        final int maxLinesPerPage = (Jeed.PLUGIN.getMaxTextHeight() - (hasList ? EffectCategory.EMPTY_LIST_EXTRA_HEIGHT : 0)) / (minecraft.font.lineHeight + EffectCategory.LINE_SPACING);
         final int pageCount = divideCeil(lineCount, maxLinesPerPage);
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;

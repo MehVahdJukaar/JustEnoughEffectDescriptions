@@ -2,7 +2,6 @@ package net.mehvahdjukaar.jeed;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.mehvahdjukaar.jeed.common.IPlugin;
-import net.mehvahdjukaar.jeed.compat.IInventoryScreenExtension;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Registry;

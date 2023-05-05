@@ -39,22 +39,27 @@ public abstract class EffectRenderer {
         this.mc = Minecraft.getInstance();
         this.offset = offset;
     }
+
     public void render(PoseStack matrixStack, MobEffectInstance effectInstance) {
+        render(matrixStack, effectInstance, 0,0, 16,16);
+    }
+
+    public void render(PoseStack matrixStack, MobEffectInstance effectInstance, int x, int y, int width, int height) {
         MobEffect effect = effectInstance.getEffect();
 
         MobEffectTextureManager textures = mc.getMobEffectTextures();
         TextureAtlasSprite sprite = textures.get(effect);
 
-        render(matrixStack, sprite);
+        render(matrixStack, sprite, x,y, width,height);
     }
 
-    public void render(PoseStack matrixStack, TextureAtlasSprite sprite) {
+    public void render(PoseStack matrixStack, TextureAtlasSprite sprite, int x, int y, int width, int height) {
 
         RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, sprite.atlas().location());
         int o = offset ? -1 : 0;
-        GuiComponent.blit(matrixStack, o, o, 0, 18, 18, sprite);
+        GuiComponent.blit(matrixStack, x+o, y+o, 0, width+2, height+2, sprite);
 
         RenderSystem.applyModelViewMatrix();
     }

@@ -102,7 +102,12 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
             if (providers.isEmpty()) {
                 throw new JsonParseException("No effect providers for recipe");
             } else {
-                String effectID = GsonHelper.getAsString(json, "effect");
+                var v = json.get("effect");
+                String effectID;
+                if(v instanceof JsonObject jo){
+                    effectID = GsonHelper.getAsString(jo,"id");
+                }else effectID = v.getAsString();
+
                 MobEffect effect = null;
                 if (effectID != null && !effectID.equals("all") && !effectID.equals("minecraft:all")) {
                     effect = JsonHelper.getEffect(new ResourceLocation(effectID));
