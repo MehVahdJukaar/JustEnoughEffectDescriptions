@@ -116,8 +116,8 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
             }
 
             for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-                int x = 1 + (int) (RECIPE_WIDTH / 2f + (19f * ((slotId % 7) - 7 / 2f)));
-                int y = 1 + RECIPE_HEIGHT - 19 * (2 - (slotId / 7));
+                int x = 1 + (int) (RECIPE_WIDTH / (float)ROWS + (SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f)));
+                int y = 1 + RECIPE_HEIGHT - SLOT_W * (ROWS - (slotId / SLOTS_PER_ROW));
                 builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                         .addItemStacks(slotContents.get(slotId));
             }

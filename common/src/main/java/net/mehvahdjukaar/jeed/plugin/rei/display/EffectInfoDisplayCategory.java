@@ -11,8 +11,8 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
+import net.mehvahdjukaar.jeed.common.EffectInfo;
 import net.mehvahdjukaar.jeed.common.HSLColor;
 import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -93,53 +93,42 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
                 .disableBackground()
                 .markInput().entry(display.getOutputEntries().get(0).get(0)));
 
-        boolean hasList = Jeed.hasIngredientList() && !display.getInputEntries().isEmpty();
+        List<ItemStack> inputItems = display.getInputItems();
+        int listH = EffectInfo.getListHeight(inputItems);
 
         widgets.add(new ScrollableTextWidget(new Rectangle(bounds.x + SIZE_DIFF,
                 rect2.getMaxY() + 1, bounds.width - 2 * SIZE_DIFF,
-                hasList ? 50 : 50 + EffectCategory.EMPTY_LIST_EXTRA_HEIGHT), display.getComponents()));
+                50 + EffectCategory.EMPTY_LIST_EXTRA_HEIGHT - listH), display.getComponents()));
 
-        if (hasList) {
-
-            int w = 19;
-            int slotsPerRow = 7;
-            int rows = 2;
-            widgets.add(Widgets.createSlotBase(new Rectangle(bounds.x + (int) (bounds.width / 2f - (w * slotsPerRow) / 2f),
-                    bounds.getMaxY() - w * rows - 7, slotsPerRow * w + 1, rows * w + 1)));
+        if (listH != 0) {
 
 
             List<List<EntryStack<?>>> slotContents = new ArrayList<>();
-            List<ItemStack> compatible = display.getInputItems();
 
-            for (int slotId = 0; slotId < compatible.size(); slotId++) {
+            for (int slotId = 0; slotId < inputItems.size(); slotId++) {
 
-                int ind = slotId % (slotsPerRow * rows);
+                int ind = slotId % (SLOTS_PER_ROW * ROWS);
                 if (slotContents.size() <= ind) slotContents.add(new ArrayList<>());
-                slotContents.get(ind).add(EntryStacks.of((compatible.get(slotId))));
+                slotContents.get(ind).add(EntryStacks.of((inputItems.get(slotId))));
             }
+
+            int r = slotContents.size() <= SLOTS_PER_ROW ? 1 : ROWS;
+
+            widgets.add(Widgets.createSlotBase(new Rectangle(bounds.x + (int) (bounds.width / 2f - (SLOT_W * SLOTS_PER_ROW) / 2f),
+                    bounds.getMaxY() - SLOT_W * r - 7, SLOTS_PER_ROW * SLOT_W + 1, r * SLOT_W + 1)));
+
 
             for (int slotId = 0; slotId < slotContents.size(); slotId++) {
                 var v = slotContents.get(slotId);
                 if (v == null) break;
-                widgets.add(Widgets.createSlot(new Point(2 + bounds.x + (int) (bounds.width / 2f - (w * slotsPerRow) / 2f + (w * (slotId % slotsPerRow))),
-                                2 + bounds.getMaxY() - w * rows + w * (slotId / slotsPerRow) - 7))
+                widgets.add(Widgets.createSlot(new Point(
+                                2 + bounds.x + (int) (bounds.width / 2f - (SLOT_W * SLOTS_PER_ROW) / 2f + (SLOT_W * (slotId % SLOTS_PER_ROW))),
+                                2 + bounds.getMaxY() - SLOT_W * r + SLOT_W * (slotId / SLOTS_PER_ROW) - 7))
                         .disableBackground()
                         .entries(v));
             }
         }
 
-        /*
-        widgets.add(new PaintingWidget(bounds, display.getPainting()));
-
-
-        MutableComponent name = (MutableComponent) display.getName();
-        name.setStyle(Style.EMPTY.withBold(true));
-        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), bounds.getY() + 6), name));
-
-        widgets.add(Widgets.createLabel(new Point(bounds.getCenterX(), bounds.getMaxY() - 8 - 6), display.getDescription())
-                .noShadow()
-                .color(0xFF404040, 0xFFBBBBBB));
-*/
         return widgets;
 
     }

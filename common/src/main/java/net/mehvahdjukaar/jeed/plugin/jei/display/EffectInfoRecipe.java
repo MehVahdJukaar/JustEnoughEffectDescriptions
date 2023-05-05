@@ -39,30 +39,30 @@ public class EffectInfoRecipe extends EffectInfo {
     }
 
     public static List<EffectInfoRecipe> create(MobEffect effect) {
-
+        Minecraft minecraft = Minecraft.getInstance();
         Component text = getDescription(effect);
         List<ItemStack> inputs = computeEffectProviders(effect);
+
+        int listH = getListHeight(inputs);
 
         List<EffectInfoRecipe> recipes = new ArrayList<>();
         List<FormattedText> descriptionLines = expandNewlines(text);
         descriptionLines = wrapDescriptionLines(descriptionLines);
         final int lineCount = descriptionLines.size();
 
-        Minecraft minecraft = Minecraft.getInstance();
-        boolean hasList = Jeed.hasIngredientList() && !inputs.isEmpty();
-        final int maxLinesPerPage = (Jeed.PLUGIN.getMaxTextHeight() - (hasList ? EffectCategory.EMPTY_LIST_EXTRA_HEIGHT : 0)) / (minecraft.font.lineHeight + EffectCategory.LINE_SPACING);
+
+        final int maxLinesPerPage = (EffectCategory.RECIPE_HEIGHT - listH) / (minecraft.font.lineHeight + EffectCategory.LINE_SPACING);
         final int pageCount = divideCeil(lineCount, maxLinesPerPage);
         for (int i = 0; i < pageCount; i++) {
             int startLine = i * maxLinesPerPage;
             int endLine = Math.min((i + 1) * maxLinesPerPage, lineCount);
             List<FormattedText> description = descriptionLines.subList(startLine, endLine);
-            EffectInfoRecipe recipe = new EffectInfoRecipe(new MobEffectInstance(effect), description);
+            EffectInfoRecipe recipe = new EffectInfoRecipe(new MobEffectInstance(effect), inputs, description);
             recipes.add(recipe);
         }
 
         return recipes;
     }
-
 
     private static int divideCeil(int numerator, int denominator) {
         return (int) Math.ceil((float) numerator / (float) denominator);

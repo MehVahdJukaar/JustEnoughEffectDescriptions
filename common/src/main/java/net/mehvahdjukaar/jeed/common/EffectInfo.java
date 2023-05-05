@@ -182,4 +182,15 @@ public abstract class EffectInfo {
         if (text.getString().equals(descriptionKey)) text = Component.translatable("jeed.description.missing");
         return text;
     }
+
+    public static int getListHeight(List<ItemStack> inputs) {
+        int listH = 0;
+        if (Jeed.hasIngredientList() && !inputs.isEmpty()) {
+            listH = EffectCategory.EMPTY_LIST_EXTRA_HEIGHT;
+            if (inputs.size() <= EffectCategory.SLOTS_PER_ROW) {
+                listH /= 2;
+            }
+        }
+        return listH;
+    }
 }

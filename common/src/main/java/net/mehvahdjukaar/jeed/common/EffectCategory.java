@@ -7,6 +7,9 @@ public abstract class EffectCategory {
     public static final int RECIPE_HEIGHT = 125;
     public static final int LINE_SPACING = 2;
     public static final int EMPTY_LIST_EXTRA_HEIGHT = 80;
+    public static final int SLOT_W = 19;
+    public static final int ROWS = 2;
+    public static final int SLOTS_PER_ROW = 7;
 
     protected static final int Y_OFFSET = 12;
 
