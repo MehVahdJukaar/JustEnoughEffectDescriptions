@@ -1,34 +1,30 @@
 package net.mehvahdjukaar.jeed.plugin.rei.display;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.gui.widgets.Slot;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
-import me.shedaniel.rei.api.client.gui.widgets.WidgetWithBounds;
 import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.EffectInfo;
 import net.mehvahdjukaar.jeed.common.HSLColor;
 import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class EffectInfoDisplayCategory extends EffectCategory implements DisplayCategory<EffectInfoDisplay> {
 
@@ -114,18 +110,25 @@ public class EffectInfoDisplayCategory extends EffectCategory implements Display
 
             int r = slotContents.size() <= SLOTS_PER_ROW ? 1 : ROWS;
 
-            widgets.add(Widgets.createSlotBase(new Rectangle(bounds.x + (int) (bounds.width / 2f - (SLOT_W * SLOTS_PER_ROW) / 2f),
-                    bounds.getMaxY() - SLOT_W * r - 7, SLOTS_PER_ROW * SLOT_W + 1, r * SLOT_W + 1)));
+            boolean renderSlots = Jeed.rendersSlots();
+            if (!renderSlots) {
+                widgets.add(Widgets.createSlotBase(new Rectangle(bounds.x + (int) (bounds.width / 2f - (SLOT_W * SLOTS_PER_ROW) / 2f),
+                        bounds.getMaxY() - SLOT_W * r - 7, SLOTS_PER_ROW * SLOT_W + 1, r * SLOT_W + 1)));
+            }
 
+            int size = renderSlots ? SLOTS_PER_ROW * (slotContents.size() < SLOTS_PER_ROW ? 1 : ROWS) : slotContents.size();
 
-            for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-                var v = slotContents.get(slotId);
-                if (v == null) break;
-                widgets.add(Widgets.createSlot(new Point(
-                                2 + bounds.x + (int) (bounds.width / 2f - (SLOT_W * SLOTS_PER_ROW) / 2f + (SLOT_W * (slotId % SLOTS_PER_ROW))),
-                                2 + bounds.getMaxY() - SLOT_W * r + SLOT_W * (slotId / SLOTS_PER_ROW) - 7))
-                        .disableBackground()
-                        .entries(v));
+            for (int slotId = 0; slotId < size; slotId++) {
+                Slot slot = Widgets.createSlot(new Point(
+                        2 + bounds.x + (int) (bounds.width / 2f - (SLOT_W * SLOTS_PER_ROW) / 2f + (SLOT_W * (slotId % SLOTS_PER_ROW))),
+                        2 + bounds.getMaxY() - SLOT_W * r + SLOT_W * (slotId / SLOTS_PER_ROW) - 7));
+
+                if (!renderSlots) slot.disableBackground();
+                if (slotId < slotContents.size()) {
+                    var v = slotContents.get(slotId);
+                    slot.entries(v);
+                }
+                widgets.add(slot);
             }
         }
 

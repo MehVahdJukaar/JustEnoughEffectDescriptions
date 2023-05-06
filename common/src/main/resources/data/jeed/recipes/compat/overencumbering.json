@@ -1,21 +1,23 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "fabric:load_conditions": [
     {
-      "conditions": [
-        {
-          "modid": "supplementaries",
-          "type": "forge:mod_loaded"
-        }
-      ],
-      "recipe": {
-        "type": "jeed:effect_provider",
-        "providers": [
-          {
-            "tag": "supplementaries:overencumbering"
-          }
-        ]
-      }
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "supplementaries"
+      ]
     }
-  ]
+  ],
+  "conditions": [
+    {
+      "modid": "supplementaries",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "type": "jeed:effect_provider",
+  "providers": [
+    {
+      "tag": "supplementaries:overencumbering"
+    }
+  ],
+  "effect": "supplementaries:overencumbered"
 }

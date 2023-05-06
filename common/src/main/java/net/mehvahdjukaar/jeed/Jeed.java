@@ -70,10 +70,18 @@ public class Jeed {
         throw new AssertionError();
     }
 
+    @ExpectPlatform
+    public static boolean rendersSlots() {
+        throw new AssertionError();
+    }
+
+
     public static List<MobEffect> getEffectList() {
         return Registry.MOB_EFFECT.stream()
                 .filter(e -> !Jeed.getHiddenEffects().contains(Registry.MOB_EFFECT.getKey(e).toString()))
                 .toList();
     }
+
+    //TODO: effect icons tooltip in potions
 
 }

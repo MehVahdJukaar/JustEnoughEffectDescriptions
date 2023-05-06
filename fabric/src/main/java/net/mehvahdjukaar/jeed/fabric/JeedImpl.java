@@ -82,4 +82,8 @@ public class JeedImpl implements ModInitializer {
             JeedClient.init();
         }
     }
+
+    public static boolean rendersSlots() {
+        return false;
+    }
 }

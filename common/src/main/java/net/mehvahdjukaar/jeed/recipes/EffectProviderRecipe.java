@@ -103,6 +103,9 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
                 throw new JsonParseException("No effect providers for recipe");
             } else {
                 var v = json.get("effect");
+                if(v == null){
+                    throw new JsonParseException("Missing effect for recipe");
+                }
                 String effectID;
                 if(v instanceof JsonObject jo){
                     effectID = GsonHelper.getAsString(jo,"id");

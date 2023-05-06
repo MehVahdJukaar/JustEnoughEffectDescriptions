@@ -1,21 +1,22 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "fabric:load_conditions": [
     {
-      "conditions": [
-        {
-          "modid": "supplementaries",
-          "type": "forge:mod_loaded"
-        }
-      ],
-      "recipe": {
-        "type": "jeed:potion_provider",
-        "providers": [
-          {
-            "item": "supplementaries:bamboo_spikes_tipped"
-          }
-        ]
-      }
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "supplementaries"
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "modid": "supplementaries",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "type": "jeed:potion_provider",
+  "providers": [
+    {
+      "item": "supplementaries:bamboo_spikes_tipped"
     }
   ]
 }

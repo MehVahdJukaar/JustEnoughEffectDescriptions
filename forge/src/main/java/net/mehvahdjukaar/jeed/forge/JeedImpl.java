@@ -1,9 +1,6 @@
 package net.mehvahdjukaar.jeed.forge;
 
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
-import net.mehvahdjukaar.jeed.compat.forge.NativeCompat;
-import net.mehvahdjukaar.jeed.compat.forge.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -43,18 +40,12 @@ public class JeedImpl {
         createConfigs();
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            //credits to Fuzss for all the Stylish Effects mod compat
-            if (ModList.get().isLoaded("stylisheffects")) {
-                StylishEffectsCompat.init();
-            } else {
-                NativeCompat.init();
-            }
             JeedClient.init();
-
         }
     }
 
     private static ForgeConfigSpec.BooleanValue effectBox;
+    private static ForgeConfigSpec.BooleanValue renderSlots;
     private static ForgeConfigSpec.BooleanValue ingredientsList;
     private static ForgeConfigSpec.BooleanValue effectColor;
     private static ForgeConfigSpec.ConfigValue<List<? extends String>> hiddenEffects;
@@ -86,7 +77,8 @@ public class JeedImpl {
                 .defineList("hidden_effects", Collections.singletonList(""), String.class::isInstance);
         ingredientsList = builder.comment("Show ingredients list along with an effect description")
                 .define("ingredients_list", true);
-
+        renderSlots = builder.comment("Renders individual slots instead of a big one. Only works for REI")
+                .define("render_slots", false);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, builder.build());
     }
 
@@ -121,6 +113,10 @@ public class JeedImpl {
 
     public static boolean hasEffectColor() {
         return effectColor.get();
+    }
+
+    public static boolean rendersSlots() {
+        return renderSlots.get();
     }
 
 
