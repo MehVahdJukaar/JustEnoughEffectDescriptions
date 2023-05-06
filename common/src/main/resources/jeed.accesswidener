@@ -4,4 +4,8 @@ accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScr
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen imageWidth I
 accessible field net/minecraft/world/effect/MobEffectInstance hiddenEffect Lnet/minecraft/world/effect/MobEffectInstance;
+accessible field net/minecraft/client/gui/screens/inventory/BeaconScreen beaconButtons Ljava/util/List;
+accessible class net/minecraft/client/gui/screens/inventory/BeaconScreen$BeaconPowerButton
+accessible class net/minecraft/client/gui/screens/inventory/BeaconScreen$BeaconButton
+accessible field net/minecraft/client/gui/screens/inventory/BeaconScreen$BeaconPowerButton effect Lnet/minecraft/world/effect/MobEffect;
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;

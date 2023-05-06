@@ -11,11 +11,15 @@ public interface IEffectScreenExtension<T extends Screen> {
 
     IEffectScreenExtension NO_OP = (screen, mouseX, mouseY, isForTooltip) -> null;
 
-    /**
-     * @param isForTooltip true if this was called to render the tooltip. false if was called when clicked
-     * @return effect at this position
-     */
     @Nullable
-    MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, boolean isForTooltip);
+    MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, CallReason callReason);
+
+    enum CallReason {
+        TOOLTIP, RECIPE_KEY, MOUSE_CLICKED;
+
+        public boolean isForRender() {
+            return this == TOOLTIP;
+        }
+    }
 
 }

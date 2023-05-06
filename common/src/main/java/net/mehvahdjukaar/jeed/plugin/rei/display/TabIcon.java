@@ -25,7 +25,8 @@ public class TabIcon implements Renderer {
         RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, resource);
-        GuiComponent.blit(matrices, bounds.x, bounds.y, z, 0, 0, bounds.width, bounds.height, 16, 16);
+        matrices.translate(0.5,0,0);
+        GuiComponent.blit(matrices, bounds.x, bounds.y, z, 0, 0, bounds.width-1, bounds.height, 15, 16);
 
         RenderSystem.applyModelViewMatrix();
     }

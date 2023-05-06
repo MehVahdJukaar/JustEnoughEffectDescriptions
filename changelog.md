@@ -1,2 +1,9 @@
-- now works on servers
-- mod is required on both sides as it adds recipes
+- Effects in inventory screen are now clickable (both R, U or mouse click)
+- They also show their correct tooltip
+- Added API for mods to register screen extensions for their screens to tell JEED where mob effects are rendered
+- Updated and improved Stylish Effects integration
+- Recipe window will only show the slots it needs, leaving more space for the description when they are empty
+- Effects in beacon screen can now be clicked
+- Fixed slots being misaligned in JEI addon
+- Fixed icon being squished and misaligned for REI addon
+- mod no longer uses any mixins

@@ -49,7 +49,7 @@ public class JeedImpl {
             } else {
                 NativeCompat.init();
             }
-            ScreenExtensionsHandler.init();
+            JeedClient.init();
 
         }
     }

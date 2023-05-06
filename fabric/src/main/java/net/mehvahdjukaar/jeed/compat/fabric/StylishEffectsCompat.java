@@ -24,10 +24,12 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
             Jeed.PLUGIN.onClickedEffect(evt.effectInstance(), x, y, button);
             return true;
         });
-
         MobEffectWidgetEvents.TOOLTIP.register((evt, lines, flag) -> {
-            //lines.clear();
+            if (!flag.isAdvanced()) {
+                lines.remove(lines.size() - 1);
+            }
             List<Component> newTooltip = EffectRenderer.getTooltipsWithDescription(evt.effectInstance(), flag, false);
+            newTooltip.remove(0);
             lines.addAll(newTooltip);
         });
 
@@ -38,8 +40,8 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
 
     @Nullable
     @Override
-    public MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, boolean isForTooltip) {
-        if (isForTooltip) return null;
+    public MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, CallReason reason) {
+        if (reason != CallReason.RECIPE_KEY) return null;
         return StylishEffectsClientApi.getEffectScreenHandler().getInventoryHoveredEffect(screen, mouseX, mouseY)
                 .map(MobEffectWidgetContext::effectInstance)
                 .orElse(null);

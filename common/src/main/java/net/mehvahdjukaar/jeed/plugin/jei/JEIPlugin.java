@@ -8,11 +8,9 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.registration.*;
-import mezz.jei.api.runtime.IClickableIngredient;
 import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
-import mezz.jei.common.input.ClickableIngredient;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
@@ -30,7 +28,6 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Author: MehVahdJukaar
@@ -95,9 +92,9 @@ public class JEIPlugin implements IModPlugin, IPlugin {
         }
     }
 
-    public  static  class ScreenExtension<T extends  AbstractContainerScreen<?>> implements IGuiContainerHandler<T>{
+    public static class ScreenExtension<T extends AbstractContainerScreen<?>> implements IGuiContainerHandler<T> {
 
-        private  final IEffectScreenExtension<T> ext;
+        private final IEffectScreenExtension<T> ext;
 
         public ScreenExtension(IEffectScreenExtension<T> ext) {
             this.ext = ext;
@@ -105,13 +102,13 @@ public class JEIPlugin implements IModPlugin, IPlugin {
 
         @Override
         public @Nullable Object getIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
-            return ext.getEffectAtPosition(containerScreen, mouseX,mouseY,false);
+            return ext.getEffectAtPosition(containerScreen, mouseX, mouseY, IEffectScreenExtension.CallReason.RECIPE_KEY);
         }
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(Items.POTION.getDefaultInstance(),EffectInfoRecipe.TYPE);
+        registration.addRecipeCatalyst(Items.POTION.getDefaultInstance(), EffectInfoRecipe.TYPE);
     }
 
     @Override

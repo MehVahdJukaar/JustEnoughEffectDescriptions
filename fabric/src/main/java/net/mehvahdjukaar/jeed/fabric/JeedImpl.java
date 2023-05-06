@@ -4,7 +4,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.common.fabric.ScreenExtensionsHandlerImpl;
 import net.mehvahdjukaar.jeed.compat.fabric.NativeCompat;
 import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
@@ -80,15 +79,7 @@ public class JeedImpl implements ModInitializer {
         }
 
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            ScreenExtensionsHandlerImpl.init();
-
-            //credits to Fuzss for all the Stylish Effects mod compat
-            if (FabricLoader.getInstance().isModLoaded("stylisheffects")) {
-                StylishEffectsCompat.init();
-            } else {
-                NativeCompat.init();
-            }
-
+            JeedClient.init();
         }
     }
 }

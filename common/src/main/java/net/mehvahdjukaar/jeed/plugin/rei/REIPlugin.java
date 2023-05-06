@@ -15,6 +15,7 @@ import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.forge.REIPluginClient;
 import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.common.IPlugin;
 import net.mehvahdjukaar.jeed.plugin.rei.display.EffectInfoDisplay;
@@ -79,7 +80,7 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
         registry.registerFocusedStack((screen, mouse) -> {
             var ext = ScreenExtensionsHandler.getExtension(screen);
             if (ext != null) {
-                var e = ext.getEffectAtPosition(screen, mouse.x, mouse.y, false);
+                var e = ext.getEffectAtPosition(screen, mouse.x, mouse.y, IEffectScreenExtension.CallReason.RECIPE_KEY);
                 if (e != null) {
                     return CompoundEventResult.interruptTrue(EntryStack.of(EFFECT_ENTRY_TYPE, e));
                 }

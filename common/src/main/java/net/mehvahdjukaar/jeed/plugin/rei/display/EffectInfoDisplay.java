@@ -12,6 +12,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EffectInfoDisplay extends EffectInfo implements Display {
@@ -22,8 +23,10 @@ public class EffectInfoDisplay extends EffectInfo implements Display {
 
     protected EffectInfoDisplay(MobEffectInstance effectInstance, List<ItemStack> inputs, Component description) {
         super(effectInstance, inputs, List.of(description));
-        this.inputEntries = inputItems.stream().map(EntryIngredients::of).toList();
+        var list = new ArrayList<>(inputItems.stream().map(EntryIngredients::of).toList());
         this.outputEntries = List.of(EntryIngredient.of(EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, effectInstance).normalize()));
+        list.addAll(outputEntries);
+        this.inputEntries = list.stream().toList();
         this.componentList = List.of(description);
     }
 
