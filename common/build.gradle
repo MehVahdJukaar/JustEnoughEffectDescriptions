@@ -9,6 +9,7 @@ loom {
 dependencies {
 
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modCompileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:9.+"
 
     modCompileOnly("curse.maven:jei-238222:4405345")
     //modCompileOnly("curse.maven:roughly-enough-items-310111:4357860")

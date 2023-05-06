@@ -89,7 +89,7 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
             if (size != 0) {
                 int maxSlots = size <= SLOTS_PER_ROW ? SLOTS_PER_ROW : SLOTS_PER_ROW * ROWS;
                 for (int slotId = 0; slotId < maxSlots; slotId++) {
-                    this.slotBackground.draw(matrixStack, (int) (RECIPE_WIDTH / 2f + ((float) SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f))),
+                    this.slotBackground.draw(matrixStack, 1+(int) (RECIPE_WIDTH / 2f + ((float) SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f))),
                             RECIPE_HEIGHT - SLOT_W * (1 + slotId / SLOTS_PER_ROW));
                 }
             }
@@ -129,7 +129,7 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
 
 
             for (int slotId = 0; slotId < slotContents.size(); slotId++) {
-                int x = 1 + (int) (RECIPE_WIDTH / (float) ROWS + (SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f)));
+                int x = 2 + (int) (RECIPE_WIDTH / (float) ROWS + (SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f)));
                 int y = 1 + RECIPE_HEIGHT - SLOT_W * (r - (slotId / SLOTS_PER_ROW));
                 builder.addSlot(RecipeIngredientRole.INPUT, x, y)
                         .addItemStacks(slotContents.get(slotId));

@@ -1,33 +1,41 @@
 package net.mehvahdjukaar.jeed.plugin.jei;
 
+import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.registration.*;
+import mezz.jei.api.runtime.IClickableIngredient;
 import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
-import mezz.jei.library.plugins.vanilla.VanillaPlugin;
+import mezz.jei.common.input.ClickableIngredient;
 import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
 import net.mehvahdjukaar.jeed.common.IPlugin;
+import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.plugin.jei.display.EffectInfoRecipe;
 import net.mehvahdjukaar.jeed.plugin.jei.display.EffectRecipeCategory;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceHelper;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
-import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Author: MehVahdJukaar
  */
+@REIPluginCompatIgnore
 @JeiPlugin
 public class JEIPlugin implements IModPlugin, IPlugin {
 
@@ -76,11 +84,29 @@ public class JEIPlugin implements IModPlugin, IPlugin {
         }
     }
 
-
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        //already handled by mixin
-       // registration.addGuiContainerHandler(EffectRenderingInventoryScreen.class, new InventoryScreenHandler<>());
+        for (var e : ScreenExtensionsHandler.EXTENSIONS.entrySet()) {
+            Class<? extends AbstractContainerScreen<?>> screenClass = (Class<? extends AbstractContainerScreen<?>>) e.getKey();
+            IEffectScreenExtension<AbstractContainerScreen<?>> effect = (IEffectScreenExtension<AbstractContainerScreen<?>>) e.getValue();
+            ScreenExtension<AbstractContainerScreen<?>> extension = new ScreenExtension<>(effect);
+
+            registration.addGuiContainerHandler(screenClass, extension);
+        }
+    }
+
+    public  static  class ScreenExtension<T extends  AbstractContainerScreen<?>> implements IGuiContainerHandler<T>{
+
+        private  final IEffectScreenExtension<T> ext;
+
+        public ScreenExtension(IEffectScreenExtension<T> ext) {
+            this.ext = ext;
+        }
+
+        @Override
+        public @Nullable Object getIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
+            return ext.getEffectAtPosition(containerScreen, mouseX,mouseY,false);
+        }
     }
 
     @Override

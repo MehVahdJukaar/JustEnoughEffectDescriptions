@@ -1,6 +1,7 @@
 package net.mehvahdjukaar.jeed.forge;
 
 import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.compat.forge.NativeCompat;
 import net.mehvahdjukaar.jeed.compat.forge.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
@@ -48,6 +49,7 @@ public class JeedImpl {
             } else {
                 NativeCompat.init();
             }
+            ScreenExtensionsHandler.init();
 
         }
     }

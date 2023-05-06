@@ -1,10 +1,17 @@
 package net.mehvahdjukaar.jeed.common;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.TooltipFlag;
 
+import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ScreenExtensionsHandler {
@@ -36,5 +43,16 @@ public class ScreenExtensionsHandler {
     @ExpectPlatform
     public static void init(){
         throw new AssertionError();
+    }
+
+
+    public static void renderEffectTooltip(@Nullable MobEffectInstance effect, Screen screen, PoseStack matrixStack, int x, int y) {
+        if (effect != null) {
+            TooltipFlag flag = Minecraft.getInstance().options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
+            List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, false);
+            if (!tooltip.isEmpty()) {
+                screen.renderComponentTooltip(matrixStack, tooltip, x, y);
+            }
+        }
     }
 }

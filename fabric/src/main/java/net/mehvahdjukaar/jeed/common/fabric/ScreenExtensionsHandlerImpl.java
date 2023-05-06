@@ -27,7 +27,7 @@ public class ScreenExtensionsHandlerImpl {
                     if (ext != null) {
                         ScreenEvents.afterRender(screen).register((screen1, matrices, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, true);
-                            renderEffectTooltip(effect, screen1, matrices, mouseX, mouseY);
+                            ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, matrices, mouseX, mouseY);
                         });
                     }
                 }
@@ -35,15 +35,6 @@ public class ScreenExtensionsHandlerImpl {
     }
 
 
-    public static void renderEffectTooltip(@Nullable MobEffectInstance effect, Screen screen, PoseStack matrixStack, int x, int y) {
-        if (effect != null) {
-            TooltipFlag flag = Minecraft.getInstance().options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
-            List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, false);
-            if (!tooltip.isEmpty()) {
-                screen.renderComponentTooltip(matrixStack, tooltip, x, y);
-            }
-        }
-    }
 
 
 

@@ -1,10 +1,14 @@
 package net.mehvahdjukaar.jeed.common.forge;
 
+import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
-import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import java.util.function.Consumer;
 
 public class ScreenExtensionsHandlerImpl {
 
@@ -14,25 +18,49 @@ public class ScreenExtensionsHandlerImpl {
     }
 
     @SubscribeEvent
-    public static void onScreenInit(ScreenEvent.Init event){
-        if(event.getScreen() instanceof EffectRenderingInventoryScreen){
-            MinecraftForge.EVENT_BUS.register(TOOLTIP_RENDERER);
+    public static void onScreenInit(ScreenEvent.Init event) {
+        isEvScreen = false;
+        var ext = ScreenExtensionsHandler.getExtension(event.getScreen());
+        if (ext != null) {
+            MinecraftForge.EVENT_BUS.addListener(new Ev<>(ext, event.getScreen()));
+            isEvScreen = true;
         }
     }
 
     @SubscribeEvent
-    public static void onScreenClose(ScreenEvent.Closing event){
-        if(event.getScreen() instanceof EffectRenderingInventoryScreen){
-            MinecraftForge.EVENT_BUS.unregister(TOOLTIP_RENDERER);
+    public static void onScreenClose(ScreenEvent.MouseButtonPressed event) {
+        if (isEvScreen) {
+            var ext = ScreenExtensionsHandler.getExtension(event.getScreen());
+            if (ext != null) {
+                var eff = ext.getEffectAtPosition(event.getScreen(), event.getMouseX(), event.getMouseY(), false);
+                if (eff != null) {
+                    Jeed.PLUGIN.onClickedEffect(eff, event.getMouseX(), event.getMouseY(), event.getButton());
+                }
+            }
         }
     }
 
-    public static final Object TOOLTIP_RENDERER = new Object(){
-        @SubscribeEvent
-        public static void renderEffectTooltips(ScreenEvent.Render event){
-            int aa = 1;
+    private static boolean isEvScreen = false;
+
+    private static class Ev<T extends Screen> implements Consumer<ScreenEvent.Render> {
+        private final IEffectScreenExtension<T> ex;
+        private final T screen;
+
+        private Ev(IEffectScreenExtension<T> ex, T screen) {
+            this.ex = ex;
+            this.screen = screen;
         }
-    };
+
+        @Override
+        public void accept(ScreenEvent.Render event) {
+            if (!isEvScreen) {
+                MinecraftForge.EVENT_BUS.unregister(this);
+            } else {
+                var effect = ex.getEffectAtPosition(screen, event.getMouseX(), event.getMouseY(), true);
+                ScreenExtensionsHandler.renderEffectTooltip(effect, screen, event.getPoseStack(), event.getMouseX(), event.getMouseY());
+            }
+        }
+    }
 
 
 }

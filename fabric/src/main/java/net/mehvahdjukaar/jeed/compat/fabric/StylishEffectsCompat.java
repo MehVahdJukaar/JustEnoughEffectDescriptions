@@ -6,7 +6,7 @@ import fuzs.stylisheffects.api.client.event.MobEffectWidgetEvents;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.api.JeedAPI;
-import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
+import net.mehvahdjukaar.jeed.common.EffectRenderer;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
@@ -24,12 +24,12 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
             Jeed.PLUGIN.onClickedEffect(evt.effectInstance(), x, y, button);
             return true;
         });
-        /*
+
         MobEffectWidgetEvents.TOOLTIP.register((evt, lines, flag) -> {
-            lines.clear();
-            List<Component> newTooltip = EffectInstanceRenderer.getTooltipsWithDescription(evt.effectInstance(), flag, false);
+            //lines.clear();
+            List<Component> newTooltip = EffectRenderer.getTooltipsWithDescription(evt.effectInstance(), flag, false);
             lines.addAll(newTooltip);
-        });*/
+        });
 
         JeedAPI.registerScreenExtension(EffectRenderingInventoryScreen.class, new StylishEffectsCompat<>());
         JeedAPI.registerScreenExtension(InventoryScreen.class, new StylishEffectsCompat<>());
@@ -38,9 +38,9 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
 
     @Nullable
     @Override
-    public MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, boolean ignoreIfSmall) {
+    public MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, boolean isForTooltip) {
+        if (isForTooltip) return null;
         return StylishEffectsClientApi.getEffectScreenHandler().getInventoryHoveredEffect(screen, mouseX, mouseY)
-                .map(context -> context.renderer().isCompact() && ignoreIfSmall ? null : context)
                 .map(MobEffectWidgetContext::effectInstance)
                 .orElse(null);
     }
