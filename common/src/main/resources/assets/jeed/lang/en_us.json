@@ -117,6 +117,10 @@
 
   "effect.fruitful.sustaining.description": "Increases hunger yield from any food eaten.",
 
+  "effect.habitat.blast_endurance.description": "Reduces damage taken from explosions.",
+  "effect.habitat.prickling,description": "Has a chance to deal thorns damage equal to its level to the attacker.",
+  "effect.habitat.prolongation.description": "Increases the duration of all incoming potion effects by 20%.",
+
   "effect.immersiveengineering.concrete_feet.description": "Makes the target unable to move or jump. The effect immediately ends when the user is no longer standing on Concrete",
   "effect.immersiveengineering.conductive.description": "Affected entities take extra damage from electric or 'flux' damage, such as Redstone Arsenal weapons or electrified Razor Wire",
   "effect.immersiveengineering.flammable.description": "Increases fire damage taken",
