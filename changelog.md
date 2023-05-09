@@ -1,2 +1,1 @@
-- fixed some compat recipes not working on fabric
-- added config to render slots individually with REI plugin to look like JEI one
+updated to 1.19.4

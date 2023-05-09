@@ -102,7 +102,7 @@ public class ScrollableTextWidget extends WidgetWithBounds {
 
 
     @Override
-    public void render(PoseStack matrices,Rectangle bounds, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
         scrolling.updatePosition(delta);
         Rectangle innerBounds = scrolling.getScissorBounds();
         try (CloseableScissors scissors = scissor(matrices, innerBounds)) {

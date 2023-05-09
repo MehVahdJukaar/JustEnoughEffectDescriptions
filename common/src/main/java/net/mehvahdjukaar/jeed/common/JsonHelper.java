@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.effect.MobEffect;
@@ -39,14 +40,14 @@ public class JsonHelper {
     }
 
     public static Potion getPotion(ResourceLocation potionName) {
-        var potion = Registry.POTION.getOptional(potionName);
+        var potion = BuiltInRegistries.POTION.getOptional(potionName);
 
         if (potion.isEmpty()) throw new JsonSyntaxException("Unknown potion '" + potionName + "'");
         return potion.get();
     }
 
     public static MobEffect getEffect(ResourceLocation effectName) {
-        var effect = Registry.MOB_EFFECT.getOptional(effectName);
+        var effect = BuiltInRegistries.MOB_EFFECT.getOptional(effectName);
 
         if (effect.isEmpty()) throw new JsonSyntaxException("Unknown effect '" + effectName + "'");
         return effect.get();
