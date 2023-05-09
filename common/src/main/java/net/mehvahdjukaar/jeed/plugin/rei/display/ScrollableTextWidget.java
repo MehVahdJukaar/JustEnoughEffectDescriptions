@@ -8,6 +8,8 @@ import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.REIRuntime;
 import me.shedaniel.rei.api.client.gui.widgets.CloseableScissors;
 import me.shedaniel.rei.api.client.gui.widgets.WidgetWithBounds;
+import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
+import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
@@ -98,8 +100,9 @@ public class ScrollableTextWidget extends WidgetWithBounds {
         return bounds;
     }
 
+
     @Override
-    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack matrices,Rectangle bounds, int mouseX, int mouseY, float delta) {
         scrolling.updatePosition(delta);
         Rectangle innerBounds = scrolling.getScissorBounds();
         try (CloseableScissors scissors = scissor(matrices, innerBounds)) {

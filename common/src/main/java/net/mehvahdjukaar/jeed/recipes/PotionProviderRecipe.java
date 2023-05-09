@@ -7,6 +7,8 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.JsonHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -53,7 +55,7 @@ public class PotionProviderRecipe implements Recipe<CraftingContainer> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -63,7 +65,7 @@ public class PotionProviderRecipe implements Recipe<CraftingContainer> {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer wrapper) {
+    public ItemStack assemble(CraftingContainer wrapper, RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -88,7 +90,7 @@ public class PotionProviderRecipe implements Recipe<CraftingContainer> {
     }
 
     public List<Potion> getPotions() {
-        return potions.isEmpty() ? Registry.POTION.stream().toList() : potions;
+        return potions.isEmpty() ? BuiltInRegistries.POTION.stream().toList() : potions;
     }
 
     public static class Serializer implements RecipeSerializer<PotionProviderRecipe> {
@@ -140,7 +142,7 @@ public class PotionProviderRecipe implements Recipe<CraftingContainer> {
             buffer.writeVarInt(recipe.potions.size());
 
             for (Potion potion : recipe.potions) {
-                buffer.writeResourceLocation(Registry.POTION.getKey(potion));
+                buffer.writeResourceLocation(BuiltInRegistries.POTION.getKey(potion));
             }
         }
     }

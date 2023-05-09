@@ -9,6 +9,7 @@ import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -19,14 +20,14 @@ import java.util.List;
 
 public class JeedImpl implements ModInitializer {
 
-    public static final RecipeType<EffectProviderRecipe> EFFECT_PROVIDER_TYPE = Registry.register(Registry.RECIPE_TYPE,
+    public static final RecipeType<EffectProviderRecipe> EFFECT_PROVIDER_TYPE = Registry.register(BuiltInRegistries.RECIPE_TYPE,
             Jeed.res("effect_provider"), makeRecipe(Jeed.res("effect_provider")));
-    public static final RecipeType<PotionProviderRecipe> POTION_PROVIDER_TYPE = Registry.register(Registry.RECIPE_TYPE,
+    public static final RecipeType<PotionProviderRecipe> POTION_PROVIDER_TYPE = Registry.register(BuiltInRegistries.RECIPE_TYPE,
             Jeed.res("potion_provider"), makeRecipe(Jeed.res("potion_provider")));
 
-    public static final RecipeSerializer<EffectProviderRecipe> EFFECT_PROVIDER_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER,
+    public static final RecipeSerializer<EffectProviderRecipe> EFFECT_PROVIDER_SERIALIZER = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER,
             Jeed.res("effect_provider"), new EffectProviderRecipe.Serializer());
-    public static final RecipeSerializer<PotionProviderRecipe> POTION_PROVIDER_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER,
+    public static final RecipeSerializer<PotionProviderRecipe> POTION_PROVIDER_SERIALIZER = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER,
             Jeed.res("potion_provider"), new PotionProviderRecipe.Serializer());
 
     static <T extends Recipe<?>> RecipeType<T> makeRecipe(ResourceLocation name) {

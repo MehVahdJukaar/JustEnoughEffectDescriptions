@@ -39,6 +39,6 @@ The joy of previewing paintings
 [[dependencies.jeed]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.2,1.20)"
+    versionRange="[1.19.4,1.21)"
     ordering="NONE"
     side="BOTH"

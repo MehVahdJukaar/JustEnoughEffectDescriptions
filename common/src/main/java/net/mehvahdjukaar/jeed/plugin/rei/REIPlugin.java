@@ -22,6 +22,7 @@ import net.mehvahdjukaar.jeed.plugin.rei.display.EffectInfoDisplay;
 import net.mehvahdjukaar.jeed.plugin.rei.display.EffectInfoDisplayCategory;
 import net.mehvahdjukaar.jeed.plugin.rei.ingredient.EffectInstanceDefinition;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -64,7 +65,7 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
 
     @Override
     public void registerEntries(EntryRegistry registry) {
-        for (var e : Registry.MOB_EFFECT) {
+        for (var e : BuiltInRegistries.MOB_EFFECT) {
             registry.addEntry(EntryStack.of(EFFECT_ENTRY_TYPE, new MobEffectInstance(e)));
         }
     }

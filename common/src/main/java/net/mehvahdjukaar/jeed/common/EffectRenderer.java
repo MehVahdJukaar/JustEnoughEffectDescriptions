@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MobEffectTextureManager;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -57,7 +58,7 @@ public abstract class EffectRenderer {
 
         RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, sprite.atlas().location());
+        RenderSystem.setShaderTexture(0, sprite.atlasLocation());
         int o = offset ? -1 : 0;
         GuiComponent.blit(matrixStack, x+o, y+o, 0, width+2, height+2, sprite);
 
@@ -99,7 +100,7 @@ public abstract class EffectRenderer {
             //show full description with shift
             ResourceLocation res = null;
             if(showDescription || tooltipFlag.isAdvanced()){
-                res = Registry.MOB_EFFECT.getKey(effect);
+                res = BuiltInRegistries.MOB_EFFECT.getKey(effect);
             }
 
             if(showDescription){

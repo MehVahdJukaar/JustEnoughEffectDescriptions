@@ -7,6 +7,8 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.JsonHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -53,7 +55,7 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
 
     //let's hope this won't cause troubles
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -63,8 +65,8 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer wrapper) {
-        return null;
+    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -88,7 +90,7 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
     }
 
     public Collection<MobEffect> getEffects() {
-        return effect == null ? Registry.MOB_EFFECT.stream().toList() : Collections.singletonList(effect);
+        return effect == null ? BuiltInRegistries.MOB_EFFECT.stream().toList() : Collections.singletonList(effect);
     }
 
 
@@ -103,13 +105,13 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
                 throw new JsonParseException("No effect providers for recipe");
             } else {
                 var v = json.get("effect");
-                if(v == null){
+                if (v == null) {
                     throw new JsonParseException("Missing effect for recipe");
                 }
                 String effectID;
-                if(v instanceof JsonObject jo){
-                    effectID = GsonHelper.getAsString(jo,"id");
-                }else effectID = v.getAsString();
+                if (v instanceof JsonObject jo) {
+                    effectID = GsonHelper.getAsString(jo, "id");
+                } else effectID = v.getAsString();
 
                 MobEffect effect = null;
                 if (effectID != null && !effectID.equals("all") && !effectID.equals("minecraft:all")) {
@@ -147,7 +149,7 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
             if (recipe.effect == null) {
                 res = new ResourceLocation("all");
             } else {
-                res = Registry.MOB_EFFECT.getKey(recipe.effect);
+                res = BuiltInRegistries.MOB_EFFECT.getKey(recipe.effect);
             }
             buffer.writeResourceLocation(res);
         }

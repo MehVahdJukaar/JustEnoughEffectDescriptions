@@ -32,7 +32,7 @@ dependencies {
         exclude module: "fabric-api"
     }
 
-    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:9.1.595"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:11.0.597"
 
     modCompileOnly("curse.maven:stylish-effects-543661:4462746")
     modCompileOnly("curse.maven:puzzles-lib-495476:4499053")

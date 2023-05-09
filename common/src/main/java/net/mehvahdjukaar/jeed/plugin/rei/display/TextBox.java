@@ -2,6 +2,7 @@ package net.mehvahdjukaar.jeed.plugin.rei.display;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.shedaniel.math.Point;
+import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
@@ -28,7 +29,7 @@ public class TextBox extends Widget {
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float delta) {
+    public void render(PoseStack poseStack, Rectangle rectangle,  int mouseX, int mouseY, float delta) {
         int y = 0;
         for (FormattedText descriptionLine : lines) {
             font.draw(poseStack, Language.getInstance().getVisualOrder(descriptionLine), left.x, left.y + y, 0xFF000000);

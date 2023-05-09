@@ -7,6 +7,7 @@ import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
@@ -42,8 +43,8 @@ public abstract class EffectInfo {
     }
 
     public static final Comparator<ItemStack> COMPARATOR = (o1, o2) -> {
-        var r1 = Registry.ITEM.getKey(o1.getItem());
-        var r2 = Registry.ITEM.getKey(o2.getItem());
+        var r1 = BuiltInRegistries.ITEM.getKey(o1.getItem());
+        var r2 = BuiltInRegistries.ITEM.getKey(o2.getItem());
         int i = r1.getNamespace().compareTo(r2.getNamespace());
         if (i == 0) {
             i = r1.getPath().compareTo(r1.getPath());
@@ -70,12 +71,12 @@ public abstract class EffectInfo {
         Map<MobEffect, List<ItemStack>> effectProvidingItems = new HashMap<>();
 
         //stews
-        for (Block b : Registry.BLOCK) {
+        for (Block b : BuiltInRegistries.BLOCK) {
             if (b instanceof FlowerBlock flowerblock) {
 
                 ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
 
-                MobEffect effect = flowerblock.getSuspiciousStewEffect();
+                MobEffect effect = flowerblock.getSuspiciousEffect();
                 SuspiciousStewItem.saveMobEffect(stew, effect, 200);
 
                 effectProvidingItems.computeIfAbsent(effect, i -> (new ItemStackList())).add(stew);
@@ -83,7 +84,7 @@ public abstract class EffectInfo {
         }
 
         //foods
-        for (Item i : Registry.ITEM) {
+        for (Item i : BuiltInRegistries.ITEM) {
             FoodProperties food = i.getFoodProperties();
             if (food != null) {
 
@@ -131,7 +132,7 @@ public abstract class EffectInfo {
             for (PotionProviderRecipe p : potionRecipes) {
                 Collection<Potion> acceptablePotions = p.getPotions();
                 if (acceptablePotions.isEmpty()) {
-                    acceptablePotions = Registry.POTION.stream().toList();
+                    acceptablePotions = BuiltInRegistries.POTION.stream().toList();
                 }
                 for (Potion potion : acceptablePotions) {
                     if (potion.getEffects().stream().anyMatch(e -> e.getEffect() == effect)) {
@@ -174,7 +175,7 @@ public abstract class EffectInfo {
     }
 
     public static Component getDescription(MobEffect effect) {
-        ResourceLocation name = Registry.MOB_EFFECT.getKey(effect);
+        ResourceLocation name = BuiltInRegistries.MOB_EFFECT.getKey(effect);
 
         String descriptionKey = "effect." + name.getNamespace() + "." + name.getPath() + ".description";
 

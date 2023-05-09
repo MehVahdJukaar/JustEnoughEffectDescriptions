@@ -105,12 +105,6 @@ public class JEIPlugin implements IModPlugin, IPlugin {
         }
 
         @Override
-        public @Nullable Object getIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
-            return ext.getEffectAtPosition(containerScreen, mouseX, mouseY, IEffectScreenExtension.CallReason.RECIPE_KEY);
-        }
-
-        /*
-        @Override
         public Optional<IClickableIngredient<?>> getClickableIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
             var v = ext.getEffectAtPosition(containerScreen, mouseX, mouseY, IEffectScreenExtension.CallReason.RECIPE_KEY);
             if (v != null) {
@@ -120,7 +114,7 @@ public class JEIPlugin implements IModPlugin, IPlugin {
             }
 
             return Optional.empty();
-        }*/
+        }
     }
 
     @Override

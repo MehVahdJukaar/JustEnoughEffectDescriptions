@@ -30,7 +30,7 @@ public class NativeCompat {
             if (reason != CallReason.MOUSE_CLICKED) {
                 for (var b : screen.beaconButtons) {
                     if (b instanceof BeaconScreen.BeaconPowerButton pb) {
-                        if (pb.isShowingTooltip()) {
+                        if (pb.isHoveredOrFocused()) {
                             return new MobEffectInstance(pb.effect);
                         }
                     }

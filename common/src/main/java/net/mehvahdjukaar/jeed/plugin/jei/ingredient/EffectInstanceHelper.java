@@ -10,6 +10,7 @@ import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
 import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -40,13 +41,13 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
 
     @Override
     public String getUniqueId(MobEffectInstance ingredient, UidContext uidContext) {
-        ResourceLocation registryName = Registry.MOB_EFFECT.getKey(ingredient.getEffect());
+        ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(ingredient.getEffect());
         return "effect:" + registryName;
     }
 
     @Override
     public ResourceLocation getResourceLocation(MobEffectInstance ingredient) {
-        ResourceLocation registryName = Registry.MOB_EFFECT.getKey(ingredient.getEffect());
+        ResourceLocation registryName = BuiltInRegistries.MOB_EFFECT.getKey(ingredient.getEffect());
         if (registryName == null) {
             String ingredientInfo = this.getErrorInfo(ingredient);
             throw new IllegalStateException("effect.getRegistryName() returned null for: " + ingredientInfo);
@@ -68,9 +69,9 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
 
     @Override
     public Stream<ResourceLocation> getTagStream(MobEffectInstance ingredient) {
-        return  Registry.MOB_EFFECT
+        return  BuiltInRegistries.MOB_EFFECT
                 .getResourceKey(ingredient.getEffect())
-                .flatMap(Registry.MOB_EFFECT::getHolder)
+                .flatMap(BuiltInRegistries.MOB_EFFECT::getHolder)
                 .map(Holder::tags)
                 .orElse(Stream.of())
                 .map(TagKey::location);

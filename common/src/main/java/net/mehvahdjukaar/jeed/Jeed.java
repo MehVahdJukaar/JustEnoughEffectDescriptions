@@ -5,6 +5,7 @@ import net.mehvahdjukaar.jeed.common.IPlugin;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -77,8 +78,8 @@ public class Jeed {
 
 
     public static List<MobEffect> getEffectList() {
-        return Registry.MOB_EFFECT.stream()
-                .filter(e -> !Jeed.getHiddenEffects().contains(Registry.MOB_EFFECT.getKey(e).toString()))
+        return BuiltInRegistries.MOB_EFFECT.stream()
+                .filter(e -> !Jeed.getHiddenEffects().contains(BuiltInRegistries.MOB_EFFECT.getKey(e).toString()))
                 .toList();
     }
 

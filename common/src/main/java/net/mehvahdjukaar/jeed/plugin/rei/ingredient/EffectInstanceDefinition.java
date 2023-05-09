@@ -12,6 +12,7 @@ import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -60,7 +61,7 @@ public class EffectInstanceDefinition implements EntryDefinition<MobEffectInstan
 
     @Override
     public @Nullable ResourceLocation getIdentifier(EntryStack<MobEffectInstance> entry, MobEffectInstance value) {
-        return Registry.MOB_EFFECT.getKey(value.getEffect());
+        return BuiltInRegistries.MOB_EFFECT.getKey(value.getEffect());
     }
 
     @Override
@@ -113,9 +114,9 @@ public class EffectInstanceDefinition implements EntryDefinition<MobEffectInstan
 
     @Override
     public Stream<? extends TagKey<?>> getTagsFor(EntryStack<MobEffectInstance> entry, MobEffectInstance value) {
-        return Registry.MOB_EFFECT
+        return BuiltInRegistries.MOB_EFFECT
                 .getResourceKey(value.getEffect())
-                .flatMap(Registry.MOB_EFFECT::getHolder)
+                .flatMap(BuiltInRegistries.MOB_EFFECT::getHolder)
                 .map(Holder::tags)
                 .orElse(Stream.of());
     }
