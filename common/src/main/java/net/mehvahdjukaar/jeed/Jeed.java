@@ -6,8 +6,12 @@ import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.apache.logging.log4j.LogManager;
@@ -76,10 +80,15 @@ public class Jeed {
         throw new AssertionError();
     }
 
+    private static final TagKey<MobEffect> HIDDEN = TagKey.create(Registries.MOB_EFFECT, res("hidden"));
+
+    public static <T> boolean isTagged(T entry, Registry<T> registry, TagKey<T> tag) {
+        return registry.getHolder(registry.getId(entry)).map(h -> h.is(tag)).orElse(false);
+    }
 
     public static List<MobEffect> getEffectList() {
         return BuiltInRegistries.MOB_EFFECT.stream()
-                .filter(e -> !Jeed.getHiddenEffects().contains(BuiltInRegistries.MOB_EFFECT.getKey(e).toString()))
+                .filter(e -> !isTagged(e, BuiltInRegistries.MOB_EFFECT, HIDDEN) && !Jeed.getHiddenEffects().contains(BuiltInRegistries.MOB_EFFECT.getKey(e).toString()))
                 .toList();
     }
 

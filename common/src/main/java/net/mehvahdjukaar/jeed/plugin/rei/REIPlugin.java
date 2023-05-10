@@ -65,11 +65,10 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
 
     @Override
     public void registerEntries(EntryRegistry registry) {
-        for (var e : BuiltInRegistries.MOB_EFFECT) {
+        for (var e : Jeed.getEffectList()) {
             registry.addEntry(EntryStack.of(EFFECT_ENTRY_TYPE, new MobEffectInstance(e)));
         }
     }
-
 
     @Override
     public int getMaxTextWidth() {

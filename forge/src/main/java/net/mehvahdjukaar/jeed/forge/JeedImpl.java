@@ -73,7 +73,7 @@ public class JeedImpl {
                 .define("effect_color", true);
         effectBox = builder.comment("Draw a black box behind effect icons")
                 .define("effect_box", true);
-        hiddenEffects = builder.comment("A list of effects that should not be registered nor shown in JEI")
+        hiddenEffects = builder.comment("A list of effects that should not be registered nor shown in JEI/REI. You can also use the 'hidden' mob_effect tag")
                 .defineList("hidden_effects", Collections.singletonList(""), String.class::isInstance);
         ingredientsList = builder.comment("Show ingredients list along with an effect description")
                 .define("ingredients_list", true);

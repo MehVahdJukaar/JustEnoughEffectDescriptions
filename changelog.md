@@ -1,1 +1,2 @@
-updated to 1.19.4
+- fixed REI ingredients equality not working correctly
+- added a "hidden" mob_effect tag that you can use to hide effects

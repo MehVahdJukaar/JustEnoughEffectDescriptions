@@ -11,7 +11,6 @@ import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -88,12 +86,22 @@ public class EffectInstanceDefinition implements EntryDefinition<MobEffectInstan
 
     @Override
     public long hash(EntryStack<MobEffectInstance> entry, MobEffectInstance value, ComparisonContext context) {
-        return value.hashCode();
+        var i = value.getEffect().hashCode();
+        if (context.isExact()) {
+            i = 31 * i + value.getAmplifier();
+            i = 31 * i + (value.isAmbient() ? 1 : 0);
+        }
+        return i;
     }
 
     @Override
     public boolean equals(MobEffectInstance o1, MobEffectInstance o2, ComparisonContext context) {
-        return o2.getEffect() == o1.getEffect();
+        if (o1.getEffect() != o2.getEffect()) return false;
+        else if (context.isExact()) {
+            if (o1.getAmplifier() != o2.getAmplifier()) return false;
+            return o1.isAmbient() == o2.isAmbient();
+        }
+        return true;
     }
 
     @Override
