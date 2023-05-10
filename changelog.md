@@ -1,2 +1,2 @@
-- fixed some compat recipes not working on fabric
-- added config to render slots individually with REI plugin to look like JEI one
+- fixed REI effect equality not working as intended
+- fixed configs on forge not applying for REI when it comes to effects blacklist

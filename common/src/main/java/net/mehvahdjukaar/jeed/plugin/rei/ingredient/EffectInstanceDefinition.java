@@ -87,12 +87,22 @@ public class EffectInstanceDefinition implements EntryDefinition<MobEffectInstan
 
     @Override
     public long hash(EntryStack<MobEffectInstance> entry, MobEffectInstance value, ComparisonContext context) {
-        return value.hashCode();
+        var i = value.getEffect().hashCode();
+        if (context.isExact()) {
+            i = 31 * i + value.getAmplifier();
+            i = 31 * i + (value.isAmbient() ? 1 : 0);
+        }
+        return i;
     }
 
     @Override
     public boolean equals(MobEffectInstance o1, MobEffectInstance o2, ComparisonContext context) {
-        return o2.getEffect() == o1.getEffect();
+        if (o1.getEffect() != o2.getEffect()) return false;
+        else if (context.isExact()) {
+            if (o1.getAmplifier() != o2.getAmplifier()) return false;
+            return o1.isAmbient() == o2.isAmbient();
+        }
+        return true;
     }
 
     @Override
