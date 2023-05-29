@@ -11,7 +11,7 @@ modId= "jeed" #mandatory
 
 version = "${version}"
 
-displayName="Just Enough Painting Previews" #mandatory
+displayName="Just Enough Effect Descriptions" #mandatory
 
 logoFile="icon.png" #optional
 
@@ -19,10 +19,10 @@ credits="Mehvahdjukaar" #optional
 
 authors="MehVahdJukaar" #optional
 
-itemIcon="minecraft:painting" #catalogue icon
+itemIcon="minecraft:potion" #catalogue icon
 
 description='''
-The joy of previewing paintings
+JEI/REI addon to show mob effects descriptions and source
 '''
 
 [modproperties.jeed]
