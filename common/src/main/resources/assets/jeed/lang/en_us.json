@@ -98,6 +98,17 @@
   "effect.create_confectionery.rest.description": "Makes phantoms disappear.",
   "effect.create_confectionery.stimulation.description": "Removes mining fatigue and slowness",
 
+  "effect.dungeons_mobs.ensnared.description": "Affected entities are trapped in place.",
+  "effect.dungeons_mobs.warped.description": "Inflicts lethal magic damage over time.",
+
+  "effect.dungeons_gear.shielding.description": "Grants immunity to projectiles.",
+  "effect.dungeons_gear.soul_protection.description": "Revives the player on death.",
+  "effect.dungeons_gear.stunned.description": "Stuns an entity, causing nausea and slowing their movement. Higher levels increase the stun chance.",
+  "effect.dungeons_gear.party_starter.description": "Melee attacks will cause entities to explode.",
+  "effect.dungeons_gear.dynamo.description": "Increases damage on next attack, higher levels increase the damage boost.",
+  "effect.dungeons_gear.life_steal.description": "Steals health from entities killed, higher levels increase the amount of health stolen.",
+  "effect.dungeons_gear.bow_charge.description": "The next ranged attack will automatically be fully charged.",
+
   "effect.eidolon.anchored.description": "Prevents the affected entity from being teleported by certain effects.",
   "effect.eidolon.chilled.description": "Disables passive health regeneration and makes ever food not provide any hunger points.",
 

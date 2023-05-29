@@ -4,8 +4,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.compat.fabric.NativeCompat;
-import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Registry;
@@ -37,6 +35,17 @@ public class JeedImpl implements ModInitializer {
                 return toString;
             }
         };
+    }
+
+    @Override
+    public void onInitialize() {
+        if (!FabricLoader.getInstance().isModLoaded("jei") && !FabricLoader.getInstance().isModLoaded("roughlyenoughitems")) {
+            Jeed.LOGGER.error("Jeed requires either JEI or REI mods. None of them was found");
+        }
+
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            JeedClient.init();
+        }
     }
 
     public static Collection<String> getHiddenEffects() {
@@ -72,19 +81,14 @@ public class JeedImpl implements ModInitializer {
         return true;
     }
 
-    @Override
-    public void onInitialize() {
-
-        if (!FabricLoader.getInstance().isModLoaded("jei") && !FabricLoader.getInstance().isModLoaded("roughlyenoughitems")) {
-            Jeed.LOGGER.error("Jeed requires either JEI or REI mods. None of them was found");
-        }
-
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            JeedClient.init();
-        }
-    }
 
     public static boolean rendersSlots() {
         return false;
     }
+
+    public static boolean suppressVanillaTooltips() {
+        return EMI;
+    }
+
+    private static final boolean EMI = FabricLoader.getInstance().isModLoaded("emi");
 }

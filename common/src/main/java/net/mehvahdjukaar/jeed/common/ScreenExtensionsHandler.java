@@ -39,9 +39,9 @@ public class ScreenExtensionsHandler {
     }
 
 
-    public static void renderEffectTooltip(MobEffectInstance effect, Screen screen, PoseStack matrixStack, int x, int y) {
+    public static void renderEffectTooltip(MobEffectInstance effect, Screen screen, PoseStack matrixStack, int x, int y, boolean showDuration) {
         TooltipFlag flag = Minecraft.getInstance().options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
-        List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, false);
+        List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, true, showDuration);
         if (!tooltip.isEmpty()) {
             screen.renderComponentTooltip(matrixStack, tooltip, x, y);
         }

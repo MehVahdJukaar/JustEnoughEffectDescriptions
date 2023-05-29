@@ -1,2 +1,4 @@
-- fixed REI ingredients equality not working correctly
-- added a "hidden" mob_effect tag that you can use to hide effects
+- vastly improved effect detections on inventory screens.
+- Should work with any mod that moves those around
+- added config to override vanilla effect tooltips
+- added more effect descriptions

@@ -1,12 +1,13 @@
 package net.mehvahdjukaar.jeed.fabric;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
-import net.mehvahdjukaar.jeed.compat.fabric.NativeCompat;
+import net.mehvahdjukaar.jeed.compat.NativeCompat;
 import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
 
 public class JeedClient {
@@ -26,7 +27,8 @@ public class JeedClient {
                         ScreenEvents.afterRender(screen).register((screen1, matrices, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, IEffectScreenExtension.CallReason.TOOLTIP);
                             if (effect != null) {
-                                ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, matrices, mouseX, mouseY);
+                                ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, new PoseStack(), //idk why
+                                        mouseX, mouseY, ext.showDurationOnTooltip());
                             }
                         });
                         ScreenMouseEvents.afterMouseClick(screen).register((screen1, mouseX, mouseY, button) -> {

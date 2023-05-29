@@ -30,7 +30,8 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
             if(!evt.getTooltipFlag().isAdvanced() && !InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), Minecraft.getInstance().options.keyShift.getKey().getValue())){
                 lines.remove(lines.size()-1);
             }
-            List<Component> newTooltip = EffectRenderer.getTooltipsWithDescription(evt.getContext().effectInstance(), evt.getTooltipFlag(), false);
+            List<Component> newTooltip = EffectRenderer.getTooltipsWithDescription(evt.getContext().effectInstance(),
+                    evt.getTooltipFlag(), false, false);
             newTooltip.remove(0);
             lines.addAll(newTooltip);
         });

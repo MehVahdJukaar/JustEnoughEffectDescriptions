@@ -80,6 +80,11 @@ public class Jeed {
         throw new AssertionError();
     }
 
+    @ExpectPlatform
+    public static boolean suppressVanillaTooltips() {
+        throw new AssertionError();
+    }
+
     private static final TagKey<MobEffect> HIDDEN = TagKey.create(Registries.MOB_EFFECT, res("hidden"));
 
     public static <T> boolean isTagged(T entry, Registry<T> registry, TagKey<T> tag) {

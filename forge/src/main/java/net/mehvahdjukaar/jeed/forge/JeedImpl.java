@@ -46,6 +46,7 @@ public class JeedImpl {
 
     private static ForgeConfigSpec.BooleanValue effectBox;
     private static ForgeConfigSpec.BooleanValue renderSlots;
+    private static ForgeConfigSpec.BooleanValue suppressVanillaTooltips;
     private static ForgeConfigSpec.BooleanValue ingredientsList;
     private static ForgeConfigSpec.BooleanValue effectColor;
     private static ForgeConfigSpec.ConfigValue<List<? extends String>> hiddenEffects;
@@ -79,6 +80,8 @@ public class JeedImpl {
                 .define("ingredients_list", true);
         renderSlots = builder.comment("Renders individual slots instead of a big one. Only works for REI")
                 .define("render_slots", false);
+        suppressVanillaTooltips = builder.comment("Removes vanilla tooltips rendered when an effect renders small (square box)")
+                .define("replace_vanilla_tooltips", true);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, builder.build());
     }
 
@@ -119,5 +122,7 @@ public class JeedImpl {
         return renderSlots.get();
     }
 
-
+    public static boolean suppressVanillaTooltips() {
+        return suppressVanillaTooltips.get();
+    }
 }
