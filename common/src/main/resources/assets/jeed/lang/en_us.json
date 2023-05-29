@@ -104,6 +104,18 @@
   "effect.environmental.panic.description": "Increases speed the lower the user health is.",
   "effect.environmental.serenity.description": "Koi fish stop hostile mobs spawns in a 32x32x8 radius. The serenity effect indicates if the player is in that radius.",
 
+
+  "effect.dungeons_mobs.ensnared.description": "Affected entities are trapped in place.",
+  "effect.dungeons_mobs.warped.description": "Inflicts lethal magic damage over time.",
+
+  "effect.dungeons_gear.shielding.description": "Grants immunity to projectiles.",
+  "effect.dungeons_gear.soul_protection.description": "Revives the player on death.",
+  "effect.dungeons_gear.stunned.description": "Stuns an entity, causing nausea and slowing their movement. Higher levels increase the stun chance.",
+  "effect.dungeons_gear.party_starter.description": "Melee attacks will cause entities to explode.",
+  "effect.dungeons_gear.dynamo.description": "Increases damage on next attack, higher levels increase the damage boost.",
+  "effect.dungeons_gear.life_steal.description": "Steals health from entities killed, higher levels increase the amount of health stolen.",
+  "effect.dungeons_gear.bow_charge.description": "The next ranged attack will automatically be fully charged.",
+
   "effect.fantasy.glowing_vision.description": "Causes Unicorns in a radius of 500 blocks to obtain the glowing effect, making them easier to locate.",
 
   "effect.farmersdelight.comfort.description": "Removes and grants immunity to Slowness, Hunger and Weakness.",
@@ -208,4 +220,6 @@
   "effect.cofh_core.clarity.description": "Increases the amount of gained exp by 40% per level.",
   "effect.cofh_core.explosion_resistance.description": "Grants immunity to explosion damage.",
   "effect.cofh_core.chilled.description": "Reduces movement speed by 30% and attack damage by 1.5 hearts per level."
+
+
 }

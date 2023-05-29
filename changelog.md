@@ -1,2 +1,3 @@
-- fixed REI effect equality not working as intended
-- fixed configs on forge not applying for REI when it comes to effects blacklist
+- Greatly improved effect detection for inventory screen
+- Should now work with all mods that move them around
+- Also added a config to replace vanilla tooltips when effects are short

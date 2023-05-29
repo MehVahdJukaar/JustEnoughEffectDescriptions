@@ -4,7 +4,6 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
-import net.mehvahdjukaar.jeed.compat.forge.NativeCompat;
 import net.mehvahdjukaar.jeed.compat.forge.StylishEffectsCompat;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.event.ScreenEvent;
