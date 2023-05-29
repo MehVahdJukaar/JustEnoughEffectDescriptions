@@ -22,7 +22,6 @@ public class EffectInstanceRenderer extends EffectRenderer implements BatchedEnt
     }
 
 
-
     @Override
     public int getBatchIdentifier(EntryStack<MobEffectInstance> entry, Rectangle bounds, TextureAtlasSprite extraData) {
         return 0;
@@ -73,6 +72,6 @@ public class EffectInstanceRenderer extends EffectRenderer implements BatchedEnt
 
     @Override
     public @Nullable Tooltip getTooltip(EntryStack<MobEffectInstance> entry, TooltipContext context) {
-        return Tooltip.create(getTooltipsWithDescription(entry.getValue(), context.getFlag(), false));
+        return Tooltip.create(getTooltipsWithDescription(entry.getValue(), context.getFlag(), false, false));
     }
 }

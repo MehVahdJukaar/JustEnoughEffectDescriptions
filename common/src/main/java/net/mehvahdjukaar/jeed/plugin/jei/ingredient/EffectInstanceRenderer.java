@@ -20,7 +20,7 @@ public class EffectInstanceRenderer extends EffectRenderer implements IIngredien
 
     @Override
     public List<Component> getTooltip(MobEffectInstance effectInstance, TooltipFlag tooltipFlag) {
-        return getTooltipsWithDescription(effectInstance, tooltipFlag, false);
+        return getTooltipsWithDescription(effectInstance, tooltipFlag, false, false);
     }
 
     @Override

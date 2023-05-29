@@ -21,6 +21,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
@@ -41,7 +42,7 @@ public abstract class EffectRenderer {
     }
 
     public void render(PoseStack matrixStack, MobEffectInstance effectInstance) {
-        render(matrixStack, effectInstance, 0,0, 16,16);
+        render(matrixStack, effectInstance, 0, 0, 16, 16);
     }
 
     public void render(PoseStack matrixStack, MobEffectInstance effectInstance, int x, int y, int width, int height) {
@@ -50,22 +51,23 @@ public abstract class EffectRenderer {
         MobEffectTextureManager textures = mc.getMobEffectTextures();
         TextureAtlasSprite sprite = textures.get(effect);
 
-        render(matrixStack, sprite, x,y, width,height);
+        render(matrixStack, sprite, x, y, width, height);
     }
 
     public void render(PoseStack matrixStack, TextureAtlasSprite sprite, int x, int y, int width, int height) {
 
-        RenderSystem.clearColor(1.0F, 1.0F,1.0F,1.0F);
+        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, sprite.atlas().location());
         int o = offset ? -1 : 0;
-        GuiComponent.blit(matrixStack, x+o, y+o, 0, width+2, height+2, sprite);
+        GuiComponent.blit(matrixStack, x + o, y + o, 0, width + 2, height + 2, sprite);
 
         RenderSystem.applyModelViewMatrix();
     }
 
 
-    public static List<Component> getTooltipsWithDescription(MobEffectInstance effectInstance, TooltipFlag tooltipFlag, boolean reactsToShift) {
+    public static List<Component> getTooltipsWithDescription(MobEffectInstance effectInstance, TooltipFlag tooltipFlag,
+                                                             boolean reactsToShift, boolean showDuration) {
         List<Component> tooltip = new ArrayList<>();
         if (effectInstance != null) {
 
@@ -79,7 +81,11 @@ public abstract class EffectRenderer {
 
             tooltip.add(Component.literal(name));
 
-            if(Jeed.hasEffectColor()) {
+            if (showDuration) {
+                tooltip.add(Component.literal(MobEffectUtil.formatDuration(effectInstance, 1.0F)));
+            }
+
+            if (Jeed.hasEffectColor()) {
                 MutableComponent colorValue = Component.literal("#" + Integer.toHexString(effect.getColor()));
                 colorValue.setStyle(Style.EMPTY.withColor(TextColor.fromRgb(effect.getColor())));
 
@@ -98,16 +104,15 @@ public abstract class EffectRenderer {
             boolean showDescription = reactsToShift && Screen.hasShiftDown();
             //show full description with shift
             ResourceLocation res = null;
-            if(showDescription || tooltipFlag.isAdvanced()){
+            if (showDescription || tooltipFlag.isAdvanced()) {
                 res = Registry.MOB_EFFECT.getKey(effect);
             }
 
-            if(showDescription){
+            if (showDescription) {
 
                 tooltip.add(Component.translatable("effect." + res.getNamespace() + "." +
                         res.getPath() + ".description").withStyle(ChatFormatting.GRAY));
-            }
-            else {
+            } else {
 
                 List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
                 Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();

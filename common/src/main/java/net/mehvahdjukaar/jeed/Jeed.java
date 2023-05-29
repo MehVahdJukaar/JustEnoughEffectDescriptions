@@ -7,10 +7,12 @@ import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
@@ -72,6 +74,11 @@ public class Jeed {
 
     @ExpectPlatform
     public static boolean rendersSlots() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean suppressVanillaTooltips() {
         throw new AssertionError();
     }
 

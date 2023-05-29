@@ -14,6 +14,10 @@ public interface IEffectScreenExtension<T extends Screen> {
     @Nullable
     MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, CallReason callReason);
 
+    default boolean showDurationOnTooltip(){
+        return false;
+    };
+
     enum CallReason {
         TOOLTIP, RECIPE_KEY, MOUSE_CLICKED;
 

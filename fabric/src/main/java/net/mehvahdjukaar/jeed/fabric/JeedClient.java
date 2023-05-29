@@ -6,11 +6,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
-import net.mehvahdjukaar.jeed.compat.fabric.NativeCompat;
+import net.mehvahdjukaar.jeed.compat.NativeCompat;
 import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
 
 public class JeedClient {
-
 
     public static void init() {
 
@@ -20,13 +19,15 @@ public class JeedClient {
             StylishEffectsCompat.init();
         }
 
+
+
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
                     var ext = ScreenExtensionsHandler.getExtension(screen);
                     if (ext != null) {
                         ScreenEvents.afterRender(screen).register((screen1, matrices, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, IEffectScreenExtension.CallReason.TOOLTIP);
                             if (effect != null) {
-                                ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, matrices, mouseX, mouseY);
+                                ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, matrices, mouseX, mouseY, ext.showDurationOnTooltip());
                             }
                         });
                         ScreenMouseEvents.afterMouseClick(screen).register((screen1, mouseX, mouseY, button) -> {

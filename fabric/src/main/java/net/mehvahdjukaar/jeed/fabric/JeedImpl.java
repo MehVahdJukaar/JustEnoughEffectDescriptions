@@ -4,8 +4,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.compat.fabric.NativeCompat;
-import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Registry;
@@ -85,5 +83,11 @@ public class JeedImpl implements ModInitializer {
 
     public static boolean rendersSlots() {
         return false;
+    }
+
+    private static final boolean EMI = FabricLoader.getInstance().isModLoaded("emi");
+
+    public static boolean suppressVanillaTooltips() {
+        return EMI;
     }
 }

@@ -28,7 +28,7 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
             if (!flag.isAdvanced()) {
                 lines.remove(lines.size() - 1);
             }
-            List<Component> newTooltip = EffectRenderer.getTooltipsWithDescription(evt.effectInstance(), flag, false);
+            List<Component> newTooltip = EffectRenderer.getTooltipsWithDescription(evt.effectInstance(), flag, false, false);
             newTooltip.remove(0);
             lines.addAll(newTooltip);
         });
