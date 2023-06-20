@@ -16,7 +16,6 @@ public interface IEffectScreenExtension<T extends Screen> {
     MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, CallReason callReason);
 
     default boolean showDurationOnTooltip(){
-        Font
         return false;
     };
 
