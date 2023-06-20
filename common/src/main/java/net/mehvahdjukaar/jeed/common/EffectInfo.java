@@ -90,7 +90,10 @@ public abstract class EffectInfo {
 
                 ItemStack foodItem = new ItemStack(i);
                 for (Pair<MobEffectInstance, Float> pair : food.getEffects()) {
-                    effectProvidingItems.computeIfAbsent(pair.getFirst().getEffect(), s -> (new ItemStackList())).add(foodItem);
+                    MobEffectInstance first = pair.getFirst();
+                    if (first != null) { //why is this nullable?? vanilla never puts null here nor its marked as such
+                        effectProvidingItems.computeIfAbsent(first.getEffect(), s -> (new ItemStackList())).add(foodItem);
+                    }
                 }
             }
         }

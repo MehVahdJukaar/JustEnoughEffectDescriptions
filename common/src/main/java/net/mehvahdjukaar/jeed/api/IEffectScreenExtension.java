@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.jeed.api;
 
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.effect.MobEffectInstance;
 
@@ -15,6 +16,7 @@ public interface IEffectScreenExtension<T extends Screen> {
     MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, CallReason callReason);
 
     default boolean showDurationOnTooltip(){
+        Font
         return false;
     };
 

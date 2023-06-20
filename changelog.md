@@ -1,4 +1,1 @@
-- vastly improved effect detections on inventory screens.
-- Should work with any mod that moves those around
-- added config to override vanilla effect tooltips
-- added more effect descriptions
+- what does a food with null effect even mean?
