@@ -39,6 +39,6 @@ REI/JEI addon that shows effects and their descriptions
 [[dependencies.jeed]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4,1.21)"
+    versionRange="[1.20,1.21)"
     ordering="NONE"
     side="BOTH"

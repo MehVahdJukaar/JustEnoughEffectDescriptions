@@ -9,6 +9,8 @@ import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
 import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 
 public class JeedClient {
 
@@ -27,7 +29,7 @@ public class JeedClient {
                         ScreenEvents.afterRender(screen).register((screen1, matrices, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, IEffectScreenExtension.CallReason.TOOLTIP);
                             if (effect != null) {
-                                ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, new PoseStack(), //idk why
+                                ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, new GuiGraphics(Minecraft.getInstance(), Minecraft.getInstance().renderBuffers().bufferSource()),//idk why
                                         mouseX, mouseY, ext.showDurationOnTooltip());
                             }
                         });

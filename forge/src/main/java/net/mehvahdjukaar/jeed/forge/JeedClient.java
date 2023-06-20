@@ -43,7 +43,7 @@ public class JeedClient {
                     } else {
                         var effect = ext.getEffectAtPosition(screen, event.getMouseX(), event.getMouseY(), IEffectScreenExtension.CallReason.TOOLTIP);
                         if (effect != null) {
-                            ScreenExtensionsHandler.renderEffectTooltip(effect, screen, event.getPoseStack(),
+                            ScreenExtensionsHandler.renderEffectTooltip(effect, screen, event.getGuiGraphics(),
                                     event.getMouseX(), event.getMouseY(), ext.showDurationOnTooltip());
                         }
                     }

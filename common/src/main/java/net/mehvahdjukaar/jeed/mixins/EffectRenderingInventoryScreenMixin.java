@@ -1,10 +1,11 @@
 package net.mehvahdjukaar.jeed.mixins;
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import org.joml.Matrix4f;
 import org.joml.Vector4i;
@@ -20,17 +21,18 @@ import java.util.Iterator;
 
 
 @Mixin(EffectRenderingInventoryScreen.class)
-
 public abstract class EffectRenderingInventoryScreenMixin {
 
     @Unique
     private MobEffectInstance jeed$hoveredEffect;
+    @Unique
+    private GuiGraphics jeed$guiGraphics;
 
     @Unique
     private int jeed$mouseX, jeed$mouseY;
 
     @Inject(at = @At("HEAD"), method = "renderEffects")
-    private void captureMouse(PoseStack matrices, int mouseX, int mouseY, CallbackInfo info) {
+    private void captureMouse(GuiGraphics matrices, int mouseX, int mouseY, CallbackInfo info) {
         jeed$hoveredEffect = null;
         jeed$mouseX = mouseX;
         jeed$mouseY = mouseY;
@@ -42,19 +44,20 @@ public abstract class EffectRenderingInventoryScreenMixin {
                     shift = At.Shift.BY,
                     by = 3),
             locals = LocalCapture.CAPTURE_FAILHARD)
-    private void captureEffect(PoseStack poseStack, int renderX, int yOffset, Iterable<MobEffectInstance> effects, boolean bl, CallbackInfo ci, int i,
+    private void captureEffect(GuiGraphics graphics, int renderX, int yOffset, Iterable<MobEffectInstance> effects, boolean bl, CallbackInfo ci, int i,
                                Iterator var7, MobEffectInstance inst) {
         jeed$hoveredEffect = inst;
+        jeed$guiGraphics = graphics;
     }
 
     @ModifyArg(method = "renderBackgrounds",
             require = 2,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/inventory/EffectRenderingInventoryScreen;blit(Lcom/mojang/blaze3d/vertex/PoseStack;IIIIII)V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIIII)V")
     )
 
-    private PoseStack captureHoveredEffect(PoseStack poseStack, int x, int y, int u, int v, int width, int height) {
+    private ResourceLocation captureHoveredEffect(ResourceLocation res, int x, int y, int u, int v, int width, int height) {
         if (jeed$hoveredEffect != null) {
-            Matrix4f last = poseStack.last().pose();
+            Matrix4f last = jeed$guiGraphics.pose().last().pose();
             Vector4i vec = new Vector4i(x, y, 0, 1);
             last.mul(last);
             x = vec.x();
@@ -64,13 +67,13 @@ public abstract class EffectRenderingInventoryScreenMixin {
                 NativeCompat.setInventoryEffect(jeed$hoveredEffect, width < 33);
             }
         }
-        return poseStack;
+        return res;
     }
 
     @Inject(method = "renderEffects", at = @At(value = "INVOKE",
             target = "Ljava/util/Iterator;next()Ljava/lang/Object;"),
             cancellable = true)
-    private void cancelTooltips(PoseStack matrices, int mouseX, int mouseY, CallbackInfo info) {
+    private void cancelTooltips(GuiGraphics matrices, int mouseX, int mouseY, CallbackInfo info) {
         if (Jeed.suppressVanillaTooltips()) info.cancel();
     }
 

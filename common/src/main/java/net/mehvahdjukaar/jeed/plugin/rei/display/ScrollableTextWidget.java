@@ -1,16 +1,14 @@
 package net.mehvahdjukaar.jeed.plugin.rei.display;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
 import me.shedaniel.clothconfig2.ClothConfigInitializer;
 import me.shedaniel.clothconfig2.api.scroll.ScrollingContainer;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.REIRuntime;
 import me.shedaniel.rei.api.client.gui.widgets.CloseableScissors;
 import me.shedaniel.rei.api.client.gui.widgets.WidgetWithBounds;
-import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
-import me.shedaniel.rei.plugin.common.displays.DefaultInformationDisplay;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -102,28 +100,28 @@ public class ScrollableTextWidget extends WidgetWithBounds {
 
 
     @Override
-    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         scrolling.updatePosition(delta);
         Rectangle innerBounds = scrolling.getScissorBounds();
-        try (CloseableScissors scissors = scissor(matrices, innerBounds)) {
+        try (CloseableScissors scissors = scissor(graphics, innerBounds)) {
             int currentY = -scrolling.scrollAmountInt() + innerBounds.y;
             for (FormattedCharSequence text : texts) {
                 if (text != null && currentY + font.lineHeight >= innerBounds.y && currentY <= innerBounds.getMaxY()) {
-                    font.draw(matrices, text, innerBounds.x + 2, currentY + 2, REIRuntime.getInstance().isDarkThemeEnabled() ? 0xFFBBBBBB : 0xFF090909);
+                    graphics.drawString(font, text, innerBounds.x + 2, currentY + 2, REIRuntime.getInstance().isDarkThemeEnabled() ? 0xFFBBBBBB : 0xFF090909, false);
                 }
                 currentY += text == null ? 4 : font.lineHeight;
             }
         }
         if (scrolling.hasScrollBar()) {
             if (scrolling.scrollAmount() > 8) {
-                fillGradient(matrices, innerBounds.x, innerBounds.y, innerBounds.getMaxX(), innerBounds.y + 16, 0xFFC6C6C6, 0x00C6C6C6);
+                graphics.fillGradient(innerBounds.x, innerBounds.y, innerBounds.getMaxX(), innerBounds.y + 16, 0xFFC6C6C6, 0x00C6C6C6);
             }
             if (scrolling.getMaxScroll() - scrolling.scrollAmount() > 8) {
-                fillGradient(matrices, innerBounds.x, innerBounds.getMaxY() - 16, innerBounds.getMaxX(), innerBounds.getMaxY(), 0x00C6C6C6, 0xFFC6C6C6);
+                graphics.fillGradient(innerBounds.x, innerBounds.getMaxY() - 16, innerBounds.getMaxX(), innerBounds.getMaxY(), 0x00C6C6C6, 0xFFC6C6C6);
             }
         }
-        try (CloseableScissors scissors = scissor(matrices, scrolling.getBounds())) {
-            scrolling.renderScrollBar(0, 1, 1f);
+        try (CloseableScissors scissors = scissor(graphics, scrolling.getBounds())) {
+            scrolling.renderScrollBar(graphics, 0, 1, 1f);
         }
     }
 

@@ -6,6 +6,7 @@ import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.plugin.client.categories.DefaultInformationCategory;
 import net.mehvahdjukaar.jeed.common.EffectCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.locale.Language;
@@ -29,10 +30,10 @@ public class TextBox extends Widget {
     }
 
     @Override
-    public void render(PoseStack poseStack,  int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         int y = 0;
         for (FormattedText descriptionLine : lines) {
-            font.draw(poseStack, Language.getInstance().getVisualOrder(descriptionLine), left.x, left.y + y, 0xFF000000);
+            graphics.drawString(font, Language.getInstance().getVisualOrder(descriptionLine), left.x, left.y + y, 0xFF000000, false);
             y += font.lineHeight + EffectCategory.LINE_SPACING;
         }
     }

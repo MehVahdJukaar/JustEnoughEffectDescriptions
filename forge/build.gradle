@@ -101,14 +101,14 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
     implementation 'org.jetbrains:annotations:22.0.0'
-    modImplementation   ("curse.maven:jei-238222:4516729")
+    modImplementation   ("curse.maven:jei-238222:4597711")
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:11.0.597"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-forge:12.0.625"
 
     //modRuntimeOnly("curse.maven:roughly-enough-items-hacks-521393:4402999")
-    modRuntimeOnly("curse.maven:architectury-api-419699:4521265")
-    modCompileOnly("curse.maven:stylish-effects-543661:4030138")
-    modRuntimeOnly("curse.maven:puzzles-lib-495476:4041202")
+    modRuntimeOnly("curse.maven:architectury-api-419699:4581905")
+    modCompileOnly("curse.maven:stylish-effects-543661:4582073")
+    modCompileOnly("curse.maven:puzzles-lib-495476:4596893")
     //modImplementation ("curse.maven:jei-238222:3884337")
     //modImplementation ("curse.maven:configured-457570:4011355")
 }

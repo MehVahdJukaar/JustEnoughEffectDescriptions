@@ -7,7 +7,7 @@ import com.mojang.datafixers.util.Pair;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -41,28 +41,22 @@ public abstract class EffectRenderer {
         this.offset = offset;
     }
 
-    public void render(PoseStack matrixStack, MobEffectInstance effectInstance) {
-        render(matrixStack, effectInstance, 0, 0, 16, 16);
+    public void render(GuiGraphics graphics, MobEffectInstance effectInstance) {
+        render(graphics, effectInstance, 0, 0, 16, 16);
     }
 
-    public void render(PoseStack matrixStack, MobEffectInstance effectInstance, int x, int y, int width, int height) {
+    public void render(GuiGraphics graphics, MobEffectInstance effectInstance, int x, int y, int width, int height) {
         MobEffect effect = effectInstance.getEffect();
 
         MobEffectTextureManager textures = mc.getMobEffectTextures();
         TextureAtlasSprite sprite = textures.get(effect);
 
-        render(matrixStack, sprite, x, y, width, height);
+        render(graphics, sprite, x, y, width, height);
     }
 
-    public void render(PoseStack matrixStack, TextureAtlasSprite sprite, int x, int y, int width, int height) {
-
-        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, sprite.atlasLocation());
+    public void render(GuiGraphics graphics, TextureAtlasSprite sprite, int x, int y, int width, int height) {
         int o = offset ? -1 : 0;
-        GuiComponent.blit(matrixStack, x + o, y + o, 0, width + 2, height + 2, sprite);
-
-        RenderSystem.applyModelViewMatrix();
+        graphics.blit( x + o, y + o, 0, width + 2, height + 2, sprite);
     }
 
 

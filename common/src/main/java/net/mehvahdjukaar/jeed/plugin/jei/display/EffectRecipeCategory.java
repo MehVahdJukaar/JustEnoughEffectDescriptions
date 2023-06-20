@@ -18,6 +18,7 @@ import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.MobEffect;
@@ -63,7 +64,7 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
     }
 
     @Override
-    public void draw(EffectInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
+    public void draw(EffectInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
         int xPos = 0;
         int yPos = effectBackground.getHeight() + 4 + Y_OFFSET;
 
@@ -77,10 +78,10 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
 
         name.setStyle(Style.EMPTY.withBold(true).withColor(TextColor.fromRgb(color)));
         float x = RECIPE_WIDTH / 2f - font.width(name) / 2f;
-        font.drawShadow(matrixStack, Language.getInstance().getVisualOrder(name), x, 0, 0xFF000000);
+        graphics.drawString(font, Language.getInstance().getVisualOrder(name), (int) x, 0, 0xFF000000);
 
         for (FormattedText descriptionLine : recipe.getDescription()) {
-            font.draw(matrixStack, Language.getInstance().getVisualOrder(descriptionLine), xPos, yPos, 0xFF000000);
+            graphics.drawString(font, Language.getInstance().getVisualOrder(descriptionLine), xPos, yPos, 0xFF000000, false);
             yPos += font.lineHeight + LINE_SPACING;
         }
 
@@ -89,7 +90,7 @@ public class EffectRecipeCategory extends EffectCategory implements IRecipeCateg
             if (size != 0) {
                 int maxSlots = size <= SLOTS_PER_ROW ? SLOTS_PER_ROW : SLOTS_PER_ROW * ROWS;
                 for (int slotId = 0; slotId < maxSlots; slotId++) {
-                    this.slotBackground.draw(matrixStack, 1+(int) (RECIPE_WIDTH / 2f + ((float) SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f))),
+                    this.slotBackground.draw(graphics, 1+(int) (RECIPE_WIDTH / 2f + ((float) SLOT_W * ((slotId % SLOTS_PER_ROW) - SLOTS_PER_ROW / 2f))),
                             RECIPE_HEIGHT - SLOT_W * (1 + slotId / SLOTS_PER_ROW));
                 }
             }

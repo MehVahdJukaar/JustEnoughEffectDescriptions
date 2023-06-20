@@ -7,6 +7,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Tooltip;
 import me.shedaniel.rei.api.client.gui.widgets.TooltipContext;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import net.mehvahdjukaar.jeed.common.EffectRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MobEffectTextureManager;
@@ -29,23 +30,23 @@ public class EffectInstanceRenderer extends EffectRenderer implements BatchedEnt
     }
 
     @Override
-    public void startBatch(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, PoseStack matrices, float delta) {
+    public void startBatch(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, GuiGraphics matrices, float delta) {
 
     }
 
 
     @Override
-    public void afterBase(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, PoseStack matrices, float delta) {
+    public void afterBase(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, GuiGraphics matrices, float delta) {
 
     }
 
     @Override
-    public void renderOverlay(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, PoseStack matrices, MultiBufferSource.BufferSource immediate, Rectangle bounds, int mouseX, int mouseY, float delta) {
+    public void renderOverlay(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, GuiGraphics matrices, MultiBufferSource.BufferSource immediate, Rectangle bounds, int mouseX, int mouseY, float delta) {
 
     }
 
     @Override
-    public void endBatch(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, PoseStack matrices, float delta) {
+    public void endBatch(EntryStack<MobEffectInstance> entry, TextureAtlasSprite extraData, GuiGraphics matrices, float delta) {
 
     }
 
@@ -56,19 +57,19 @@ public class EffectInstanceRenderer extends EffectRenderer implements BatchedEnt
     }
 
     @Override
-    public void renderBase(EntryStack<MobEffectInstance> entry, TextureAtlasSprite sprite, PoseStack matrices,
+    public void renderBase(EntryStack<MobEffectInstance> entry, TextureAtlasSprite sprite, GuiGraphics render,
                            MultiBufferSource.BufferSource immediate, Rectangle bounds, int mouseX, int mouseY, float delta) {
 
-        matrices.pushPose();
-        render(matrices, sprite, bounds.x, bounds.y, bounds.width, bounds.height);
-        matrices.popPose();
+        render.pose().pushPose();
+        render(render, sprite, bounds.x, bounds.y, bounds.width, bounds.height);
+        render.pose().popPose();
     }
 
     @Override
-    public void render(EntryStack<MobEffectInstance> entry, PoseStack matrices, Rectangle bounds, int mouseX, int mouseY, float delta) {
-        matrices.pushPose();
-        render(matrices, entry.getValue(), bounds.x, bounds.y, bounds.width, bounds.height);
-        matrices.popPose();
+    public void render(EntryStack<MobEffectInstance> entry, GuiGraphics graphics, Rectangle bounds, int mouseX, int mouseY, float delta) {
+        graphics.pose().pushPose();
+        render(graphics, entry.getValue(), bounds.x, bounds.y, bounds.width, bounds.height);
+        graphics.pose().popPose();
     }
 
     @Override

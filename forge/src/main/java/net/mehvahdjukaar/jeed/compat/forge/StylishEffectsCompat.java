@@ -1,9 +1,9 @@
 package net.mehvahdjukaar.jeed.compat.forge;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import fuzs.stylisheffects.api.client.MobEffectWidgetContext;
-import fuzs.stylisheffects.api.client.StylishEffectsClientApi;
-import fuzs.stylisheffects.api.client.event.MobEffectWidgetEvent;
+import fuzs.stylisheffects.api.client.stylisheffects.v1.EffectScreenHandler;
+import fuzs.stylisheffects.api.client.stylisheffects.v1.MobEffectWidgetContext;
+import fuzs.stylisheffects.api.client.stylisheffects.v1.MobEffectWidgetEvent;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.api.JeedAPI;
@@ -44,7 +44,7 @@ public class StylishEffectsCompat<T extends EffectRenderingInventoryScreen<?>> i
     @Override
     public MobEffectInstance getEffectAtPosition(T screen, double mouseX, double mouseY, CallReason reason) {
         if (reason != CallReason.RECIPE_KEY) return null; //rest is handled by Stylish Effect events above
-        return StylishEffectsClientApi.getEffectScreenHandler().getInventoryHoveredEffect(screen, mouseX, mouseY)
+        return EffectScreenHandler.INSTANCE.getInventoryHoveredEffect(screen, mouseX, mouseY)
                 .map(MobEffectWidgetContext::effectInstance)
                 .orElse(null);
     }
