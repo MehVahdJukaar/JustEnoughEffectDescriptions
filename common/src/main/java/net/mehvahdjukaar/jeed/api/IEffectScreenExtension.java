@@ -17,7 +17,7 @@ public interface IEffectScreenExtension<T extends Screen> {
 
     default boolean showDurationOnTooltip(){
         return false;
-    };
+    }
 
     enum CallReason {
         TOOLTIP, RECIPE_KEY, MOUSE_CLICKED;
