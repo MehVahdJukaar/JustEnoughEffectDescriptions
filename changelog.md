@@ -1,3 +1,1 @@
-- Greatly improved effect detection for inventory screen
-- Should now work with all mods that move them around
-- Also added a config to replace vanilla tooltips when effects are short
+what does a food with null effect even mean?? 

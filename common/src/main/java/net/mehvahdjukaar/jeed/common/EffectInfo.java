@@ -89,7 +89,8 @@ public abstract class EffectInfo {
 
                 ItemStack foodItem = new ItemStack(i);
                 for (Pair<MobEffectInstance, Float> pair : food.getEffects()) {
-                    effectProvidingItems.computeIfAbsent(pair.getFirst().getEffect(), s -> (new ItemStackList())).add(foodItem);
+                    if(pair.getFirst() != null)
+                        effectProvidingItems.computeIfAbsent(pair.getFirst().getEffect(), s -> (new ItemStackList())).add(foodItem);
                 }
             }
         }
