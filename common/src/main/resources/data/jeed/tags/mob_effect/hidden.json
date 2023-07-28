@@ -1,8 +1,5 @@
 {
   "replace": false,
   "values": [
-    {
-      "id": "minecraft:poison"
-    }
   ]
 }
