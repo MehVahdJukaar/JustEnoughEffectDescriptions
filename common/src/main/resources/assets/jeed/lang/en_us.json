@@ -129,6 +129,10 @@
 
   "effect.fruitful.sustaining.description": "Increases hunger yield from any food eaten.",
 
+  "effect.goodending.strong_immunity.description": "Strong immunity removes a harmful effect, then downgrades to contemporary immunity.",
+  "effect.goodending.contemporary_immunity.description": "Contemporary immunity removes a harmful effect, then downgrades to shattered immunity.",
+  "effect.goodending.shattered_immunity.description": "Shattered immunity removes a harmful effect, then dissipates."
+
   "effect.habitat.blast_endurance.description": "Reduces damage taken from explosions.",
   "effect.habitat.prickling,description": "Has a chance to deal thorns damage equal to its level to the attacker.",
   "effect.habitat.prolongation.description": "Increases the duration of all incoming potion effects by 20%.",
