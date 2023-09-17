@@ -29,8 +29,9 @@ import java.util.List;
 public class JeedImpl {
 
     public JeedImpl() {
-        if (!ModList.get().isLoaded("jei") && !ModList.get().isLoaded("roughlyenoughitems")) {
-            Jeed.LOGGER.error("Jepp requires either JEI or REI mods. None of them was found");
+        if (!ModList.get().isLoaded("jei") && !ModList.get().isLoaded("roughlyenoughitems")
+                && !ModList.get().isLoaded("emi")) {
+            Jeed.LOGGER.error("Jepp requires either JEI, REI or EMI mods. None of them was found");
         }
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
