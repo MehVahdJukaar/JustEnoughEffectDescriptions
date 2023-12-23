@@ -1,1 +1,1 @@
-stylish effect fabric stuff i forgot
+removed poison effect from blacklist

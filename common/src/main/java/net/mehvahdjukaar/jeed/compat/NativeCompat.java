@@ -24,7 +24,8 @@ public class NativeCompat {
             for (var b : screen.beaconButtons) {
                 if (b instanceof BeaconScreen.BeaconPowerButton pb) {
                     if (pb.isHovered()) {
-                        return new MobEffectInstance(pb.effect);
+                        int tier = b.getClass() != BeaconScreen.BeaconPowerButton.class ? 1 : 0;
+                        return new MobEffectInstance(pb.effect, 0, tier);
                     }
                 }
             }
