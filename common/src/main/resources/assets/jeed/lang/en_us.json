@@ -6,7 +6,7 @@
   "jeed.tooltip.harmful": "Harmful",
   "jeed.description.missing": "No description available",
 
-  "effect.minecraft.absorption.description": "Adds some damaging absorbing hearths (which can't be regenerated); higher levels give more absorption.",
+  "effect.minecraft.absorption.description": "Adds some damaging absorbing hearts (which can't be regenerated); higher levels give more absorption.",
   "effect.minecraft.bad_omen.description": "Causes an illager raid to start upon entering a village; higher levels increase the raid difficulty.",
   "effect.minecraft.blindness.description": "Impairs vision and disables the ability to sprint and critical hit.",
   "effect.minecraft.conduit_power.description": "Increases underwater visibility and mining speed, prevents drowning.",
@@ -15,7 +15,7 @@
   "effect.minecraft.fire_resistance.description": "Grants immunity to fire damage as well as damage from lava.",
   "effect.minecraft.glowing.description": "Marks affected entities with an outline glow, allowing them to be seen through blocks.",
   "effect.minecraft.haste.description": "Increases mining and attack speed; higher levels increase both stats further.",
-  "effect.minecraft.health_boost.description": "Increases maximum health; higher levels give more additional hearths.",
+  "effect.minecraft.health_boost.description": "Increases maximum health; higher levels give more additional hearts.",
   "effect.minecraft.hero_of_the_village.description": "Gives discounts on trades with villagers, and makes villagers throw items at the player depending on their profession.",
   "effect.minecraft.hunger.description": "Increases food exhaustion; higher levels cause to starve quicker.",
   "effect.minecraft.instant_damage.description": "Damages living entities, heals undead; higher levels increase the effect potency.",
@@ -131,7 +131,7 @@
 
   "effect.goodending.strong_immunity.description": "Strong immunity removes a harmful effect, then downgrades to contemporary immunity.",
   "effect.goodending.contemporary_immunity.description": "Contemporary immunity removes a harmful effect, then downgrades to shattered immunity.",
-  "effect.goodending.shattered_immunity.description": "Shattered immunity removes a harmful effect, then dissipates."
+  "effect.goodending.shattered_immunity.description": "Shattered immunity removes a harmful effect, then dissipates.",
 
   "effect.habitat.blast_endurance.description": "Reduces damage taken from explosions.",
   "effect.habitat.prickling,description": "Has a chance to deal thorns damage equal to its level to the attacker.",
@@ -224,6 +224,4 @@
   "effect.cofh_core.clarity.description": "Increases the amount of gained exp by 40% per level.",
   "effect.cofh_core.explosion_resistance.description": "Grants immunity to explosion damage.",
   "effect.cofh_core.chilled.description": "Reduces movement speed by 30% and attack damage by 1.5 hearts per level."
-
-
 }
