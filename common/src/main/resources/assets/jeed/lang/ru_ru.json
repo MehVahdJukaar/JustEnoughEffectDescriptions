@@ -40,24 +40,24 @@
   "effect.minecraft.weakness.description": "Уменьшает урон ближней атаки на 4×<уровень>.",
   "effect.minecraft.wither.description": "Наносит урон с течением времени. Каждый уровень уменьшает интервал между единицами наносимого урона в ~2.1 раз. Эффект не изменяется на уровне ≥ 6.",
 
-  "effect.abundance.succumbing.description": "Poisons the user for a short time when they receive any damage.",
-  "effect.abundance.supportive.description": "Gives regeneration to animals, strength to neutral mobs and resistance to monsters.",
+  "effect.abundance.succumbing.description": "Отравляет носителя на короткое время, когда он получает какой-либо урон.",
+  "effect.abundance.supportive.description": "Даёт регенерацию животным, силу нейтральным мобам и сопротивление монстрам.",
 
-  "effect.alexsmobs.bug_pheromones.description": "Make hostile arthropods neutral to the user.",
-  "effect.alexsmobs.clinging.description": "Allows walking upside-down on ceilings.",
-  "effect.alexsmobs.debilitating_sting.description": "An Effect which poisons the victim but paralyzes arthropods. It will stop if the victim is at half health and is not an arthropod. Inflicted by a Tarantula Hawk.",
-  "effect.alexsmobs.ender_flu.description": "After the effect runs out naturally, the user takes massive damage and an Enderiophage will spawn. Inflicted by an Enderiophage.",
-  "effect.alexsmobs.exsanguination.description": "Gradually drains health.",
-  "effect.alexsmobs.fear.description": "Makes the target unable to move. Effect applied when a Tiger reveals itself to the user.",
-  "effect.alexsmobs.knockback_resistance.description": "Provides 50% knockback resistance.",
-  "effect.alexsmobs.lava_vision.description": "Allows seeing through lava.",
-  "effect.alexsmobs.oiled.description": "Oil floats on water. Cover yourself in oil to float on the surface of water and outside in the rain.",
-  "effect.alexsmobs.orcas_might.description": "Grants increased attack speed. Effect may be applied when swimming with an Orca.",
-  "effect.alexsmobs.poison_resistance.description": "Grants immunity to poison.",
-  "effect.alexsmobs.soulsteal.description": "Grants the user attacks some life-steal.",
-  "effect.alexsmobs.sunbird_blessing.description": "Decreases fall speed, prevents fall damage and makes it easier to fly with an Elytra or Tarantula Hawk Elytra. Effect is applied when near a Sunbird.",
-  "effect.alexsmobs.sunbird_curse.description": "Increases fall speed, causing the user to hit the ground quicker. This effectively impedes the use of an Elytra. Effect is applied when attacking a Sunbird.",
-  "effect.alexsmobs.tigers_blessing.description": "Tigers near the user will be neutral and will protect them from hostile foes. The effect will go away early when attacking a Tiger. Applied by feeding a Tiger chicken or pork chops.",
+  "effect.alexsmobs.bug_pheromones.description": "Делает враждебных членистоногих нейтральными по отношению к носителю.",
+  "effect.alexsmobs.clinging.description": "Позволяет ходить вверх ногами по потолкам.",
+  "effect.alexsmobs.debilitating_sting.description": "Отравляет жертву и парализует членистоногих. Действие прекращается, если у жертвы половина здоровья и она не является членистоногим. Накладывается тарантуловым ястребом.",
+  "effect.alexsmobs.ender_flu.description": "После того, как эффект закончится естественным образом, пользователь получит огромный урон и появится эндриофаг. Нанесен эндриофагом.",
+  "effect.alexsmobs.exsanguination.description": "Постепенно истощает здоровье.",
+  "effect.alexsmobs.fear.description": "Лишает цель возможности двигаться. Эффект накладывается, когда тигр показывает себя носителю.",
+  "effect.alexsmobs.knockback_resistance.description": "Обеспечивает 50%-ную сопротивлению отбрасыванию.",
+  "effect.alexsmobs.lava_vision.description": "Позволяет видеть сквозь лаву.",
+  "effect.alexsmobs.oiled.description": "Масло плавает на воде. Намажьтесь маслом, чтобы плавать на поверхности воды и на улице под дождём.",
+  "effect.alexsmobs.orcas_might.description": "Увеличивает скорость атаки. Накладывается при плавании с косаткой.",
+  "effect.alexsmobs.poison_resistance.description": "Даёт иммунитет к яду.",
+  "effect.alexsmobs.soulsteal.description": "Предоставляет вампиризм атакам носителя, давая возможность украсть здоровье цели.",
+  "effect.alexsmobs.sunbird_blessing.description": "Уменьшает скорость падения и предотвращает урон от него, а также облегчает полёт с помощью тарантуловых элитр. Накладывается при приближении к жар-птице.",
+  "effect.alexsmobs.sunbird_curse.description": "Увеличивает скорость падения, заставляя пользователя сильнее ударяться о землю. Препятствует использованию элитр. Накладывается при атаке жар-птицы.",
+  "effect.alexsmobs.tigers_blessing.description": "Тигры рядом с носителем будут нейтральны и защитят его от враждебно настроенных противников. Эффект исчезнет раньше при нападении на тигра. Применяется при скармливании тигру курицы или сырой свинины.",
 
   "effect.apotheosis.ancient_knowledge.description": "Quadruples all experience earned from entity kills. The effect doubles with each level.",
   "effect.apotheosis.sundering.description": "Increases damage taken by 20% per level. This effect is the opposite of Protection which means that a Sundering II potion can completely revoke all benefits of Resistance II.",
@@ -95,8 +95,8 @@
   "effect.caverns_and_chasms.affliction.description": "Once the effect ends, inflicts 3 magic damage per effect level.",
   "effect.caverns_and_chasms.rewind.description": "At the end of the effect, teleports the user to the position where the effect was initially gained.",
 
-  "effect.create_confectionery.rest.description": "Makes phantoms disappear.",
-  "effect.create_confectionery.stimulation.description": "Removes mining fatigue and slowness",
+  "effect.create_confectionery.rest.description": "Заставляет фантомов исчезать.",
+  "effect.create_confectionery.stimulation.description": "Устраняет усталость и медлительность.",
 
   "effect.dungeons_mobs.ensnared.description": "Affected entities are trapped in place.",
   "effect.dungeons_mobs.warped.description": "Inflicts lethal magic damage over time.",
@@ -117,10 +117,10 @@
 
   "effect.fantasy.glowing_vision.description": "Causes Unicorns in a radius of 500 blocks to obtain the glowing effect, making them easier to locate.",
 
-  "effect.farmersdelight.comfort.description": "Removes and grants immunity to Slowness, Hunger and Weakness.",
-  "effect.farmersdelight.nourishment.description": "Prevents players from losing hunger or saturation from any other source other than replenishing health points.",
+  "effect.farmersdelight.comfort.description": "Устраняет и дарует иммунитет к медлительности, голоду и слабости.",
+  "effect.farmersdelight.nourishment.description": "Предотвращает потерю игроками голода или насыщения из любого другого источника, кроме пополнения очков здоровья.",
 
-  "effect.farmersrespite.caffeinated.description": "Increases the target's walk and attack speed.",
+  "effect.farmersrespite.caffeinated.description": "Увеличивает скорость ходьбы и атаки.",
 
   "effect.forbidden_arcanus.darkened.description": "A mix of blindness and slowness.",
   "effect.forbidden_arcanus.fly.description": "Allows the affected player to creative fly.",
@@ -143,10 +143,10 @@
   "effect.infernalexp.infection.description": "Slowly poisons with non lethal damage over time; can be spread to other living entities when attacking them.",
   "effect.infernalexp.luminous.description": "Makes the user emit light. If applied on undead mobs it will set them on fire.",
 
-  "effect.mowziesmobs.frozen.description": "Freezes and immobilizes the affected entity while also dealing some damage over time.",
-  "effect.mowziesmobs.geomancy.description": "Right-click earthen ground with empty hand to spawn a boulder. Charge right-click to spawn bigger boulders. Punch the boulder to fire it as projectile. While in the air, double-tap and hold sneak to begin tunneling while looking in the direction you'd like to dig. Release sneak to stop tunneling and surface.",
-  "effect.mowziesmobs.poison_resist.description": "Grants immunity to poison.",
-  "effect.mowziesmobs.suns_blessing.description": "Right-click with an empty hand to call down a sunstrike, shift-right-click with an empty hand to fire a solar beam.",
+  "effect.mowziesmobs.frozen.description": "Замораживает и обездвиживает, а также со временем наносит некоторый урон.",
+  "effect.mowziesmobs.geomancy.description": "Щелкните правой кнопкой мыши по земле пустой рукой, чтобы создать валун. Заряжайте правой кнопкой мыши, чтобы создать валуны побольше. Ударьте по валуну, чтобы запустить его как снаряд. Находясь в воздухе, дважды нажмите и удерживайте SHIFT, чтобы начать прокладку туннеля, глядя при этом в нужном направлении. Отпустите SHIFT, чтобы остановить прокладку туннеля и всплыть на поверхность.",
+  "effect.mowziesmobs.poison_resist.description": "Даёт иммунитет к яду.",
+  "effect.mowziesmobs.suns_blessing.description": "Щелкните правой кнопкой мыши пустой рукой, чтобы вызвать солнечный удар, щёлкните правой кнопкой мыши с SHIFT пустой рукой, чтобы запустить солнечный луч.",
 
   "effect.neapolitan.agility.description": "Allows to climb over any block as if they're ladders.",
   "effect.neapolitan.berserking.description": "Killing mobs raises the effect by 1 level each time, each level adds strength and defense.",
@@ -159,13 +159,13 @@
   "effect.nether_extension.infested.description": "Spawns aggressive baby Spori around the target.",
   "effect.nether_extension.rough.description": "Increases knockback dealt.",
 
-  "effect.quark.danger_sight.description": "Highlights areas where hostile mobs can spawn.",
-  "effect.quark.resilience.description":  "Provides 50% knockback resistance.",
+  "effect.quark.danger_sight.description": "Выделяет области, где могут появляться враждебные мобы.",
+  "effect.quark.resilience.description":  "Обеспечивает 50%-ное сопротивление отбрасыванию.",
 
   "effect.rats.plague.description": "Disables natural health regeneration and turns hearts into plague hearts. Plague can be spread to other entities via interaction",
   "effect.rats.synesthesia.description": "Provides unlimited saturation along with a full row of absorption hearts and heavily increased attack speed. When the effect is applied the field of view will zoom in and out and will be tinted orange. The opposite thing happens when the effect runs out.",
 
-  "effect.savage_and_ravage.weigth.description": "Makes the target really heavy.",
+  "effect.savage_and_ravage.weigth.description": "Делает цель очень тяжелой.",
 
   "effect.seasonals.fall_flavor.description": "'Tastes like autumn!' Automatically restores hunger and saturation over time.",
   "effect.seasonals.fall_flavour.description": "Gives the user immunity to spiky plants and thorns damage.",
@@ -183,7 +183,7 @@
   "effect.tetra.steeled.description": "<Unknown>",
   "effect.tetra.stun.description": "Stuns the target impeding its movement, making them deal no damage when attacking and giving them an infinite swing cooldown.",
 
-  "effect.twilightforest.frosted.description": "You are somewhere you are not supposed to be... yet.",
+  "effect.twilightforest.frosted.description": "Ты находишься там, где тебе не положено быть… пока.",
 
   "effect.twist.afterburn.description": "Damages the user after the effect wears off.",
   "effect.twist.disintegration.description": "Damages the user when sprinting.",
