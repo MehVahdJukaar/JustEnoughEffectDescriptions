@@ -21,15 +21,7 @@ import java.util.Iterator;
 
 
 @Mixin(EffectRenderingInventoryScreen.class)
-public abstract class EffectRenderingInventoryScreenMixin {
-
-    @Unique
-    private MobEffectInstance jeed$hoveredEffect;
-    @Unique
-    private GuiGraphics jeed$guiGraphics;
-
-    @Unique
-    private int jeed$mouseX, jeed$mouseY;
+public abstract class EffectsRenderingInventoryScreenMixin {
 
     @Inject(at = @At("HEAD"), method = "renderEffects")
     private void captureMouse(GuiGraphics matrices, int mouseX, int mouseY, CallbackInfo info) {
@@ -38,6 +30,14 @@ public abstract class EffectRenderingInventoryScreenMixin {
         jeed$mouseY = mouseY;
         NativeCompat.setInventoryEffect(null, false);
     }
+
+    @Unique
+    private MobEffectInstance jeed$hoveredEffect;
+    @Unique
+    private GuiGraphics jeed$guiGraphics;
+
+    @Unique
+    private int jeed$mouseX, jeed$mouseY;
 
     @Inject(method = "renderBackgrounds",
             at = @At(value = "INVOKE_ASSIGN", target = "Ljava/util/Iterator;next()Ljava/lang/Object;",

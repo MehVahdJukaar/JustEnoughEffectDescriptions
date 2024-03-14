@@ -1,5 +1,6 @@
 package net.mehvahdjukaar.jeed.forge;
 
+import com.google.common.base.Stopwatch;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
@@ -10,6 +11,8 @@ import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
+
+import java.util.function.Consumer;
 
 public class JeedClient {
 
