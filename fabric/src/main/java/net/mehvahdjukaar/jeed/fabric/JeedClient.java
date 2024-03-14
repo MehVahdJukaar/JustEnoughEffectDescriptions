@@ -1,6 +1,5 @@
 package net.mehvahdjukaar.jeed.fabric;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents;
 import net.fabricmc.loader.api.FabricLoader;

@@ -1,1 +1,1 @@
-removed poison effect from blacklist
+possibly fixed a rare crash on forge

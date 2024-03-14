@@ -11,8 +11,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 
-import java.util.function.Consumer;
-
 public class JeedClient {
 
 
@@ -27,43 +25,40 @@ public class JeedClient {
         }
     }
 
-    private static boolean screenChanged = false;
+    private static IEffectScreenExtension<?> currentExt = null;
 
     @SubscribeEvent
     public static void onScreenInit(ScreenEvent.Init event) {
-        screenChanged = true;
-        Screen screen = event.getScreen();
-        var ext = ScreenExtensionsHandler.getExtension(screen);
-        if (ext != null) {
-            MinecraftForge.EVENT_BUS.addListener(new Consumer<ScreenEvent.Render>() {
-                @Override
-                public void accept(ScreenEvent.Render event) {
-                    if (screenChanged) {
-                        MinecraftForge.EVENT_BUS.unregister(this);
-                    } else {
-                        var effect = ext.getEffectAtPosition(screen, event.getMouseX(), event.getMouseY(), IEffectScreenExtension.CallReason.TOOLTIP);
-                        if (effect != null) {
-                            ScreenExtensionsHandler.renderEffectTooltip(effect, screen, event.getGuiGraphics(),
-                                    event.getMouseX(), event.getMouseY(), ext.showDurationOnTooltip());
-                        }
-                    }
-                }
-            });
-            MinecraftForge.EVENT_BUS.addListener(new Consumer<ScreenEvent.MouseButtonPressed>() {
-                @Override
-                public void accept(ScreenEvent.MouseButtonPressed event) {
-                    if (screenChanged) {
-                        MinecraftForge.EVENT_BUS.unregister(this);
-                    } else {
-                        var effect = ext.getEffectAtPosition(screen, event.getMouseX(), event.getMouseY(), IEffectScreenExtension.CallReason.MOUSE_CLICKED);
-                        if (effect != null) {
-                            Jeed.PLUGIN.onClickedEffect(effect, event.getMouseX(), event.getMouseY(), event.getButton());
-                        }
-                    }
-                }
-            });
+        currentExt = ScreenExtensionsHandler.getExtension(event.getScreen());
+    }
 
-            screenChanged = false;
+    @SubscribeEvent
+    public static void onScreenClose(ScreenEvent.Closing event) {
+        currentExt = null;
+    }
+
+    @SubscribeEvent
+    public static void onScreenRender(ScreenEvent.Render event) {
+        if (currentExt != null) {
+            Screen screen = event.getScreen();
+            var effect = ((IEffectScreenExtension<Screen>) currentExt)
+                    .getEffectAtPosition(screen, event.getMouseX(), event.getMouseY(), IEffectScreenExtension.CallReason.TOOLTIP);
+            if (effect != null) {
+                ScreenExtensionsHandler.renderEffectTooltip(effect, screen, event.getGuiGraphics(),
+                        event.getMouseX(), event.getMouseY(), currentExt.showDurationOnTooltip());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onScreenMouseButton(ScreenEvent.MouseButtonPressed event) {
+        if (currentExt != null) {
+            Screen screen = event.getScreen();
+            var effect = ((IEffectScreenExtension<Screen>) currentExt)
+                    .getEffectAtPosition(screen, event.getMouseX(), event.getMouseY(), IEffectScreenExtension.CallReason.MOUSE_CLICKED);
+            if (effect != null) {
+                Jeed.PLUGIN.onClickedEffect(effect, event.getMouseX(), event.getMouseY(), event.getButton());
+            }
         }
     }
 
