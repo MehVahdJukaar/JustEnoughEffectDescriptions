@@ -9,7 +9,6 @@ import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
 import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,11 +18,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance> {
@@ -69,7 +66,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
 
     @Override
     public Stream<ResourceLocation> getTagStream(MobEffectInstance ingredient) {
-        return  BuiltInRegistries.MOB_EFFECT
+        return BuiltInRegistries.MOB_EFFECT
                 .getResourceKey(ingredient.getEffect())
                 .flatMap(BuiltInRegistries.MOB_EFFECT::getHolder)
                 .map(Holder::tags)

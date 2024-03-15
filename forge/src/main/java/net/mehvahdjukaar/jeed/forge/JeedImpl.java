@@ -34,6 +34,8 @@ public class JeedImpl {
             Jeed.LOGGER.error("Jepp requires either JEI, REI or EMI mods. None of them was found");
         }
 
+        Jeed.EMI = ModList.get().isLoaded("emi");
+
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         RECIPES_SERIALIZERS.register(bus);
         RECIPE_TYPES.register(bus);

@@ -31,6 +31,8 @@ public class Jeed {
 
     public static IPlugin PLUGIN;
 
+    public static boolean EMI = false;
+
     public static ResourceLocation res(String name) {
         return new ResourceLocation(MOD_ID, name);
     }

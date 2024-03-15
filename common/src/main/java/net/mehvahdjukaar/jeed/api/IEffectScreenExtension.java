@@ -1,10 +1,8 @@
 package net.mehvahdjukaar.jeed.api;
 
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.effect.MobEffectInstance;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 
 @FunctionalInterface
