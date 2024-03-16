@@ -1,1 +1,1 @@
-improved EMI screen to be smaller as bigger ones aren't really allowed
+made code extra fool proof without degrading performance

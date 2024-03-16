@@ -110,6 +110,9 @@ dependencies {
     modRuntimeOnly("curse.maven:architectury-api-419699:4581905")
     modCompileOnly("curse.maven:stylish-effects-543661:4582073")
     modCompileOnly("curse.maven:puzzles-lib-495476:4596893")
+    modRuntimeOnly("curse.maven:create-328085:4835191")
+    modRuntimeOnly("com.jozufozu.flywheel:flywheel-forge-1.20.1-0.6.10-7")
+    modRuntimeOnly("com.tterrag.registrate:Registrate:MC1.20-1.3.3")
     //modImplementation ("curse.maven:jei-238222:3884337")
     //modImplementation ("curse.maven:configured-457570:4011355")
 }
