@@ -228,5 +228,13 @@
   "effect.cofh_core.enderference.description": "Makes nearby endermen unable to teleport. Also disables teleportation for nearby players using ender pearls or chorus fruits.",
   "effect.cofh_core.clarity.description": "Increases the amount of gained exp by 40% per level.",
   "effect.cofh_core.explosion_resistance.description": "Grants immunity to explosion damage.",
-  "effect.cofh_core.chilled.description": "Reduces movement speed by 30% and attack damage by 1.5 hearts per level."
+  "effect.cofh_core.chilled.description": "Reduces movement speed by 30% and attack damage by 1.5 hearts per level.",
+
+  "effect.species.wither_resistance.description": "Grants immunity to the Wither effect.",
+  "effect.species.birtd.description": "Stuns the afflicted and prevents them from moving, but not fighting back.",
+  "effect.mynethersdelight.b_pungent.description": "Deals fire damage when near a heat source.  Heals instead if you also have fire resistance.",
+  "effect.mynethersdelight.g_pungent.description": "Heals from heat sources when combined with fire resistance.  Deals damage instead without it.",
+  "effect.enigmaticlegacy.growing_hunger.description": "Drains hunger over time,  but grants increased damage and life steal.",
+  "effect.enigmaticlegacy.growing_bloodlust.description": "Drains health over time, but grants increased damage and life steal.  Only applied if the bearer of the curse has eaten the forbidden fruit.",
+  "effect.mowziesmobs.sunblock.description": "The Umvuthana are protecting their chief!  Stop them before you're overwhelmed!"
 }
