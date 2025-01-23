@@ -59,8 +59,8 @@
   "effect.alexsmobs.sunbird_curse.description": "Augmente la vitesse de chute, causant l'utilisateur de toucher le sol plus rapidement. Cela empêche l'utilisation d'élytres. L'effect est appliqué quand le joueur attaque un Souimanga (Sunbird).",
   "effect.alexsmobs.tigers_blessing.description": "Les tigres près de l'utilisateur sont neutre et vont le protéger des créatures hostiles. L'effet part plus tôt quand le joueur attaque un tigre. S'applique en nourrissant un tigre avec du poulet ou des côtelettes de porc.",
 
-  "effect.apotheosis.ancient_knowledge.description": "Quadruple l'xp acquise en tuant des entités. M'effet double à chaque niveaux.",
-  "effect.apotheosis.sundering.description": "Augmente les dégâts pris de 20% par niveaux. Cet effet est l'opposé de protection ce qui veut dire qu'une potion de Sundering II peut complètement retirer tout les bien faits d'une potion de Resistance II.",
+  "effect.apothic_attributes.knowledge.description": "Quadruple l'xp acquise en tuant des entités. M'effet double à chaque niveaux.",
+  "effect.apothic_attributes.sundering.description": "Augmente les dégâts pris de 20% par niveaux. Cet effet est l'opposé de protection ce qui veut dire qu'une potion de Sundering II peut complètement retirer tout les bien faits d'une potion de Resistance II.",
 
   "effect.archers_paradox.challenge_complete.description": "Montre la complétion d'une série continue avec les flèches de défi.",
   "effect.archers_paradox.challenge_miss.description": "Montre la défaite dans la complétion d'une série continue avec des flèches de défi.",
@@ -191,7 +191,7 @@
   "effect.xreliquary.flight.description": "Autorise le vol comme en créatif.",
   "effect.xreliquary.pacification.description": "Rend la cible pas la cible et part.",
   "effect.xreliquary.pacification": "Pacifié",
-  
+
   "effect.cofh_core.wrenched.description": "Fait tourner l'utilisateur 40 degrés constamment chaque secondes par secondes à chaque niveau de l'effet.",
   "effect.cofh_core.sundered.description": "Diminue l'efficacité d'une armure usée par 25% par niveau.",
   "effect.cofh_core.slimed.description": "Donne une immunité aux dégâts de chute et vous fait rebondir comme un Slime.",
