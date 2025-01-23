@@ -1,1 +1,1 @@
-added a workaround for an issue due to an emi limitation, which made beacon buttons not clickable
+added more effect strings, backporte from 1.21
