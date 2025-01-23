@@ -90,7 +90,7 @@ public class JeedImpl implements ModInitializer {
     }
 
     public static boolean suppressVanillaTooltips() {
-        return EMI;
+        return true;
     }
 
     private static final boolean EMI = FabricLoader.getInstance().isModLoaded("emi");

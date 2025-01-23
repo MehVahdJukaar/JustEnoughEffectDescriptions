@@ -4,6 +4,7 @@ package net.mehvahdjukaar.jeed.mixins;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
 import net.minecraft.client.gui.GuiGraphics;
@@ -36,7 +37,7 @@ public abstract class EffectsRenderingInventoryScreenMixin {
     @WrapOperation(method = "renderIcons",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(IIIIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V")
     )
-    private void captureHoveredEffect(GuiGraphics instance, int px, int py, int blitOffset, int pwidth, int pheight,
+    private void jeed$captureHoveredEffect(GuiGraphics instance, int px, int py, int blitOffset, int pwidth, int pheight,
                                       TextureAtlasSprite sprite, Operation<Void> original,
                                       @Local(argsOnly = true) GuiGraphics graphics,
                                       @Local(argsOnly = true) boolean isSmall,
@@ -61,8 +62,10 @@ public abstract class EffectsRenderingInventoryScreenMixin {
     @Inject(method = "renderEffects", at = @At(value = "INVOKE",
             target = "Ljava/util/Iterator;next()Ljava/lang/Object;"),
             cancellable = true)
-    private void cancelTooltips(GuiGraphics matrices, int mouseX, int mouseY, CallbackInfo info) {
+    private void jeed$cancelTooltips(GuiGraphics matrices, int mouseX, int mouseY, CallbackInfo info) {
         if (Jeed.suppressVanillaTooltips()) info.cancel();
     }
+
+
 
 }

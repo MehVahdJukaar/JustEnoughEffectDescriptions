@@ -1,7 +1,6 @@
 package net.mehvahdjukaar.jeed.common;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -42,6 +41,7 @@ public class ScreenExtensionsHandler {
 
 
     public static void renderEffectTooltip(MobEffectInstance effect, Screen screen, GuiGraphics graphics, int x, int y, boolean showDuration) {
+        if (!Jeed.PLUGIN.rendersTooltips()) return;
         Minecraft mc = Minecraft.getInstance();
         TooltipFlag flag = mc.options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
         List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, true, showDuration);

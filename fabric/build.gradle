@@ -33,7 +33,7 @@ dependencies {
     modCompileOnly("curse.maven:puzzles-lib-495476:5476061")
 
     modCompileOnly("curse.maven:architectury-api-419699:4476083")
-    modCompileOnly("curse.maven:jei-238222:4494409")
+    modCompileOnly("curse.maven:jei-238222:5846878")
 
     modImplementation("curse.maven:emi-580555:5436758")
 

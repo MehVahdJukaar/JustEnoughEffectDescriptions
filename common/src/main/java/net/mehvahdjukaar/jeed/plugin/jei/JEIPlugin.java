@@ -51,6 +51,11 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     }
 
     @Override
+    public boolean rendersTooltips() {
+        return true;
+    }
+
+    @Override
     public ResourceLocation getPluginUid() {
         return ID;
     }

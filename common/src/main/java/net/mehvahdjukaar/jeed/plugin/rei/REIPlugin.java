@@ -46,6 +46,11 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
     }
 
     @Override
+    public boolean rendersTooltips() {
+        return true;
+    }
+
+    @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new EffectInfoDisplayCategory());
         registry.addWorkstations(EFFECTS_INFO_CATEGORY, EntryStacks.of(Items.POTION));

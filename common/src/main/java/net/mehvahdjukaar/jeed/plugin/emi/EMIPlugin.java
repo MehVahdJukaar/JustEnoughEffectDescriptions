@@ -3,6 +3,8 @@ package net.mehvahdjukaar.jeed.plugin.emi;
 import dev.emi.emi.api.*;
 import dev.emi.emi.api.stack.EmiRegistryAdapter;
 import dev.emi.emi.api.stack.EmiStackInteraction;
+import dev.emi.emi.config.EffectLocation;
+import dev.emi.emi.config.EmiConfig;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.IPlugin;
@@ -27,6 +29,12 @@ public class EMIPlugin implements EmiPlugin, IPlugin {
 
     public EMIPlugin() {
         Jeed.PLUGIN = this;
+    }
+
+    @Override
+    public boolean rendersTooltips() {
+        //emi hijacks effect rendering. we cant cancel its tooltips. we omit ours. too bad. I wont mixin squared into its own mixins, dont ask for more than this
+        return EmiConfig.effectLocation != EffectLocation.TOP;
     }
 
     @Override
