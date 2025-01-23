@@ -1,1 +1,1 @@
-effect provider and potion provider recipes now support Components
+added more effect descriptions (thanks to Theukon-Dos)
