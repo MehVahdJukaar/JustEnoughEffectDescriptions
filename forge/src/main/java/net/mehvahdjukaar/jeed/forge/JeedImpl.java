@@ -31,7 +31,7 @@ public class JeedImpl {
     public JeedImpl() {
         if (!ModList.get().isLoaded("jei") && !ModList.get().isLoaded("roughlyenoughitems")
                 && !ModList.get().isLoaded("emi")) {
-            Jeed.LOGGER.error("Jepp requires either JEI, REI or EMI mods. None of them was found");
+            throw new IllegalStateException("Jeed requires either JEI, REI or EMI mods. None of them was found");
         }
 
         Jeed.EMI = ModList.get().isLoaded("emi");
