@@ -1,2 +1,1 @@
-existing tooltips will now properly be hidden and jei ones shown instead
-when EMI is installed JEED will turn off its toltips instead as it cant cancels the ones emi itself renders
+fixed an issue where i was accidentally multiplying a matrix by itself instead of by a vector I wanted to transform. this has some very niche bugs with some mods
