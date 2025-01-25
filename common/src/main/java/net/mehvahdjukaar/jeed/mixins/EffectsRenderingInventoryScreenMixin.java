@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.joml.Matrix4f;
-import org.joml.Vector4i;
+import org.joml.Vector4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,10 +51,10 @@ public abstract class EffectsRenderingInventoryScreenMixin {
 
         if (hoveredEffect != null) {
             Matrix4f last = graphics.pose().last().pose();
-            Vector4i vec = new Vector4i(px - (isSmall ? 6 : 7), py - 7, 0, 1);
-            last.mul(last);
-            int x = vec.x();
-            int y = vec.y();
+            Vector4f vec = new Vector4f(px - (isSmall ? 6 : 7), py - 7, 0, 1);
+            last.transform(vec);
+            int x = (int) vec.x();
+            int y = (int) vec.y();
             int width = isSmall ? 120 : 32;
             int height = 32;
 

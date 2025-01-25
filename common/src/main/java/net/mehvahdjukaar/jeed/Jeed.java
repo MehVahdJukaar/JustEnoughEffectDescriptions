@@ -40,6 +40,10 @@ public class Jeed {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
     }
 
+
+    //TODO: mixin into EMI mixin so its inventory rendered effects are clickable
+
+
     @Contract
     @ExpectPlatform
     public static Collection<String> getHiddenEffects() {

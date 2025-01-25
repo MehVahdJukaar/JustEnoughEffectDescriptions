@@ -10,6 +10,27 @@ architectury {
     minecraft = minecraft_version
 }
 
+static def listGameVersions(String string1, String string2) {
+    // Extract the base version and the starting and ending patch numbers
+    String baseVersion = string1
+    int startPatch = 0
+    int endPatch = Integer.parseInt(string2.split('\\.')[2])
+
+    // Initialize an array to hold the generated versions
+    def versions = []
+
+    // Add the base version (string1) to the array
+    versions << baseVersion
+
+    // Generate and add the patch versions
+    for (int i = startPatch + 1; i <= endPatch; i++) {
+        versions << "${baseVersion}.${i}"
+    }
+
+    // Return the generated versions
+    return versions
+}
+
 subprojects {
     apply plugin: "dev.architectury.loom"
     apply plugin: "io.github.juuxel.loom-quiltflower"
@@ -35,12 +56,13 @@ subprojects {
 
     var changelogFile = rootProject.file("changelog.md")
     var changelogText = changelogFile.exists() ? changelogFile.text : ""
+    var versions = listGameVersions(minecraft_min_version, minecraft_version)
 
     if (env.MODRINTH_TOKEN) {
         modrinth {
             projectId = "just-enough-effect-descriptions-jeed"
             uploadFile = tasks.remapJar
-            gameVersions = [minecraft_version]
+            gameVersions = versions
             if (modLoader == "forge") {
                 loaders = ["neoforge"]
             } else loaders = [modLoader]
@@ -72,7 +94,9 @@ subprojects {
                 id = project_id
                 changelog = changelogText
                 releaseType = 'release'
-                addGameVersion minecraft_version
+                for (var ver : versions){
+                    addGameVersion ver
+                }
 
                 if (modLoader == "neoforge") {
                     addGameVersion("NeoForge")

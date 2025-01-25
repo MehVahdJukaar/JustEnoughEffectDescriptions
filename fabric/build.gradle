@@ -32,10 +32,11 @@ dependencies {
     modCompileOnly("curse.maven:stylish-effects-543661:5093407")
     modCompileOnly("curse.maven:puzzles-lib-495476:5476061")
 
-    modCompileOnly("curse.maven:architectury-api-419699:4476083")
+    modImplementation("curse.maven:architectury-api-419699:5786326")
     modCompileOnly("curse.maven:jei-238222:5846878")
 
     modImplementation("curse.maven:emi-580555:5436758")
+    modImplementation("curse.maven:ftb-library-fabric-438495:6016744")
 
 }
 
