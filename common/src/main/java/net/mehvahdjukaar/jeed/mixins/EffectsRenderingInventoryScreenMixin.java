@@ -1,17 +1,19 @@
 package net.mehvahdjukaar.jeed.mixins;
 
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.joml.Matrix4f;
 import org.joml.Vector4i;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +21,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @Mixin(EffectRenderingInventoryScreen.class)
@@ -59,13 +64,9 @@ public abstract class EffectsRenderingInventoryScreenMixin {
         }
     }
 
-    @Inject(method = "renderEffects", at = @At(value = "INVOKE",
-            target = "Ljava/util/Iterator;next()Ljava/lang/Object;"),
-            cancellable = true)
-    private void jeed$cancelTooltips(GuiGraphics matrices, int mouseX, int mouseY, CallbackInfo info) {
-        if (Jeed.suppressVanillaTooltips()) info.cancel();
+    @WrapWithCondition(method = "renderEffects", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/gui/GuiGraphics;renderTooltip(Lnet/minecraft/client/gui/Font;Ljava/util/List;Ljava/util/Optional;II)V"))
+    private boolean jeed$cancelTooltips(GuiGraphics instance, Font font, List<Component> list, Optional<TooltipComponent> optional, int i, int j) {
+        return !Jeed.suppressVanillaTooltips();
     }
-
-
-
 }
