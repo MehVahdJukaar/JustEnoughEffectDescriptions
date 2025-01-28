@@ -24,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -93,7 +94,51 @@ public abstract class EffectWindowEntry {
         return effectProvidingItems;
     }
 
-    public static List<ItemStack> computeEffectProviders(MobEffect effect) {
+    public static List<Holder<MobEffect>> computeEffectProviders(MobEffect effect) {
+        List<Holder<MobEffect>> list = new ArrayList<>();
+
+        Level world = Minecraft.getInstance().level;
+        if (world != null) {
+
+            //effects
+            var recipes = world.getRecipeManager()
+                    .getAllRecipesFor(Jeed.getEffectProviderType());
+
+            for (var recipeHolder : recipes) {
+                EffectProviderRecipe recipe = recipeHolder.value();
+                for (var e : recipe.getEffects()) {
+                    if (e.value() == effect) {
+                        recipe.effectProviders().forEach(list::add);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    public static List<Holder<Fluid>> computeFluidProvides(MobEffect effect){
+        List<Holder<Fluid>> list = new ArrayList<>();
+
+        Level world = Minecraft.getInstance().level;
+        if (world != null) {
+
+            //effects
+            var recipes = world.getRecipeManager()
+                    .getAllRecipesFor(Jeed.getEffectProviderType());
+
+            for (var recipeHolder : recipes) {
+                EffectProviderRecipe recipe = recipeHolder.value();
+                for (var e : recipe.getEffects()) {
+                    if (e.value() == effect) {
+                        recipe.fluidProviders().forEach(list::add);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    public static List<ItemStack> computeItemProviders(MobEffect effect) {
 
         ItemStackList list = new ItemStackList();
 

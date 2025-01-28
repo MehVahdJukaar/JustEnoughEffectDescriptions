@@ -4,6 +4,9 @@ package net.mehvahdjukaar.jeed.recipes;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.mehvahdjukaar.jeed.Jeed;
+import net.mehvahdjukaar.jeed.common.CodecUtil;
+import net.minecraft.core.*;
+import net.minecraft.core.component.DataComponentPatch;
 import net.mehvahdjukaar.jeed.common.JsonHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
@@ -20,6 +23,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -31,11 +35,16 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
     @Nullable
     private final MobEffect effect;
     private final NonNullList<Ingredient> providers;
-
-    public EffectProviderRecipe(ResourceLocation id, @Nullable MobEffect effect, NonNullList<Ingredient> providers) {
+    public final   HolderSet<MobEffect> effectProviders;
+    public final   HolderSet<Fluid> fluidProviders;
+    public EffectProviderRecipe(ResourceLocation id, @Nullable MobEffect effect, NonNullList<Ingredient> providers,
+                                HolderSet<MobEffect> effectProviders,
+                                HolderSet<Fluid> fluidProviders) {
         this.id = id;
         this.effect = effect;
         this.providers = providers;
+        this.fluidProviders = fluidProviders;
+        this.effectProviders = effectProviders;
     }
 
     @Override

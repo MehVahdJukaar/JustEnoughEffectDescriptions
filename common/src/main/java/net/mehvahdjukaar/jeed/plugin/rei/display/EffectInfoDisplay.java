@@ -1,9 +1,12 @@
 package net.mehvahdjukaar.jeed.plugin.rei.display;
 
+import dev.architectury.fluid.FluidStack;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.entry.type.EntryType;
+import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.mehvahdjukaar.jeed.common.EffectWindowEntry;
 import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
@@ -23,11 +26,20 @@ public class EffectInfoDisplay extends EffectWindowEntry implements Display {
 
     protected EffectInfoDisplay(MobEffectInstance effectInstance, Component description) {
         super(effectInstance, List.of(description));
-        List<ItemStack> providers = computeEffectProviders(effectInstance.getEffect());
+        List<ItemStack> providers = computeItemProviders(effectInstance.getEffect());
         var ingredientsList = groupIngredients(providers);
         var allInputs = new ArrayList<>(ingredientsList.stream().map(EntryIngredients::ofIngredient).toList());
         this.outputEntries = List.of(EntryIngredient.of(EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, effectInstance).normalize()));
         allInputs.addAll(outputEntries);
+
+        allInputs.addAll(computeEffectProviders(effect).stream()
+                .map(e -> EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, new MobEffectInstance(e))
+                        .normalize()).map(EntryIngredient::of).toList());
+
+        allInputs.addAll(computeFluidProvides(effect).stream()
+                .map(f -> EntryStack.of(VanillaEntryTypes.FLUID, FluidStack.create(f, 1000))
+                        .normalize()).map(EntryIngredient::of).toList());
+
         this.inputEntries = allInputs.stream().toList();
         this.slots = divideIntoSlots(providers, EntryIngredients::ofItemStacks);
     }

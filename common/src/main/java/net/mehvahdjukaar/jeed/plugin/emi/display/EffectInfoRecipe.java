@@ -44,10 +44,18 @@ public class EffectInfoRecipe extends EffectWindowEntry implements EmiRecipe {
         super(effectInstance, List.of(description));
         this.id = id;
         this.outputs = new EffectInstanceStack(effectInstance);
-        var providers = computeEffectProviders(effectInstance.getEffect());
+        var providers = computeItemProviders(effectInstance.getEffect());
         var ingredientsList = groupIngredients(providers)
                 .stream().map(EmiIngredient::of).toList();
         this.catalysts = providers.stream().map(Ingredient::of).map(EmiIngredient::of).toList();
+        ingredientsList = new ArrayList<>(ingredientsList);
+        this.inputEffects = computeEffectProviders(effect).stream()
+                .map(EffectInstanceStack::new).map(e -> ((EmiIngredient) e)).toList();
+
+        List<EmiIngredient> fluids = computeFluidProvides(effect).stream()
+                .map(f -> EmiStack.of(f.value())).map(e -> ((EmiIngredient) e)).toList();
+        ingredientsList.addAll(inputEffects);
+        ingredientsList.addAll(fluids);
         this.slotsContent = divideIntoSlots(ingredientsList, EmiIngredient::of);
     }
 

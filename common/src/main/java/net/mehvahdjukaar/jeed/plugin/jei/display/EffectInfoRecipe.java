@@ -49,7 +49,7 @@ public class EffectInfoRecipe extends EffectWindowEntry {
     public static List<EffectInfoRecipe> create(MobEffect effect) {
         Minecraft minecraft = Minecraft.getInstance();
         Component text = getDescription(effect);
-        List<Ingredient> inputs = groupIngredients(computeEffectProviders(effect));
+        List<Ingredient> inputs = groupIngredients(computeItemProviders(effect));
 
         int listH = getListHeight(inputs);
 
