@@ -46,14 +46,18 @@ public class EmiEffectInfoRecipe extends EffectInfo implements EmiRecipe {
         this.id = id;
         this.outputs = new EffectInstanceStack(effectInstance);
         MobEffect effect = effectInstance.getEffect().value();
-        var providers = computeEffectProviders(effect);
+        var providers = computeItemProviders(effect);
         var ingredientsList = groupIngredients(providers)
                 .stream().map(EmiIngredient::of).toList();
         this.catalysts = providers.stream().map(Ingredient::of).map(EmiIngredient::of).toList();
         ingredientsList = new ArrayList<>(ingredientsList);
-        this.inputEffects = computeEffectToEffectProviders(effect).stream()
+        this.inputEffects = computeEffectProviders(effect).stream()
                 .map(EffectInstanceStack::new).map(e -> ((EmiIngredient) e)).toList();
+
+        List<EmiIngredient> fluids = computeFluidProvides(effect).stream()
+                .map(f -> EmiStack.of(f.value())).map(e -> ((EmiIngredient) e)).toList();
         ingredientsList.addAll(inputEffects);
+        ingredientsList.addAll(fluids);
         this.slotsContent = divideIntoSlots(ingredientsList, EmiIngredient::of);
     }
 

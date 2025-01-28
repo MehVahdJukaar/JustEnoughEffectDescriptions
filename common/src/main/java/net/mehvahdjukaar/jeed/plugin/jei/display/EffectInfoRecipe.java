@@ -46,7 +46,7 @@ public class EffectInfoRecipe extends EffectInfo {
     public static List<EffectInfoRecipe> create(Holder<MobEffect> effect) {
         Minecraft minecraft = Minecraft.getInstance();
         Component text = getDescription(effect);
-        List<Ingredient> inputs = groupIngredients(computeEffectProviders(effect.value()));
+        List<Ingredient> inputs = groupIngredients(computeItemProviders(effect.value()));
 
         int listH = getListHeight(inputs);
 

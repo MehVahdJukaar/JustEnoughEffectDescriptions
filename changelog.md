@@ -1,1 +1,1 @@
-fixed an issue where i was accidentally multiplying a matrix by itself instead of by a vector I wanted to transform. this has some very niche bugs with some mods
+- added "fluid_providers" to the list of providers in effect provider recipe

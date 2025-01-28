@@ -95,7 +95,7 @@ public class Jeed {
         throw new AssertionError();
     }
 
-    private static final TagKey<MobEffect> HIDDEN = TagKey.create(Registries.MOB_EFFECT, res("hidden"));
+    public static final TagKey<MobEffect> HIDDEN = TagKey.create(Registries.MOB_EFFECT, res("hidden"));
 
     public static List<Holder.Reference<MobEffect>> getEffectList() {
         return BuiltInRegistries.MOB_EFFECT.holders()
