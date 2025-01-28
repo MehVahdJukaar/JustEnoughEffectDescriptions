@@ -56,7 +56,7 @@ public class JeedAPI {
         return EffectRenderer.getTooltipsWithDescription(effectInstance, tooltipFlag, reactsToShift, showDuration);
     }
 
-    public static boolean isHiddenEffect(Holder<MobEffect> effectInstance) {
+    public static boolean isEffectHidden(Holder<MobEffect> effectInstance) {
         return effectInstance.is(Jeed.HIDDEN);
 }
 
