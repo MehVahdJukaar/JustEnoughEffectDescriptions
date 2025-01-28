@@ -38,6 +38,10 @@ public class EffectInstanceStack extends EmiStack {
         this(new MobEffectInstance(effect, (int) duration));
     }
 
+    public EffectInstanceStack(MobEffect effect) {
+        this(effect, 30 * 20);
+    }
+
 
     public MobEffectInstance getEffect() {
         return effect;

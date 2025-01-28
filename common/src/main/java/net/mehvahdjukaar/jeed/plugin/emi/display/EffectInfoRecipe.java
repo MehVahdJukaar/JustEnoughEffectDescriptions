@@ -29,6 +29,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static net.mehvahdjukaar.jeed.common.Constants.*;
@@ -38,6 +39,7 @@ public class EffectInfoRecipe extends EffectWindowEntry implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> catalysts;
     private final List<EmiIngredient> slotsContent;
+    private final List<EmiIngredient> inputEffects;
     private final EmiStack outputs;
 
     protected EffectInfoRecipe(MobEffectInstance effectInstance, Component description, ResourceLocation id) {
@@ -49,11 +51,11 @@ public class EffectInfoRecipe extends EffectWindowEntry implements EmiRecipe {
                 .stream().map(EmiIngredient::of).toList();
         this.catalysts = providers.stream().map(Ingredient::of).map(EmiIngredient::of).toList();
         ingredientsList = new ArrayList<>(ingredientsList);
-        this.inputEffects = computeEffectProviders(effect).stream()
+        this.inputEffects = computeEffectProviders(effect.getEffect()).stream()
                 .map(EffectInstanceStack::new).map(e -> ((EmiIngredient) e)).toList();
 
-        List<EmiIngredient> fluids = computeFluidProvides(effect).stream()
-                .map(f -> EmiStack.of(f.value())).map(e -> ((EmiIngredient) e)).toList();
+        List<EmiIngredient> fluids = computeFluidProvides(effect.getEffect()).stream()
+                .map(EmiStack::of).map(e -> ((EmiIngredient) e)).toList();
         ingredientsList.addAll(inputEffects);
         ingredientsList.addAll(fluids);
         this.slotsContent = divideIntoSlots(ingredientsList, EmiIngredient::of);
@@ -76,7 +78,7 @@ public class EffectInfoRecipe extends EffectWindowEntry implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getInputs() {
-        return List.of();
+        return inputEffects;
     }
 
     @Override

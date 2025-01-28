@@ -94,8 +94,8 @@ public abstract class EffectWindowEntry {
         return effectProvidingItems;
     }
 
-    public static List<Holder<MobEffect>> computeEffectProviders(MobEffect effect) {
-        List<Holder<MobEffect>> list = new ArrayList<>();
+    public static List<MobEffect> computeEffectProviders(MobEffect effect) {
+        List<MobEffect> list = new ArrayList<>();
 
         Level world = Minecraft.getInstance().level;
         if (world != null) {
@@ -105,10 +105,9 @@ public abstract class EffectWindowEntry {
                     .getAllRecipesFor(Jeed.getEffectProviderType());
 
             for (var recipeHolder : recipes) {
-                EffectProviderRecipe recipe = recipeHolder.value();
-                for (var e : recipe.getEffects()) {
-                    if (e.value() == effect) {
-                        recipe.effectProviders().forEach(list::add);
+                for (var e : recipeHolder.getEffects()) {
+                    if (e == effect) {
+                        list.addAll(recipeHolder.effectProviders);
                     }
                 }
             }
@@ -116,8 +115,8 @@ public abstract class EffectWindowEntry {
         return list;
     }
 
-    public static List<Holder<Fluid>> computeFluidProvides(MobEffect effect){
-        List<Holder<Fluid>> list = new ArrayList<>();
+    public static List<Fluid> computeFluidProvides(MobEffect effect){
+        List<Fluid> list = new ArrayList<>();
 
         Level world = Minecraft.getInstance().level;
         if (world != null) {
@@ -127,10 +126,9 @@ public abstract class EffectWindowEntry {
                     .getAllRecipesFor(Jeed.getEffectProviderType());
 
             for (var recipeHolder : recipes) {
-                EffectProviderRecipe recipe = recipeHolder.value();
-                for (var e : recipe.getEffects()) {
-                    if (e.value() == effect) {
-                        recipe.fluidProviders().forEach(list::add);
+                for (var e : recipeHolder.getEffects()) {
+                    if (e == effect) {
+                        list.addAll(recipeHolder.fluidProviders);
                     }
                 }
             }

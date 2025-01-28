@@ -32,11 +32,11 @@ public class EffectInfoDisplay extends EffectWindowEntry implements Display {
         this.outputEntries = List.of(EntryIngredient.of(EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, effectInstance).normalize()));
         allInputs.addAll(outputEntries);
 
-        allInputs.addAll(computeEffectProviders(effect).stream()
+        allInputs.addAll(computeEffectProviders(effect.getEffect()).stream()
                 .map(e -> EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, new MobEffectInstance(e))
                         .normalize()).map(EntryIngredient::of).toList());
 
-        allInputs.addAll(computeFluidProvides(effect).stream()
+        allInputs.addAll(computeFluidProvides(effect.getEffect()).stream()
                 .map(f -> EntryStack.of(VanillaEntryTypes.FLUID, FluidStack.create(f, 1000))
                         .normalize()).map(EntryIngredient::of).toList());
 
