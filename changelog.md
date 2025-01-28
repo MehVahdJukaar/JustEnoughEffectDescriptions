@@ -1,1 +1,1 @@
-added more effect strings, backporte from 1.21
+backported a fix

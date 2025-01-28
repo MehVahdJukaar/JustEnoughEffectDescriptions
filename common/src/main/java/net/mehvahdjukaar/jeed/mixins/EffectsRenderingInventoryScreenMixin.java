@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 import org.joml.Vector4i;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -58,10 +59,10 @@ public abstract class EffectsRenderingInventoryScreenMixin {
     private ResourceLocation captureHoveredEffect(ResourceLocation res, int x, int y, int u, int v, int width, int height) {
         if (jeed$hoveredEffect != null) {
             Matrix4f last = jeed$guiGraphics.pose().last().pose();
-            Vector4i vec = new Vector4i(x, y, 0, 1);
-            last.mul(last);
-            x = vec.x();
-            y = vec.y();
+            Vector4f vec = new Vector4f(x, y, 0, 1);
+            last.transform(vec);
+            x = (int) vec.x();
+            y = (int) vec.y();
 
             if (jeed$mouseX >= x && jeed$mouseX <= x + width && jeed$mouseY >= y && jeed$mouseY <= y + height) {
                 NativeCompat.setInventoryEffect(jeed$hoveredEffect, width < 33);
