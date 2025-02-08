@@ -20,6 +20,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -88,9 +89,14 @@ public abstract class EffectRenderer {
                 tooltip.add(Component.translatable("jeed.tooltip.color_complete", color, colorValue));
             }
 
+            var cat = effect.getCategory();
             if (effect.isBeneficial()) {
                 tooltip.add(Component.translatable("jeed.tooltip.beneficial").withStyle(ChatFormatting.BLUE));
-            } else {
+            }
+            else if (cat == MobEffectCategory.NEUTRAL) {
+                tooltip.add(Component.translatable("jeed.tooltip.neutral").withStyle(ChatFormatting.GRAY));
+            }
+            else {
                 tooltip.add(Component.translatable("jeed.tooltip.harmful").withStyle(ChatFormatting.RED));
             }
 
