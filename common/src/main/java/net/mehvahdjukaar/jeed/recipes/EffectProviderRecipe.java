@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.JsonHelper;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,6 +22,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -110,13 +110,13 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
         @Override
         public EffectProviderRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 
-            NonNullList<Ingredient> providers = JsonHelper.readIngredients(GsonHelper.getAsJsonArray(json, "providers"));
+            NonNullList<Ingredient> itemProviders = JsonHelper.readIngredients(GsonHelper.getAsJsonArray(json, "providers"));
 
-            JsonArray effects = GsonHelper.getAsJsonArray(json, "effect_providers");
-            JsonArray fluids = GsonHelper.getAsJsonArray(json, "fluid_providers");
+            JsonArray effects = json.getAsJsonArray("effect_providers");
+            JsonArray fluids = json.getAsJsonArray("fluid_providers");
 
-            if (providers.isEmpty() && effects.isEmpty() && fluids.isEmpty()) {
-                throw new JsonParseException("No effect providers for recipe");
+            if (itemProviders.isEmpty() && effects == null && fluids == null) {
+                throw new JsonParseException("No item/effect or fluid providers for recipe");
             } else {
                 var v = json.get("effect");
                 if (v == null) {
@@ -132,21 +132,22 @@ public class EffectProviderRecipe implements Recipe<CraftingContainer> {
                     effect = JsonHelper.getEffect(new ResourceLocation(effectID));
                 }
                 List<Fluid> fluids1 = new ArrayList<>();
-                for (JsonElement fluid : fluids) {
-                    fluids1.add(BuiltInRegistries.FLUID.get(new ResourceLocation(fluid.getAsString())));
-                }
+                if (fluids != null)
+                    for (JsonElement fluid : fluids) {
+                        fluids1.add(BuiltInRegistries.FLUID.get(new ResourceLocation(fluid.getAsString())));
+                    }
                 List<MobEffect> effects1 = new ArrayList<>();
-                for (JsonElement effect1 : effects) {
-                    effects1.add(BuiltInRegistries.MOB_EFFECT.get(new ResourceLocation(effect1.getAsString())));
-                }
+                if (effects != null)
+                    for (JsonElement effect1 : effects) {
+                        effects1.add(BuiltInRegistries.MOB_EFFECT.get(new ResourceLocation(effect1.getAsString())));
+                    }
 
-                return new EffectProviderRecipe(recipeId, effect, providers, effects1, fluids1);
+                return new EffectProviderRecipe(recipeId, effect, itemProviders, effects1, fluids1);
             }
         }
 
         @Override
-        @Nullable
-        public EffectProviderRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public @NotNull EffectProviderRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
 
             int i = buffer.readVarInt();
             NonNullList<Ingredient> providers = NonNullList.withSize(i, Ingredient.EMPTY);
