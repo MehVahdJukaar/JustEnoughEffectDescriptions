@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static net.mehvahdjukaar.jeed.common.Constants.ID_COMPARATOR;
+import static net.mehvahdjukaar.jeed.common.Constants.NAMESPACE_COMPARATOR;
 
 /**
  * Author: MehVahdJukaar
@@ -55,6 +56,7 @@ public class Jeed {
         throw new AssertionError();
     }
 
+    @Contract
     @ExpectPlatform
     public static RecipeType<EffectProviderRecipe> getEffectProviderType() {
         throw new AssertionError();
@@ -81,6 +83,16 @@ public class Jeed {
     }
 
     @ExpectPlatform
+    public static boolean ignoreDerivativePotions() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean sortIngredients(){
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
     public static boolean hasEffectColor() {
         throw new AssertionError();
     }
@@ -100,7 +112,7 @@ public class Jeed {
     public static List<Holder.Reference<MobEffect>> getEffectList() {
         return BuiltInRegistries.MOB_EFFECT.holders()
                 .filter(e -> !e.is(HIDDEN) && !Jeed.getHiddenEffects().contains(e.key().toString()))
-                .sorted((a, b) -> ID_COMPARATOR.compare(a.key().location(), b.key().location()))
+                .sorted((a, b) -> NAMESPACE_COMPARATOR.compare(a.key().location(), b.key().location()))
                 .toList();
     }
 

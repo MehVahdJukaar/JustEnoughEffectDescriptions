@@ -12,7 +12,6 @@ import net.mehvahdjukaar.jeed.common.Constants;
 import net.mehvahdjukaar.jeed.common.EffectInfo;
 import net.mehvahdjukaar.jeed.common.HSLColor;
 import net.mehvahdjukaar.jeed.plugin.rei.REIPlugin;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -78,11 +77,10 @@ public class EffectInfoDisplayCategory implements DisplayCategory<EffectInfoDisp
         Rectangle rect = new Rectangle(bounds.x + (bounds.width - 18) / 2, bounds.y + Y_OFFSET + 3 + 6,
                 18, 18);
 
-
         Rectangle rect2 = rect.clone();
         rect2.grow(3, 3);
-        widgets.add(Widgets.createTexturedWidget(EFFECT_BACKGROUND_SMALL, rect2,
-                0, 0, 24, 32, 24, 24));
+        widgets.add(Widgets.createTexturedWidget(EFFECT_BACKGROUND_SMALL_TEXTURE, rect2,
+                0, 0, 24, 24, 24, 24));
 
 
         widgets.add(Widgets.createSlot(rect)

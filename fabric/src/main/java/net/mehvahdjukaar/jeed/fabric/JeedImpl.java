@@ -93,5 +93,13 @@ public class JeedImpl implements ModInitializer {
         return true;
     }
 
+    public static boolean ignoreDerivativePotions() {
+        return true;
+    }
+
+    public static boolean sortIngredients(){
+        return false;
+    }
+
     private static final boolean EMI = FabricLoader.getInstance().isModLoaded("emi");
 }

@@ -46,6 +46,8 @@ public class JeedImpl {
     }
 
     private static ModConfigSpec.BooleanValue effectBox;
+    private static ModConfigSpec.BooleanValue ignoreDerivative;
+    private static ModConfigSpec.BooleanValue sortIngredients;
     private static ModConfigSpec.BooleanValue renderSlots;
     private static ModConfigSpec.BooleanValue suppressVanillaTooltips;
     private static ModConfigSpec.BooleanValue ingredientsList;
@@ -75,6 +77,10 @@ public class JeedImpl {
                 .define("effect_color", true);
         effectBox = builder.comment("Draw a black box behind effect icons")
                 .define("effect_box", true);
+        ignoreDerivative = builder.comment("Ignore derivative potions (long and strong) when showing effects")
+                .define("ignore_derivative_potions", true);
+        sortIngredients = builder.comment("Sort ingredients list by their ID")
+                .define("sort_ingredients", false);
         hiddenEffects = builder.comment("A list of effects that should not be registered nor shown in JEI/REI. You can also use the 'hidden' mob_effect tag")
                 .defineList("hidden_effects", Collections.singletonList(""), String.class::isInstance);
         ingredientsList = builder.comment("Show ingredients list along with an effect description")
@@ -115,6 +121,10 @@ public class JeedImpl {
 
     public static boolean hasEffectBox() {
         return effectBox.get();
+    }
+
+    public static boolean ignoreDerivativePotions() {
+        return ignoreDerivative.get();
     }
 
     public static boolean hasEffectColor() {

@@ -27,7 +27,7 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:16.0.729"
+    modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:16.0.729"
 
     modCompileOnly("curse.maven:stylish-effects-543661:5093407")
     modCompileOnly("curse.maven:puzzles-lib-495476:5476061")
@@ -35,8 +35,8 @@ dependencies {
     modImplementation("curse.maven:architectury-api-419699:5786326")
     modCompileOnly("curse.maven:jei-238222:5846878")
 
-    modImplementation("curse.maven:emi-580555:5436758")
-    modImplementation("curse.maven:ftb-library-fabric-438495:6016744")
+    modCompileOnly("curse.maven:emi-580555:5436758")
+    modCompileOnly("curse.maven:ftb-library-fabric-438495:6016744")
 
 }
 

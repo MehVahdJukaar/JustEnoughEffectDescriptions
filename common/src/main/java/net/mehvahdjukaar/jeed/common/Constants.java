@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.Comparator;
 
 public final class Constants {
-    public static final ResourceLocation EFFECT_BACKGROUND_SMALL = ResourceLocation.withDefaultNamespace(
-            "gui/sprites/hud/effect_background");
+    public static final ResourceLocation EFFECT_BACKGROUND_SMALL_TEXTURE = ResourceLocation.withDefaultNamespace(
+            "textures/gui/sprites/hud/effect_background.png");
     public static final ResourceLocation EFFECT_BACKGROUND_SMALL_SPRITE = ResourceLocation.withDefaultNamespace(
             "hud/effect_background");
 
@@ -38,8 +38,18 @@ public final class Constants {
             if (pathComparison != 0) {
                 return pathComparison;
             } else {
-                return second.getPath().compareTo(second.getPath());
+                return first.getPath().compareTo(second.getPath());
             }
         }
+    };
+
+    public static Comparator<ResourceLocation> NAMESPACE_COMPARATOR = (first, second) -> {
+        String secondNamespace = second.getNamespace();
+        String firstNamespace = first.getNamespace();
+        String mc = "minecraft";
+        if (mc.equals(firstNamespace) && !mc.equals(secondNamespace)) {
+            return -1;
+        }
+        return firstNamespace.compareTo(secondNamespace);
     };
 }

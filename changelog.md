@@ -1,1 +1,2 @@
-- added "fluid_providers" to the list of providers in effect provider recipe
+- fixed rei sprite
+- added options to sort ingredients by ID and to hide non base potions

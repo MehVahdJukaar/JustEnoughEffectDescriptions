@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.minecraft.world.level.material.Fluid;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Function;
@@ -117,10 +116,14 @@ public abstract class EffectInfo {
                 }
             }
         }
+        if (Jeed.sortIngredients()) {
+            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.unwrapKey().get().location(),
+                    o2.unwrapKey().get().location()));
+        }
         return list;
     }
 
-    public static List<Holder<Fluid>> computeFluidProvides(MobEffect effect){
+    public static List<Holder<Fluid>> computeFluidProvides(MobEffect effect) {
         List<Holder<Fluid>> list = new ArrayList<>();
 
         Level world = Minecraft.getInstance().level;
@@ -138,6 +141,10 @@ public abstract class EffectInfo {
                     }
                 }
             }
+        }
+        if (Jeed.sortIngredients()) {
+            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.unwrapKey().get().location(),
+                    o2.unwrapKey().get().location()));
         }
         return list;
     }
@@ -172,6 +179,12 @@ public abstract class EffectInfo {
                 PotionProviderRecipe recipe = recipeHolder.value();
                 for (var potion : recipe.getPotions()) {
                     if (potion.value().getEffects().stream().anyMatch(e -> e.getEffect().value() == effect)) {
+                        if (Jeed.ignoreDerivativePotions()) {
+                            String path = potion.unwrapKey().get().location().getPath();
+                            if (path.startsWith("long_") || path.startsWith("strong_")) {
+                                continue;
+                            }
+                        }
                         for (var ing : recipe.getIngredients()) {
                             for (var stack : ing.getItems()) {
                                 ItemStack copy = stack.copy();
@@ -188,9 +201,12 @@ public abstract class EffectInfo {
         var stat = STATIC_CACHE.get().get(effect);
         if (stat != null) list.addAll(stat);
 
+        if (Jeed.sortIngredients()) {
+            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.getItemHolder().unwrapKey().get().location(),
+                    o2.getItemHolder().unwrapKey().get().location()));
+        }
         return list;
     }
-
 
     public static List<Ingredient> groupIngredients(List<ItemStack> ingredients) {
         Map<Item, Ingredient> map = new HashMap<>();
@@ -217,13 +233,6 @@ public abstract class EffectInfo {
             l.addAll(Arrays.stream(i.getItems()).toList());
         }
         return Ingredient.of(l.toArray(new ItemStack[0]));
-    }
-
-    private static @NotNull ArrayList<Map.Entry<Item, Ingredient>> sortIngredients(Map<Item, Ingredient> map) {
-        var entryList = new ArrayList<>(map.entrySet());
-        entryList.sort((a, b) -> ID_COMPARATOR.compare(BuiltInRegistries.ITEM.getKey(a.getKey()),
-                BuiltInRegistries.ITEM.getKey(b.getKey())));
-        return entryList;
     }
 
     public static <T, I> List<I> divideIntoSlots(List<T> ingredients, Function<List<T>, I> mapper) {
