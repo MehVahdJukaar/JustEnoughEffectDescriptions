@@ -115,6 +115,10 @@ public class JeedImpl {
     }
 
 
+    public static boolean sortIngredients(){
+        return sortIngredients.get();
+    }
+
     public static boolean hasIngredientList() {
         return ingredientsList.get();
     }

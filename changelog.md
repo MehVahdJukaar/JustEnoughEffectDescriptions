@@ -1,2 +1,1 @@
-- fixed rei sprite
-- added options to sort ingredients by ID and to hide non base potions
+updated jei

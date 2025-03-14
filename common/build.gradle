@@ -16,7 +16,7 @@ dependencies {
 
     modCompileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:9.+"
 
-    modCompileOnly("curse.maven:jei-238222:5466551")
+    modCompileOnly("curse.maven:jei-238222:5846880")
     modCompileOnly("curse.maven:emi-580555:5436759")
     //modCompileOnly("curse.maven:roughly-enough-items-310111:5435024")
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:16.0.729"
