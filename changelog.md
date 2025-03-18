@@ -1,1 +1,1 @@
-updated jei
+fixed an issue with effects list comparator

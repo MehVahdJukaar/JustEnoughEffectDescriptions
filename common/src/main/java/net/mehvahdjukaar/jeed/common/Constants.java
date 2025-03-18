@@ -44,12 +44,19 @@ public final class Constants {
     };
 
     public static Comparator<ResourceLocation> NAMESPACE_COMPARATOR = (first, second) -> {
-        String secondNamespace = second.getNamespace();
         String firstNamespace = first.getNamespace();
+        String secondNamespace = second.getNamespace();
         String mc = "minecraft";
-        if (mc.equals(firstNamespace) && !mc.equals(secondNamespace)) {
-            return -1;
-        }
-        return firstNamespace.compareTo(secondNamespace);
+
+        // If one is "minecraft" and the other isn't, prioritize "minecraft"
+        if (mc.equals(firstNamespace) && !mc.equals(secondNamespace)) return -1;
+        if (!mc.equals(firstNamespace) && mc.equals(secondNamespace)) return 1;
+
+        // Compare namespaces normally
+        int namespaceComparison = firstNamespace.compareTo(secondNamespace);
+        if (namespaceComparison != 0) return namespaceComparison;
+
+        // Compare paths to ensure uniqueness
+        return first.getPath().compareTo(second.getPath());
     };
 }
