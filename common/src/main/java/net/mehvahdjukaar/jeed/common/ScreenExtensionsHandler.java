@@ -41,7 +41,7 @@ public class ScreenExtensionsHandler {
 
 
     public static void renderEffectTooltip(MobEffectInstance effect, Screen screen, GuiGraphics graphics, int x, int y, boolean showDuration) {
-        if (!Jeed.PLUGIN.rendersTooltips()) return;
+        if (Jeed.PLUGIN == null|| !Jeed.PLUGIN.rendersTooltips()) return;
         Minecraft mc = Minecraft.getInstance();
         TooltipFlag flag = mc.options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
         List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, true, showDuration);

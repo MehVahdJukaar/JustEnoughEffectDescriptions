@@ -45,21 +45,21 @@ public abstract class EffectsRenderingInventoryScreenMixin {
     private void jeed$captureHoveredEffect(GuiGraphics instance, int px, int py, int blitOffset, int pwidth, int pheight,
                                       TextureAtlasSprite sprite, Operation<Void> original,
                                       @Local(argsOnly = true) GuiGraphics graphics,
-                                      @Local(argsOnly = true) boolean isSmall,
+                                      @Local(argsOnly = true) boolean big,
                                       @Local MobEffectInstance hoveredEffect) {
         original.call(instance, px, py, blitOffset, pwidth, pheight, sprite);
 
         if (hoveredEffect != null) {
             Matrix4f last = graphics.pose().last().pose();
-            Vector4f vec = new Vector4f(px - (isSmall ? 6 : 7), py - 7, 0, 1);
+            Vector4f vec = new Vector4f(px - (big ? 6 : 7), py - 7, 0, 1);
             last.transform(vec);
             int x = (int) vec.x();
             int y = (int) vec.y();
-            int width = isSmall ? 120 : 32;
+            int width = big ? 120 : 32;
             int height = 32;
 
             if (jeed$mouseX >= x && jeed$mouseX <= x + width && jeed$mouseY >= y && jeed$mouseY <= y + height) {
-                NativeCompat.setInventoryEffect(hoveredEffect, isSmall);
+                NativeCompat.setInventoryEffect(hoveredEffect, !big);
             }
         }
     }
