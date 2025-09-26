@@ -1,1 +1,1 @@
-fixed an issue with effects list comparator
+updated JEI api

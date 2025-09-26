@@ -3,6 +3,7 @@ package net.mehvahdjukaar.jeed.plugin.jei;
 import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.gui.builder.IClickableIngredientFactory;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
@@ -12,8 +13,6 @@ import mezz.jei.api.runtime.IClickableIngredient;
 import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
-import mezz.jei.common.input.ClickableIngredient;
-import mezz.jei.common.util.ImmutableRect2i;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.IPlugin;
@@ -73,7 +72,8 @@ public class JEIPlugin implements IModPlugin, IPlugin {
 
         registration.register(EFFECT_INGREDIENT_TYPE,
                 Jeed.getEffectList().stream().map(MobEffectInstance::new).toList(),
-                new EffectInstanceHelper(), EffectInstanceRenderer.INSTANCE);
+                new EffectInstanceHelper(), EffectInstanceRenderer.INSTANCE,
+                MobEffectInstance.CODEC);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     public void registerRecipes(IRecipeRegistration registry) {
         if (Jeed.EMI || Jeed.REI) return;
 
-        JEI_INGREDIENT_VISIBILITY = registry.getIngredientVisibility();
+        JEI_INGREDIENT_VISIBILITY = registry.getJeiHelpers().getIngredientVisibility();
         JEI_HELPERS = registry.getJeiHelpers();
 
         for (var e : Jeed.getEffectList()) {
@@ -110,13 +110,14 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     public record ScreenExtension<T extends AbstractContainerScreen<?>>
             (IEffectScreenExtension<T> ext) implements IGuiContainerHandler<T> {
 
+
         @Override
-        public Optional<IClickableIngredient<?>> getClickableIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
-            var v = ext.getEffectAtPosition(containerScreen, mouseX, mouseY, IEffectScreenExtension.CallReason.RECIPE_KEY);
+        public Optional<IClickableIngredient<?>> getClickableIngredientUnderMouse(
+                IClickableIngredientFactory builder, T containerScreen, double mouseX, double mouseY) {
+            MobEffectInstance v = ext.getEffectAtPosition(containerScreen, mouseX, mouseY, IEffectScreenExtension.CallReason.RECIPE_KEY);
             if (v != null) {
-                return JEI_RUNTIME.getIngredientManager().createTypedIngredient(EFFECT_INGREDIENT_TYPE, v)
-                        .map(i -> new ClickableIngredient<>(i,
-                                new ImmutableRect2i((int) mouseX, (int) mouseY, 1, 1)));
+                builder.createBuilder(EFFECT_INGREDIENT_TYPE, v)
+                        .buildWithArea((int) mouseX, (int) mouseY, 1, 1);
             }
 
             return Optional.empty();

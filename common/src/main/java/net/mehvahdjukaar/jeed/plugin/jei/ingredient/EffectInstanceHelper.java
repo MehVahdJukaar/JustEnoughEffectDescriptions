@@ -37,6 +37,11 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
     }
 
     @Override
+    public Object getUid(MobEffectInstance ingredient, UidContext context) {
+        return "effect:" + getResourceLocation(ingredient);
+    }
+
+    @Override
     public String getUniqueId(MobEffectInstance ingredient, UidContext uidContext) {
         return "effect:" + getResourceLocation(ingredient);
     }

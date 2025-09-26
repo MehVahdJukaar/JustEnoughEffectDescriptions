@@ -108,7 +108,7 @@ public abstract class EffectRenderer {
                 PotionContents.addPotionTooltip(List.of(effectInstance), newToolTips::add, 1, tickRate);
                 if (!newToolTips.isEmpty()) {
                     //remove name
-                  //  newToolTips.removeFirst();
+                    newToolTips.removeFirst();
                 }
                 tooltip.addAll(newToolTips);
             }
