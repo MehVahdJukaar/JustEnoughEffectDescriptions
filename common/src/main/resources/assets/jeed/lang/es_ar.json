@@ -45,7 +45,7 @@
   "effect.minecraft.unluck.description": "Puede reducir las chances de obtener botín de mayor calidad; niveles más altos reducen aún más las chances.",
   "effect.minecraft.water_breathing.description": "Previene el ahogo y permite respirar bajo el agua.",
   "effect.minecraft.weakness.description": "Reduce el daño cuerpo a cuerpo; niveles más altos reducen aún más el daño infligido.",
-  "effect.minecraft.wither.description": "Inflige daño letal con el tiempo; niveles más altos hacen más daño por segundo."
+  "effect.minecraft.wither.description": "Inflige daño letal con el tiempo; niveles más altos hacen más daño por segundo.",
   
   "effect.abundance.succumbing.description": "Envenena al usuario por un corto tiempo cuando recibe cualquier daño.",
   "effect.abundance.supportive.description": "Otorga regeneración a los animales, fuerza a mobs neutrales y resistencia a monstruos.",
@@ -97,7 +97,7 @@
   "effect.botania.clear.description": "Elimina todos los efectos de estado.",
   "effect.botania.emptiness.description": "Previene la aparición natural de mobs en un radio de 128 bloques alrededor de la entidad afectada.",
   "effect.botania.feather_feet.description": "Anula el daño causado por caídas. Este efecto no previene el daño por caída de otras causas como Perlas de Ender.",
-  "effect.botania.soul_cross.description": "Restaura el 5% de la salud máxima del usuario cada vez que otra criatura es asesinada."
+  "effect.botania.soul_cross.description": "Restaura el 5% de la salud máxima del usuario cada vez que otra criatura es asesinada.",
   
   "effect.buzzier_bees.sunny.description": "Simula la luz del sol. Los fantasmas no atacarán a los mobs que tengan el efecto, las abejas no dormirán si lo tienen y los no-muertos que lo tengan se quemarán.",
   
@@ -153,7 +153,7 @@
   "effect.immersiveengineering.flashed.description": "Los jugadores afectados verán su pantalla destellar en blanco, quedando temporalmente cegados.",
   "effect.immersiveengineering.slippery.description": "Las entidades afectadas se deslizarán lentamente hacia adelante en el suelo, y cada tick tendrán una chance de 1/300 (aprox. 6,5% por segundo) de soltar el ítem que sostienen o el de la mano secundaria.",
   "effect.immersiveengineering.sticky.description": "Reduce fuertemente la velocidad del objetivo e impide saltar.",
-  "effect.immersiveengineering.stunned.description": "Los Enderman afectados por este efecto no pueden teletransportarse."
+  "effect.immersiveengineering.stunned.description": "Los Enderman afectados por este efecto no pueden teletransportarse.",
 
   "effect.infernalexp.infection.description": "Envenena lentamente con daño no letal en el tiempo; puede propagarse a otras entidades vivas al atacarlas.",
   "effect.infernalexp.luminous.description": "Hace que el usuario emita luz. Si se aplica a mobs no-muertos, los prenderá fuego.",
