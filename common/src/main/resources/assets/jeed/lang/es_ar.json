@@ -1,0 +1,245 @@
+{
+  "jeed.category.effect_info": "Efectos",
+  "jeed.tooltip.color_complete": "%1$s: %2$s",
+  "jeed.tooltip.color": "Color",
+  "jeed.tooltip.beneficial": "Beneficioso",
+  "jeed.tooltip.neutral": "Neutral",
+  "jeed.tooltip.harmful": "Perjudicial",
+  "jeed.description.missing": "No hay descripción disponible",
+  
+  "effect.minecraft.absorption.description": "Agrega corazones de absorción de daño (que no pueden regenerarse); niveles más altos otorgan más absorción.",
+  "effect.minecraft.bad_omen.description": "Provoca un evento ominoso al entrar en una aldea o cámaras de prueba; niveles más altos aumentan la dificultad del evento.",
+  "effect.minecraft.blindness.description": "Dificulta la visión y desactiva la capacidad de correr y hacer golpes críticos.",
+  "effect.minecraft.conduit_power.description": "Aumenta la visibilidad y velocidad de minado bajo el agua, previene el ahogo.",
+  "effect.minecraft.darkness.description": "Agrega un efecto de oscurecimiento pulsante en la pantalla del jugador y niebla negra pulsante.",
+  "effect.minecraft.trial_omen.description": "Transforma generadores de prueba cercanos en generadores ominosos. Dura 15 minutos, equivalente a los niveles del efecto Mal Presagio original.",
+  "effect.minecraft.raid_omen.description": "Inicia una incursión en el lugar donde se obtuvo el efecto, una vez que expira. Dura 30 segundos.",
+  "effect.minecraft.dolphins_grace.description": "Aumenta drásticamente la velocidad de nado. Efecto otorgado por delfines.",
+  "effect.minecraft.wind_charged.description": "Hace que las entidades afectadas emitan una ráfaga de viento al morir.",
+  "effect.minecraft.weaving.description": "Hace que las entidades afectadas esparzan telarañas al morir.",
+  "effect.minecraft.oozing.description": "Hace que las entidades afectadas generen dos slimes al morir.",
+  "effect.minecraft.infested.description": "Otorga a las entidades afectadas un 10% de probabilidad de generar entre 1 y 2 lepismas al recibir daño.",
+  "effect.minecraft.fire_resistance.description": "Otorga inmunidad al daño por fuego y lava.",
+  "effect.minecraft.glowing.description": "Marca a las entidades afectadas con un brillo de contorno, permitiendo verlas a través de bloques.",
+  "effect.minecraft.haste.description": "Aumenta la velocidad de minado y ataque; niveles más altos incrementan ambas estadísticas.",
+  "effect.minecraft.health_boost.description": "Aumenta la salud máxima; niveles más altos otorgan más corazones adicionales.",
+  "effect.minecraft.hero_of_the_village.description": "Otorga descuentos en intercambios con aldeanos y hace que los aldeanos arrojen ítems al jugador según su profesión.",
+  "effect.minecraft.hunger.description": "Aumenta el agotamiento de comida; niveles más altos provocan inanición más rápida.",
+  "effect.minecraft.instant_damage.description": "Daña entidades vivas, cura no-muertos; niveles más altos aumentan la potencia del efecto.",
+  "effect.minecraft.instant_health.description": "Cura entidades vivas, daña no-muertos; niveles más altos aumentan la potencia del efecto.",
+  "effect.minecraft.invisibility.description": "Otorga invisibilidad, haciendo al usuario invisible y reduciendo su rango de detección. Los ítems sostenidos o equipados seguirán siendo visibles. Niveles más altos reducen aún más el rango de detección.",
+  "effect.minecraft.jump_boost.description": "Aumenta la altura de salto y reduce el daño por caída; niveles más altos incrementan ambos efectos.",
+  "effect.minecraft.levitation.description": "Hace que las entidades afectadas floten hacia arriba.",
+  "effect.minecraft.luck.description": "Puede aumentar las chances de obtener botín de mayor calidad; niveles más altos incrementan las chances de mejor botín.",
+  "effect.minecraft.mining_fatigue.description": "Reduce la velocidad de minado y ataque; niveles más altos reducen aún más ambas estadísticas.",
+  "effect.minecraft.nausea.description": "Hace que la pantalla se tambalee y distorsione.",
+  "effect.minecraft.night_vision.description": "Mejora la visión en áreas oscuras y bajo el agua.",
+  "effect.minecraft.poison.description": "Inflige daño no letal con el tiempo; niveles más altos hacen más daño por segundo. No afecta a no-muertos.",
+  "effect.minecraft.regeneration.description": "Regenera salud con el tiempo; niveles más altos aceleran la regeneración.",
+  "effect.minecraft.resistance.description": "Proporciona una reducción de daño del 20% por nivel.",
+  "effect.minecraft.saturation.description": "Restaura hambre y saturación.",
+  "effect.minecraft.slow_falling.description": "Reduce la velocidad de caída y anula el daño por caída.",
+  "effect.minecraft.slowness.description": "Reduce la velocidad al caminar; niveles más altos hacen al usuario más lento y reducen su campo de visión.",
+  "effect.minecraft.speed.description": "Aumenta la velocidad al caminar; niveles más altos hacen al usuario más rápido y amplían su campo de visión.",
+  "effect.minecraft.strength.description": "Aumenta el daño cuerpo a cuerpo; niveles más altos incrementan la potencia del daño.",
+  "effect.minecraft.unluck.description": "Puede reducir las chances de obtener botín de mayor calidad; niveles más altos reducen aún más las chances.",
+  "effect.minecraft.water_breathing.description": "Previene el ahogo y permite respirar bajo el agua.",
+  "effect.minecraft.weakness.description": "Reduce el daño cuerpo a cuerpo; niveles más altos reducen aún más el daño infligido.",
+  "effect.minecraft.wither.description": "Inflige daño letal con el tiempo; niveles más altos hacen más daño por segundo."
+  
+  "effect.abundance.succumbing.description": "Envenena al usuario por un corto tiempo cuando recibe cualquier daño.",
+  "effect.abundance.supportive.description": "Otorga regeneración a los animales, fuerza a mobs neutrales y resistencia a monstruos.",
+  
+  "effect.alexsmobs.bug_pheromones.description": "Hace que los artrópodos hostiles sean neutrales hacia el usuario.",
+  "effect.alexsmobs.clinging.description": "Permite caminar boca abajo en los techos.",
+  "effect.alexsmobs.debilitating_sting.description": "Un efecto que envenena a la víctima pero paraliza a los artrópodos. Se detiene si la víctima tiene la mitad de la salud y no es un artrópodo. Infligido por un Halcón Tarántula.",
+  "effect.alexsmobs.ender_flu.description": "Cuando el efecto termina naturalmente, el usuario recibe un gran daño y aparece un Enderiófago. Infligido por un Enderiófago.",
+  "effect.alexsmobs.exsanguination.description": "Drena la salud gradualmente.",
+  "effect.alexsmobs.fear.description": "Hace que el objetivo no pueda moverse. Efecto aplicado cuando un Tigre se revela al usuario.",
+  "effect.alexsmobs.knockback_resistance.description": "Proporciona un 50% de resistencia al retroceso.",
+  "effect.alexsmobs.lava_vision.description": "Permite ver a través de la lava.",
+  "effect.alexsmobs.oiled.description": "El aceite flota en el agua. Cúbrete de aceite para flotar en la superficie del agua y bajo la lluvia.",
+  "effect.alexsmobs.orcas_might.description": "Otorga mayor velocidad de ataque. Puede aplicarse al nadar con una Orca.",
+  "effect.alexsmobs.poison_resistance.description": "Otorga inmunidad al veneno.",
+  "effect.alexsmobs.soulsteal.description": "Otorga al usuario ataques con robo de vida parcial.",
+  "effect.alexsmobs.sunbird_blessing.description": "Reduce la velocidad de caída, previene el daño por caída y facilita volar con una Élitros o Élitros de Halcón Tarántula. Se aplica al estar cerca de un Ave Solar.",
+  "effect.alexsmobs.sunbird_curse.description": "Aumenta la velocidad de caída, haciendo que el usuario golpee el suelo más rápido. Esto impide efectivamente el uso de una Élitros. Se aplica al atacar un Ave Solar.",
+  "effect.alexsmobs.tigers_blessing.description": "Los tigres cercanos al usuario serán neutrales y lo protegerán de enemigos hostiles. El efecto se perderá antes si se ataca a un Tigre. Se aplica al alimentar a un Tigre con pollo o chuletas de cerdo.",
+  
+  "effect.apothic_attributes.flying.description": "Habilita el vuelo creativo.",
+  "effect.apothic_attributes.grievious.description": "Reduce la curación recibida en un 20% por nivel.",
+  "effect.apothic_attributes.knowledge.description": "Cuadruplica toda la experiencia obtenida al matar entidades. El efecto se duplica con cada nivel.",
+  "effect.apothic_attributes.vitality.description": "Aumenta la curación recibida en un 20% por nivel.",
+  
+  "effect.archers_paradox.challenge_complete.description": "Muestra la finalización exitosa de una racha con flechas de desafío.",
+  "effect.archers_paradox.challenge_miss.description": "Muestra el fallo al completar una racha con flechas de desafío.",
+  "effect.archers_paradox.challenge_streak.description": "Muestra el límite de tiempo actual y el nivel de una racha de desafío.",
+  "effect.archers_paradox.training_miss.description": "Muestra una racha rota durante el entrenamiento de arquería.",
+  "effect.archers_paradox.training_streak.description": "Muestra el límite de tiempo actual y el nivel de una racha de entrenamiento de arquería.",
+  
+  "effect.ars_nouveau.mana_regen.description": "Regenera maná a una velocidad mayor.",
+  
+  "effect.astralsorcery.bleed.description": "Daño rápido con el tiempo.",
+  "effect.astralsorcery.cheat_death.description": "Permite a la entidad engañar a la muerte. Al activarse, prende fuego a mobs cercanos, otorga resistencia al fuego y regeneración.",
+  "effect.astralsorcery.drop_modifier.description": "Modifica los drops.",
+  
+  "effect.atmospheric.gelled.description": "Extingue el fuego inicialmente, aumenta ligeramente la regeneración de vida y reduce un poco el daño por fuego recibido. Si se obtiene nuevamente mientras aún está activo, el usuario será envenenado.",
+  "effect.atmospheric.persistence.description": "Hace que las entidades corran más rápido cuanto menor sea su nivel de hambre.",
+  "effect.atmospheric.relief.description": "Si el daño entrante es mayor o igual al nivel del efecto, el usuario es curado; la curación recibida es igual al nivel del efecto.",
+  "effect.atmospheric.spitting.description": "Mientras este efecto esté activo, el usuario escupirá rápidamente semillas de maracuyá que pueden empujar y dañar mobs.",
+  "effect.atmospheric.worsening.description": "Si el daño entrante es mayor o igual al nivel del efecto, el usuario es dañado; el daño recibido es igual al nivel del efecto.",
+  
+  "effect.autumnity.extension.description": "Cualquier efecto obtenido mientras el usuario tenga este efecto dura 30 segundos adicionales.",
+  "effect.autumnity.foul_taste.description": "El próximo alimento consumido elimina el efecto pero repone un 50% más de puntos de hambre de lo normal.",
+  
+  "effect.botania.allure.description": "El jugador afectado tendrá su caña de pescar actualizada el doble de rápido, duplicando la velocidad de pesca.",
+  "effect.botania.bloodthirst.description": "Permite que monstruos hostiles aparezcan en un radio de 64 bloques del usuario, sin importar el nivel de luz u otras condiciones de aparición. Esto incluye permitir que Slimes aparezcan fuera de chunks de Slime.",
+  "effect.botania.clear.description": "Elimina todos los efectos de estado.",
+  "effect.botania.emptiness.description": "Previene la aparición natural de mobs en un radio de 128 bloques alrededor de la entidad afectada.",
+  "effect.botania.feather_feet.description": "Anula el daño causado por caídas. Este efecto no previene el daño por caída de otras causas como Perlas de Ender.",
+  "effect.botania.soul_cross.description": "Restaura el 5% de la salud máxima del usuario cada vez que otra criatura es asesinada."
+  
+  "effect.buzzier_bees.sunny.description": "Simula la luz del sol. Los fantasmas no atacarán a los mobs que tengan el efecto, las abejas no dormirán si lo tienen y los no-muertos que lo tengan se quemarán.",
+  
+  "effect.caverns_and_chasms.affliction.description": "Cuando el efecto termina, inflige 3 de daño mágico por nivel del efecto.",
+  "effect.caverns_and_chasms.rewind.description": "Al final del efecto, teletransporta al usuario a la posición donde lo obtuvo inicialmente.",
+  
+  "effect.create_confectionery.rest.description": "Hace desaparecer a los fantasmas.",
+  "effect.create_confectionery.stimulation.description": "Elimina fatiga de minado y lentitud.",
+  
+  "effect.deeperdarker.sculk_affinity.description": "Oculta todos los sonidos que emite el jugador para que los Sensores de Sculk no puedan detectarlos. No oculta sonidos emitidos por mascotas o ítems tirados.",
+  
+  "effect.dungeons_mobs.ensnared.description": "Las entidades afectadas quedan atrapadas en el lugar.",
+  "effect.dungeons_mobs.warped.description": "Inflige daño mágico letal con el tiempo.",
+  
+  "effect.dungeons_gear.shielding.description": "Otorga inmunidad contra proyectiles.",
+  "effect.dungeons_gear.soul_protection.description": "Revive al jugador al morir.",
+  "effect.dungeons_gear.stunned.description": "Aturde a una entidad, causando náuseas y reduciendo su movimiento. Niveles más altos aumentan la chance de aturdimiento.",
+  "effect.dungeons_gear.party_starter.description": "Los ataques cuerpo a cuerpo harán que las entidades exploten.",
+  "effect.dungeons_gear.dynamo.description": "Aumenta el daño en el próximo ataque; niveles más altos incrementan la bonificación.",
+  "effect.dungeons_gear.life_steal.description": "Roba salud de las entidades asesinadas; niveles más altos aumentan la cantidad robada.",
+  "effect.dungeons_gear.bow_charge.description": "El próximo ataque a distancia se cargará automáticamente al máximo.",
+  
+  "effect.eidolon.anchored.description": "Previene que la entidad afectada sea teletransportada por ciertos efectos.",
+  "effect.eidolon.chilled.description": "Desactiva la regeneración pasiva de salud y hace que ningún alimento otorgue puntos de hambre.",
+  
+  "effect.environmental.panic.description": "Aumenta la velocidad cuanto menor sea la salud del usuario.",
+  "effect.environmental.serenity.description": "Los peces koi detienen la aparición de mobs hostiles en un radio de 32x32x8. El efecto de serenidad indica si el jugador está dentro de ese radio.",
+  
+  "effect.fantasy.glowing_vision.description": "Hace que los unicornios en un radio de 500 bloques obtengan el efecto de brillo, facilitando su localización.",
+  
+  "effect.farmersdelight.comfort.description": "Otorga regeneración natural, sin importar el nivel de hambre.",
+  "effect.farmersdelight.nourishment.description": "Previene la pérdida de hambre, excepto al usar saturación para curar daño.",
+  
+  "effect.farmersrespite.caffeinated.description": "Aumenta la velocidad de caminar y atacar del objetivo.",
+  
+  "effect.forbidden_arcanus.darkened.description": "Una mezcla de ceguera y lentitud.",
+  "effect.forbidden_arcanus.fly.description": "Permite al jugador afectado volar en modo creativo.",
+  "effect.forbidden_arcanus.spectral_vision.description": "Permite ver entidades a través de bloques: los mobs hostiles brillarán en rojo y los pasivos en verde.",
+  
+  "effect.fruitful.sustaining.description": "Aumenta el rendimiento de hambre de cualquier alimento consumido.",
+  
+  "effect.goodending.strong_immunity.description": "La inmunidad fuerte elimina un efecto perjudicial, luego se degrada a inmunidad contemporánea.",
+  "effect.goodending.contemporary_immunity.description": "La inmunidad contemporánea elimina un efecto perjudicial, luego se degrada a inmunidad fracturada.",
+  "effect.goodending.shattered_immunity.description": "La inmunidad fracturada elimina un efecto perjudicial, luego se disipa.",
+  
+  "effect.habitat.blast_endurance.description": "Reduce el daño recibido por explosiones.",
+  "effect.habitat.prickling.description": "Tiene una chance de infligir daño de espinas igual a su nivel al atacante.",
+  "effect.habitat.prolongation.description": "Aumenta la duración de todos los efectos de pociones entrantes en un 20%.",
+  
+  "effect.immersiveengineering.concrete_feet.description": "Hace que el objetivo no pueda moverse ni saltar. El efecto termina inmediatamente cuando el usuario deja de estar sobre Concreto.",
+  "effect.immersiveengineering.conductive.description": "Las entidades afectadas reciben daño adicional por electricidad o daño de 'flux', como armas de Redstone Arsenal o alambres electrificados.",
+  "effect.immersiveengineering.flammable.description": "Aumenta el daño recibido por fuego.",
+  "effect.immersiveengineering.flashed.description": "Los jugadores afectados verán su pantalla destellar en blanco, quedando temporalmente cegados.",
+  "effect.immersiveengineering.slippery.description": "Las entidades afectadas se deslizarán lentamente hacia adelante en el suelo, y cada tick tendrán una chance de 1/300 (aprox. 6,5% por segundo) de soltar el ítem que sostienen o el de la mano secundaria.",
+  "effect.immersiveengineering.sticky.description": "Reduce fuertemente la velocidad del objetivo e impide saltar.",
+  "effect.immersiveengineering.stunned.description": "Los Enderman afectados por este efecto no pueden teletransportarse."
+
+  "effect.infernalexp.infection.description": "Envenena lentamente con daño no letal en el tiempo; puede propagarse a otras entidades vivas al atacarlas.",
+  "effect.infernalexp.luminous.description": "Hace que el usuario emita luz. Si se aplica a mobs no-muertos, los prenderá fuego.",
+  
+  "effect.mowziesmobs.frozen.description": "Congela e inmoviliza a la entidad afectada mientras inflige algo de daño con el tiempo.",
+  "effect.mowziesmobs.geomancy.description": "Haz clic derecho en tierra con la mano vacía para invocar una roca. Mantén cargado el clic derecho para invocar rocas más grandes. Golpea la roca para lanzarla como proyectil. En el aire, doble toque y mantener agachado para comenzar a excavar en la dirección deseada. Suelta agachado para detener la excavación y salir a la superficie.",
+  "effect.mowziesmobs.poison_resist.description": "Otorga inmunidad al veneno.",
+  "effect.mowziesmobs.suns_blessing.description": "Haz clic derecho con la mano vacía para invocar un golpe solar, o shift-clic derecho para disparar un rayo solar.",
+  
+  "effect.neapolitan.agility.description": "Permite trepar cualquier bloque como si fueran escaleras.",
+  "effect.neapolitan.berserking.description": "Matar mobs aumenta el efecto en 1 nivel cada vez; cada nivel agrega fuerza y defensa.",
+  "effect.neapolitan.harmony.description": "Hace que la mayoría de los mobs hostiles huyan del usuario.",
+  "effect.neapolitan.slipping.description": "Hace que el usuario se mueva por el suelo en direcciones aleatorias.",
+  "effect.neapolitan.sugar_rush.description": "Otorga velocidad durante los primeros tres cuartos de la duración del efecto, lentitud en el último cuarto.",
+  "effect.neapolitan.vanilla_scent.description": "Bloquea efectos entrantes.",
+  
+  "effect.nether_extension.gentle.description": "Reduce el retroceso infligido.",
+  "effect.nether_extension.infested.description": "Genera Spori bebés agresivos alrededor del objetivo.",
+  "effect.nether_extension.rough.description": "Aumenta el retroceso infligido.",
+  
+  "effect.quark.danger_sight.description": "Resalta áreas donde pueden aparecer mobs hostiles.",
+  "effect.quark.resilience.description": "Proporciona un 50% de resistencia al retroceso.",
+  
+  "effect.rats.plague.description": "Desactiva la regeneración natural de salud y convierte los corazones en corazones de plaga. La plaga puede propagarse a otras entidades mediante interacción.",
+  "effect.rats.synesthesia.description": "Otorga saturación ilimitada junto con una fila completa de corazones de absorción y velocidad de ataque muy aumentada. Al aplicarse, el campo de visión se acercará y alejará con un tinte naranja. Lo contrario ocurre cuando el efecto termina.",
+  
+  "effect.savage_and_ravage.weigth.description": "Hace que el objetivo sea muy pesado.",
+  
+  "effect.seasonals.fall_flavor.description": "¡Sabe a otoño! Restaura automáticamente hambre y saturación con el tiempo.",
+  "effect.seasonals.fall_flavour.description": "Otorga inmunidad a plantas espinosas y daño de espinas.",
+  "effect.seasonals.puppeteering.description": "Permite al jugador levantar y mover mobs con menor salud.",
+  "effect.seasonals.thorn_resistance.description": "Reduce el daño recibido de plantas espinosas y daño de espinas.",
+  
+  "effect.tetra.bleeding.description": "Inflige daño con el tiempo.",
+  "effect.tetra.earthbound.description": "La entidad afectada se ralentiza, recibe menos retroceso y no puede saltar.",
+  "effect.tetra.exhausted.description": "<Desconocido>",
+  "effect.tetra.howling.description": "Otorga un 12,5% de probabilidad de desviar proyectiles por nivel, reduce la velocidad de movimiento en un 5% y un 2,5% de probabilidad de devolver proyectiles entrantes.",
+  "effect.tetra.punctured.description": "Reduce la armadura en un 10% por nivel.",
+  "effect.tetra.severed.description": "Reduce la salud máxima y el daño de ataque.",
+  "effect.tetra.small_health.description": "Versión menos potente de Aumento de Salud.",
+  "effect.tetra.small_strength.description": "Versión menos potente de Fuerza.",
+  "effect.tetra.steeled.description": "<Desconocido>",
+  "effect.tetra.stun.description": "Aturde al objetivo, impidiendo su movimiento, anulando su daño al atacar y otorgando un enfriamiento infinito de golpe.",
+  
+  "effect.twilightforest.frosted.description": "Estás en un lugar donde aún no deberías estar...",
+  
+  "effect.twist.afterburn.description": "Daña al usuario después de que el efecto termina.",
+  "effect.twist.disintegration.description": "Daña al usuario al correr.",
+  "effect.twist.hazy.description": "No obtenible.",
+  "effect.twist.mold.description": "Hace que el corazón del usuario se acelere al estar en el terreno de un Charger.",
+  "effect.twist.outzimpled.description": "Impide que el usuario explote Zimples.",
+  "effect.twist.parasite.description": "No obtenible.",
+  
+  "effect.untitledduckmod.intimidation.description": "Hace que los saqueadores teman al objetivo.",
+  
+  "effect.upgrade_aquatic.insomnia.description": "Aumenta el temporizador de insomnio en 1 día por nivel del efecto, provocando la aparición de fantasmas. Si se aplica a Fantasmas los convierte en Flares, si se aplica a Flares los mata instantáneamente.",
+  "effect.upgrade_aquatic.repellence.description": "Envenena a los mobs que toquen físicamente al usuario; niveles más altos aumentan el nivel de veneno aplicado.",
+  "effect.upgrade_aquatic.restfulness.description": "Reduce el temporizador de insomnio en 1 día por nivel del efecto, disminuyendo la aparición de Fantasmas. Si se aplica a Flares los convierte en Fantasmas, si se aplica a Fantasmas los mata instantáneamente.",
+  "effect.upgrade_aquatic.vibing.description": "Otorga regeneración a los mobs que toquen físicamente al usuario; niveles más altos aumentan el nivel de regeneración aplicado.",
+  
+  "effect.windswept.thorns.description": "Daña a cualquier mob o jugador que ataque al objetivo.",
+  
+  "effect.xreliquary.cure.description": "La cura de algo, eso seguro.",
+  "effect.xreliquary.exhausted.description": "La cura de algo, eso seguro.",
+  "effect.xreliquary.flight.description": "Permite volar en modo creativo.",
+  "effect.xreliquary.pacification.description": "Hace que el objetivo no ataque y vague.",
+  "effect.xreliquary.pacification": "Pacificado",
+  
+  "effect.cofh_core.wrenched.description": "Hace que el usuario gire constantemente 40° en sentido horario cada segundo por nivel del efecto.",
+  "effect.cofh_core.sundered.description": "Reduce la efectividad de la armadura equipada en un 25% por nivel.",
+  "effect.cofh_core.slimed.description": "Otorga inmunidad al daño por caída y hace que rebotes como un slime.",
+  "effect.cofh_core.shocked.description": "Reduce la velocidad de ataque en un 15% por nivel.",
+  "effect.cofh_core.lightning_resistance.description": "Otorga inmunidad al daño por rayos.",
+  "effect.cofh_core.panacea.description": "Otorga inmunidad a todos los efectos negativos.",
+  "effect.cofh_core.magic_resistance.description": "Otorga inmunidad a todo daño mágico.",
+  "effect.cofh_core.love.description": "Hace que los animales cercanos entren en modo amor.",
+  "effect.cofh_core.enderference.description": "Impide que los enderman cercanos se teletransporten. También desactiva la teletransportación de jugadores cercanos usando perlas de ender o frutos de coro.",
+  "effect.cofh_core.clarity.description": "Aumenta la experiencia obtenida en un 40% por nivel.",
+  "effect.cofh_core.explosion_resistance.description": "Otorga inmunidad al daño por explosiones.",
+  "effect.cofh_core.chilled.description": "Reduce la velocidad de movimiento en un 30% y el daño de ataque en 1,5 corazones por nivel.",
+  
+  "effect.species.wither_resistance.description": "Otorga inmunidad al efecto Wither.",
+  "effect.species.birtd.description": "Aturde al afectado e impide que se mueva, pero no que contraataque.",
+  "effect.mynethersdelight.b_pungent.description": "Inflige daño de fuego al estar cerca de una fuente de calor. Sana en cambio si también se tiene resistencia al fuego.",
+  "effect.mynethersdelight.g_pungent.description": "Sana con fuentes de calor cuando se combina con resistencia al fuego. Inflige daño en cambio sin ella.",
+  "effect.enigmaticlegacy.growing_hunger.description": "Drena hambre con el tiempo, pero otorga mayor daño y robo de vida.",
+  "effect.enigmaticlegacy.growing_bloodlust.description": "Drena la salud con el tiempo, pero otorga mayor daño y robo de vida. Solo se aplica si el portador de la maldición ha comido la fruta prohibida.",
+  "effect.mowziesmobs.sunblock.description": "¡Los Umvuthana están protegiendo a su jefe! Detenelos antes de que te sobrepasen."
+}
