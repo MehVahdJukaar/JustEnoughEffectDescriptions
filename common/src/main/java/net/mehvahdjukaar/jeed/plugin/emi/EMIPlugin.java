@@ -9,8 +9,8 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.IPlugin;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
-import net.mehvahdjukaar.jeed.plugin.emi.display.EmiEffectInfoRecipe;
 import net.mehvahdjukaar.jeed.plugin.emi.display.EffectInfoRecipeCategory;
+import net.mehvahdjukaar.jeed.plugin.emi.display.EmiEffectInfoRecipe;
 import net.mehvahdjukaar.jeed.plugin.emi.ingredient.EffectIngredientSerializer;
 import net.mehvahdjukaar.jeed.plugin.emi.ingredient.EffectInstanceStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -19,7 +19,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.CreativeModeTab;
 
 @EmiEntrypoint
 public class EMIPlugin implements EmiPlugin, IPlugin {

@@ -7,7 +7,6 @@ import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
-import dev.emi.emi.runtime.EmiDrawContext;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.EffectInfo;
 import net.mehvahdjukaar.jeed.common.HSLColor;
@@ -158,7 +157,6 @@ public class EmiEffectInfoRecipe extends EffectInfo implements EmiRecipe {
             });
         }
         widgets.addDrawable(0, y, 0, 0, (raw, mouseX, mouseY, delta) -> {
-            EmiDrawContext context = EmiDrawContext.wrap(raw);
             int lo = manager.start();
             for (int i = 0; i < lineCount; i++) {
                 int l = lo + i;
@@ -166,7 +164,7 @@ public class EmiEffectInfoRecipe extends EffectInfo implements EmiRecipe {
                     return;
                 }
                 FormattedCharSequence text = manager.lines.get(l);
-                context.drawText(text, 0, y - y + i * font.lineHeight, 0);
+                raw.drawString(Minecraft.getInstance().font, text, 0, y - y + i * font.lineHeight, 0);
             }
         });
 

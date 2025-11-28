@@ -6,9 +6,9 @@ import com.mojang.serialization.JsonOps;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.stack.serializer.EmiIngredientSerializer;
-import dev.emi.emi.runtime.EmiLog;
 import io.netty.handler.codec.DecoderException;
 import io.netty.handler.codec.EncoderException;
+import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.world.effect.MobEffectInstance;
 
 public class EffectIngredientSerializer implements EmiIngredientSerializer<EffectInstanceStack> {
@@ -23,8 +23,8 @@ public class EffectIngredientSerializer implements EmiIngredientSerializer<Effec
             return MobEffectInstance.CODEC.decode(JsonOps.INSTANCE, element).result().map(a -> new EffectInstanceStack(a.getFirst()))
                     .orElseThrow(DecoderException::new);
         } catch (DecoderException e) {
-            EmiLog.error("Error parsing mob effect");
-            EmiLog.error(e);
+            Jeed.LOGGER.error("Error parsing mob effect");
+            Jeed.LOGGER.error(e);
             return EmiStack.EMPTY;
         }
     }
@@ -34,8 +34,8 @@ public class EffectIngredientSerializer implements EmiIngredientSerializer<Effec
         try {
             return MobEffectInstance.CODEC.encodeStart(JsonOps.INSTANCE, stack.getEffect()).result().orElseThrow(EncoderException::new);
         } catch (EncoderException e) {
-            EmiLog.error("Error encoding mob effect");
-            EmiLog.error(e);
+            Jeed.LOGGER.error("Error encoding mob effect");
+            Jeed.LOGGER.error(e);
             return new JsonObject();
         }
     }
