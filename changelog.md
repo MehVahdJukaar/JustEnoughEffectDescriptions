@@ -1,1 +1,1 @@
-removed usage of emi log and using instead jeed logger
+fixed emi recipe not being legible

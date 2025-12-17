@@ -123,7 +123,7 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 
     modImplementation ("curse.maven:jei-238222:7034701")
-    modCompileOnly("curse.maven:emi-580555:5436759")
+    modImplementation("curse.maven:emi-580555:5436759")
 
     modCompileOnly("curse.maven:roughly-enough-items-310111:5435024")
 

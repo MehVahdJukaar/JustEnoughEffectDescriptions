@@ -164,7 +164,7 @@ public class EmiEffectInfoRecipe extends EffectInfo implements EmiRecipe {
                     return;
                 }
                 FormattedCharSequence text = manager.lines.get(l);
-                raw.drawString(Minecraft.getInstance().font, text, 0, y - y + i * font.lineHeight, 0);
+                raw.drawString(Minecraft.getInstance().font, text, 0, y - y + i * font.lineHeight, 0, false);
             }
         });
 
