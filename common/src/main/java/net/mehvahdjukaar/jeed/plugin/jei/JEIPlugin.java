@@ -135,6 +135,7 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     public void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
         if (Jeed.EMI || Jeed.REI) return;
         if (JEIPlugin.JEI_HELPERS == null) return;
+        if (JEIPlugin.JEI_RUNTIME == null) return;
         
         var focus = JEIPlugin.JEI_HELPERS.getFocusFactory().createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT_INGREDIENT_TYPE, effect);
 
