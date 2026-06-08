@@ -3,6 +3,7 @@
   "jeed.tooltip.color_complete": "%1$s: %2$s",
   "jeed.tooltip.color": "颜色代码",
   "jeed.tooltip.beneficial": "增益效果",
+  "jeed.tooltip.neutral": "中性效果",
   "jeed.tooltip.harmful": "负面效果",
   "jeed.description.missing": "无可用描述",
 
@@ -16,8 +17,9 @@
   "effect.minecraft.glowing.description": "使实体发光，并带有可以穿过非透明方块看到的轮廓线。",
   "effect.minecraft.haste.description": "提高挖掘和攻击速度；越高的等级速度越快。",
   "effect.minecraft.health_boost.description": "提升生命上限；越高的等级上限越高。",
-  "effect.minecraft.hero_of_the_village.description": "在与村民的交易中获得折扣，并让村民会根据自己的职业赠送随机物品‌‌",
-  "effect.minecraft.hunger.description": "饥饿值更快的消耗；更高的等级消耗更快",
+  "effect.minecraft.hero_of_the_village.description": "在与村民的交易中获得折扣，并让村民会根据自己的职业赠送随机物品‌‌。",
+  "effect.minecraft.hunger.description": "饥饿值更快的消耗；更高的等级消耗更快。",
+  "effect.minecraft.infested.description": "受到伤害时，有10%概率生成1到2只蠹虫。",
   "effect.minecraft.instant_damage.description": "治疗亡灵生物，伤害非亡灵生物；更高的等级有更强的效果。",
   "effect.minecraft.instant_health.description": "治疗非亡灵生物，伤害亡灵生物；更高的等级有更强的效果。",
   "effect.minecraft.invisibility.description": "让实体模型消失，并减少被隐藏实体的检测范围，盔甲及主副手物品依然可见，更高的等级，检测范围越小。",
@@ -27,7 +29,9 @@
   "effect.minecraft.mining_fatigue.description": "降低挖掘与攻击速度；更高的等级会降低这两个变量。",
   "effect.minecraft.nausea.description": "晃动和扭曲视角。",
   "effect.minecraft.night_vision.description": "改善玩家在黑暗区域和水下的视力。",
+  "effect.minecraft.oozing.description": "死亡后生成两只史莱姆。",
   "effect.minecraft.poison.description": "会降低生命值直到只剩半颗心；更高的等级每秒造成更多的伤害，不影响亡灵生物。",
+  "effect.minecraft.raid_omen.description": "当玩家进入村庄时，不祥之兆会转化为袭击之兆。持续时间为30秒。一旦持续时间结束，就会在玩家获得此效果的地点触发袭击。",
   "effect.minecraft.regeneration.description": "会快速恢复生命值；更高的水平使生命值恢复得更快。",
   "effect.minecraft.resistance.description": "每等级减少20%受到的伤害。",
   "effect.minecraft.saturation.description": "快速恢复饥饿值与饱和度。",
@@ -35,8 +39,207 @@
   "effect.minecraft.slowness.description": "降低移动速度；等级越高，玩家速度越慢，视野越窄小。",
   "effect.minecraft.speed.description": "提高移动速度；等级越高，玩家速度越块，视野越宽阔。",
   "effect.minecraft.strength.description": "增加攻击伤害；更高的等级更高的攻击伤害。",
+  "effect.minecraft.trial_omen.description": "没有试炼之兆的玩家在非不祥的试炼刷怪笼探测范围内时，不祥之兆可以转化为试炼之兆。持续时间为15分钟乘以不祥之兆的效果等级。拥有试炼之兆的玩家会被不祥的粒子包围。",
   "effect.minecraft.unluck.description": "减少刷出更多高质量战利品的概率；等级越高，获得更好战利品的概率就越小。",
   "effect.minecraft.water_breathing.description": "防止溺水并允许在水下呼吸。",
   "effect.minecraft.weakness.description": "降低攻击伤害；等级越高，伤害越小。",
+  "effect.minecraft.weaving.description": "死亡后放置蜘蛛网。",
+  "effect.minecraft.wind_charged.description": "死亡后产生风爆。",
   "effect.minecraft.wither.description": "会降低生命值直到死亡；更高的等级每秒造成更多的伤害。"
+
+  "effect.abundance.succumbing.description": "被攻击时会获得中毒效果，等级越高中毒的持续时间越久。",
+  "effect.abundance.supportive.description": "为周围的动物提供再生效果，为中立生物提供力量效果，为怪物提供抗性提升效果。",
+
+  "effect.alexsmobs.bug_pheromones.description": "使敌对节肢动物对持有者中立。",
+  "effect.alexsmobs.clinging.description": "允许在天花板上行走。",
+  "effect.alexsmobs.debilitating_sting.description": "对非节肢生物：效果持续30秒，此生物会持续受到伤害直至生命值不超过最大生命值的50%。对节肢生物：效果持续2分钟，此生物会倒立并无法动弹。被沙漠蛛蜂攻击会获得此效果。",
+  "effect.alexsmobs.ender_flu.description": "会使感染上的生物抽搐，在效果结束后受到魔法伤害，并在同一位置生成新的末影噬菌体。被末影噬菌体攻击获得。",
+  "effect.alexsmobs.exsanguination.description": "持续受到魔法伤害。",
+  "effect.alexsmobs.fear.description": "使目标无法移动。当老虎出现在面前时获得。",
+  "effect.alexsmobs.knockback_resistance.description": "每一级增加50%击退抗性。",
+  "effect.alexsmobs.lava_vision.description": "允许透过熔岩观察。",
+  "effect.alexsmobs.oiled.description": "油浮在水上。拥有此效果的生物在水中会浮到水面，在下雨天会从地面飘到空中。",
+  "effect.alexsmobs.orcas_might.description": "增加攻击速度。和一群虎鲸一起游泳时获得。",
+  "effect.alexsmobs.poison_resistance.description": "免疫中毒效果。",
+  "effect.alexsmobs.soulsteal.description": "赋予生物攻击时的生命窃取能力。",
+  "effect.alexsmobs.sunbird_blessing.description": "降低下落速度，防止摔落伤害，并使使用鞘翅或沙漠蛛蜂鞘翅飞行更容易。靠近曦鹤时获得。",
+  "effect.alexsmobs.sunbird_curse.description": "增加下落速度，使生物更快地击中地面。阻止使用鞘翅飞行。攻击曦鹤时获得。",
+  "effect.alexsmobs.tigers_blessing.description": "靠近的老虎会变得中立，并会帮助持有者攻击敌对生物。攻击虎时效果会提前消失。喂食老虎肉类时概率获得。",
+
+  "effect.apothic_attributes.flying.description": "Enables Creative flight.",
+  "effect.apothic_attributes.grievious.description": "Reduces healing received by 20% each level.",
+  "effect.apothic_attributes.knowledge.description": "Quadruples all experience earned from entity kills. The effect doubles with each level.",
+  "effect.apothic_attributes.vitality.description": "Increases healing received by 20% each level.",
+
+  "effect.archers_paradox.challenge_complete.description": "Shows successful completion of a streak with challenge arrows.",
+  "effect.archers_paradox.challenge_miss.description": "Shows failure to complete a streak with challenge arrows.",
+  "effect.archers_paradox.challenge_streak.description": "Shows the current time limit and level of a challenge streak.",
+  "effect.archers_paradox.training_miss.description": "Shows a broken streak during archery training.",
+  "effect.archers_paradox.training_streak.description": "Shows current time limit and level of a archery training streak.",
+
+  "effect.ars_nouveau.mana_regen.description": "Regenerate mana at a faster rate",
+
+  "effect.astralsorcery.bleed.description": "Fast damage over time",
+  "effect.astralsorcery.cheat_death.description": "Allows entity to cheat death. When triggered light nearby mobs on fire, grants fire resistance and regeneration when used",
+  "effect.astralsorcery.drop_modifier.description": "Changes drops",
+
+  "effect.atmospheric.gelled.description": "Extinguishes fire initially, slightly increased life regen, and slightly reduces fire damage taken. If the effect is gained again while still active the user will be poisoned.",
+  "effect.atmospheric.persistence.description": "Makes entities to run faster the lower their hunger level is.",
+  "effect.atmospheric.relief.description": "If incoming damage is greater than or equal to the effect level the user is healed; healing received is equal to the effect level.",
+  "effect.atmospheric.spitting.description": "While this effect is active the user will rapidly spit out passion fruit seeds that can knock back and damage mobs.",
+  "effect.atmospheric.worsening.description": "If incoming damage is greater than or equal to the effect level the user is damaged; damage received is equal to the effect level.",
+
+  "effect.autumnity.extension.description": "Any effects gained while the user have the effect gain an additional 30 seconds.",
+  "effect.autumnity.foul_taste.description": "The next food item eaten removes the effect but replenishes 50% more hunger points than normally.",
+
+  "effect.botania.allure.description": "The affected player will have their Fishing Rod update twice as often, effectively doubling fishing speed",
+  "effect.botania.bloodthirst.description": "Allows hostile monsters to spawn within a 64 block radius of the user, regardless of light level or other spawning conditions. This includes allowing Slimes to spawn outside of Slime Chunks",
+  "effect.botania.clear.description": "Clears all status effects",
+  "effect.botania.emptiness.description": "Prevents mob natural mob spawning in a 128 block radius around the affected entity",
+  "effect.botania.feather_feet.description": "Negated damaged cause by falling. This effect doesn't prevent fall damage from other causes like Ender Pearls",
+  "effect.botania.soul_cross.description": "Restore 5% of their user maximum health whenever another creature is killed",
+
+  "effect.buzzier_bees.sunny.description": "Simulates sunlight. Phantoms won't attack mobs that have the effect, bees won't sleep if they have the effect, undead that have the effect will burn",
+
+  "effect.caverns_and_chasms.affliction.description": "Once the effect ends, inflicts 3 magic damage per effect level.",
+  "effect.caverns_and_chasms.rewind.description": "At the end of the effect, teleports the user to the position where the effect was initially gained.",
+
+  "effect.create_confectionery.rest.description": "Makes phantoms disappear.",
+  "effect.create_confectionery.stimulation.description": "Removes mining fatigue and slowness",
+
+  "effect.deeperdarker.sculk_affinity.description": "Masks all sounds the player emits so Sculk Sensors can no longer pick them up. Does not mask sounds emitted by e.g. pets or dropped items!",
+
+  "effect.dungeons_mobs.ensnared.description": "Affected entities are trapped in place.",
+  "effect.dungeons_mobs.warped.description": "Inflicts lethal magic damage over time.",
+
+  "effect.dungeons_gear.shielding.description": "Grants immunity to projectiles.",
+  "effect.dungeons_gear.soul_protection.description": "Revives the player on death.",
+  "effect.dungeons_gear.stunned.description": "Stuns an entity, causing nausea and slowing their movement. Higher levels increase the stun chance.",
+  "effect.dungeons_gear.party_starter.description": "Melee attacks will cause entities to explode.",
+  "effect.dungeons_gear.dynamo.description": "Increases damage on next attack, higher levels increase the damage boost.",
+  "effect.dungeons_gear.life_steal.description": "Steals health from entities killed, higher levels increase the amount of health stolen.",
+  "effect.dungeons_gear.bow_charge.description": "The next ranged attack will automatically be fully charged.",
+
+  "effect.eidolon.anchored.description": "Prevents the affected entity from being teleported by certain effects.",
+  "effect.eidolon.chilled.description": "Disables passive health regeneration and makes ever food not provide any hunger points.",
+
+  "effect.environmental.panic.description": "Increases speed the lower the user health is.",
+  "effect.environmental.serenity.description": "Koi fish stop hostile mobs spawns in a 32x32x8 radius. The serenity effect indicates if the player is in that radius.",
+
+  "effect.fantasy.glowing_vision.description": "Causes Unicorns in a radius of 500 blocks to obtain the glowing effect, making them easier to locate.",
+
+  "effect.farmersdelight.comfort.description": "Provides natural regeneration, regardless of how hungry you are.",
+  "effect.farmersdelight.nourishment.description": "Prevents hunger loss, except when using saturation to heal damage.",
+
+  "effect.farmersrespite.caffeinated.description": "Increases the target's walk and attack speed.",
+
+  "effect.forbidden_arcanus.darkened.description": "A mix of blindness and slowness.",
+  "effect.forbidden_arcanus.fly.description": "Allows the affected player to creative fly.",
+  "effect.forbidden_arcanus.spectral_vision.description": "Allows to see entities through blocks: hostile mobs will glow red while passive ones will be green.",
+
+  "effect.fruitful.sustaining.description": "Increases hunger yield from any food eaten.",
+
+  "effect.goodending.strong_immunity.description": "Strong immunity removes a harmful effect, then downgrades to contemporary immunity.",
+  "effect.goodending.contemporary_immunity.description": "Contemporary immunity removes a harmful effect, then downgrades to shattered immunity.",
+  "effect.goodending.shattered_immunity.description": "Shattered immunity removes a harmful effect, then dissipates.",
+
+  "effect.habitat.blast_endurance.description": "Reduces damage taken from explosions.",
+  "effect.habitat.prickling,description": "Has a chance to deal thorns damage equal to its level to the attacker.",
+  "effect.habitat.prolongation.description": "Increases the duration of all incoming potion effects by 20%.",
+
+  "effect.immersiveengineering.concrete_feet.description": "Makes the target unable to move or jump. The effect immediately ends when the user is no longer standing on Concrete",
+  "effect.immersiveengineering.conductive.description": "Affected entities take extra damage from electric or 'flux' damage, such as Redstone Arsenal weapons or electrified Razor Wire",
+  "effect.immersiveengineering.flammable.description": "Increases fire damage taken",
+  "effect.immersiveengineering.flashed.description": "Players affected by it will have their screen flash white, rendering them temporarily blind",
+  "effect.immersiveengineering.slippery.description": "Affected entities will slowly slide forward when on the ground, and each tick have a 1/300 chance (roughly 6.5% chance each second) of dropping either their held item or their offhand item",
+  "effect.immersiveengineering.sticky.description": "Heavily slows do the target and impedes jumping",
+  "effect.immersiveengineering.stunned.description": "Endermen affected by this effect are unable to teleport",
+
+  "effect.infernalexp.infection.description": "Slowly poisons with non lethal damage over time; can be spread to other living entities when attacking them.",
+  "effect.infernalexp.luminous.description": "Makes the user emit light. If applied on undead mobs it will set them on fire.",
+
+  "effect.mowziesmobs.frozen.description": "Freezes and immobilizes the affected entity while also dealing some damage over time.",
+  "effect.mowziesmobs.geomancy.description": "Right-click earthen ground with empty hand to spawn a boulder. Charge right-click to spawn bigger boulders. Punch the boulder to fire it as projectile. While in the air, double-tap and hold sneak to begin tunneling while looking in the direction you'd like to dig. Release sneak to stop tunneling and surface.",
+  "effect.mowziesmobs.poison_resist.description": "Grants immunity to poison.",
+  "effect.mowziesmobs.suns_blessing.description": "Right-click with an empty hand to call down a sunstrike, shift-right-click with an empty hand to fire a solar beam.",
+
+  "effect.neapolitan.agility.description": "Allows to climb over any block as if they're ladders.",
+  "effect.neapolitan.berserking.description": "Killing mobs raises the effect by 1 level each time, each level adds strength and defense.",
+  "effect.neapolitan.harmony.description": "Makes most hostile mobs run from the user.",
+  "effect.neapolitan.slipping.description": "Makes the user move across the ground in random directions.",
+  "effect.neapolitan.sugar_rush.description": "Gives speed for the first three quarters of the effect duration, slowness for the last one.",
+  "effect.neapolitan.vanilla_scent.description": "Blocks incoming effects.",
+
+  "effect.nether_extension.gentle.description": "Decreases dealt knockback.",
+  "effect.nether_extension.infested.description": "Spawns aggressive baby Spori around the target.",
+  "effect.nether_extension.rough.description": "Increases knockback dealt.",
+
+  "effect.quark.danger_sight.description": "Highlights areas where hostile mobs can spawn.",
+  "effect.quark.resilience.description":  "Provides 50% knockback resistance.",
+
+  "effect.rats.plague.description": "Disables natural health regeneration and turns hearts into plague hearts. Plague can be spread to other entities via interaction",
+  "effect.rats.synesthesia.description": "Provides unlimited saturation along with a full row of absorption hearts and heavily increased attack speed. When the effect is applied the field of view will zoom in and out and will be tinted orange. The opposite thing happens when the effect runs out.",
+
+  "effect.savage_and_ravage.weigth.description": "Makes the target really heavy.",
+
+  "effect.seasonals.fall_flavor.description": "'Tastes like autumn!' Automatically restores hunger and saturation over time.",
+  "effect.seasonals.fall_flavour.description": "Gives the user immunity to spiky plants and thorns damage.",
+  "effect.seasonals.puppeteering.description": "Allows the player pick up and move mobs with lower health.",
+  "effect.seasonals.thorn_resistance.description": "Lowers damage taken from spiky plants and thorns damage.",
+
+  "effect.tetra.bleeding.description": "Inflicts damage over time.",
+  "effect.tetra.earthbound.description": "The affected entity is slowed, take less knockback and cannot jump.",
+  "effect.tetra.exhausted.description": "<Unknown>",
+  "effect.tetra.howling.description": "Grants 12.5% chance to deflect projectile per effect level, slow movement speed by -5% and 2.5% chance to send incoming projectiles back where they came from.",
+  "effect.tetra.punctured.description": "Reduces armor by 10% per level.",
+  "effect.tetra.severed.description": "Reduces maximum health and attack damage.",
+  "effect.tetra.small_health.description": "Less potent version of Health Boost.",
+  "effect.tetra.small_strength.description": "Less potent version of Strength.",
+  "effect.tetra.steeled.description": "<Unknown>",
+  "effect.tetra.stun.description": "Stuns the target impeding its movement, making them deal no damage when attacking and giving them an infinite swing cooldown.",
+
+  "effect.twilightforest.frosted.description": "You are somewhere you are not supposed to be... yet.",
+
+  "effect.twist.afterburn.description": "Damages the user after the effect wears off.",
+  "effect.twist.disintegration.description": "Damages the user when sprinting.",
+  "effect.twist.hazy.description": "Not obtainable.",
+  "effect.twist.mold.description": "Causes the user's heart to rush when on a Charger's turf.",
+  "effect.twist.outzimpled.description": "Stops the user from popping Zimples.",
+  "effect.twist.parasite.description": "Not obtainable.",
+
+  "effect.untitledduckmod.intimidation.description": "Makes illagers afraid of the target.",
+
+  "effect.upgrade_aquatic.insomnia.description": "Increases the insomnia timer by 1 day worth per effect level, causing phantoms to spawn. If given to Phantoms will turn them into Flares, if given to Flares it will instantly kill them.",
+  "effect.upgrade_aquatic.repellence.description": "Inflicts poison on mobs that physically touch the user; higher levels increase the given poison effect level.",
+  "effect.upgrade_aquatic.restfulness.description": "Decreases the insomnia timer by 1 day worth per effect level, decreasing Phantoms spawn chance. If given to Flares will turn them into Phantoms, if given to Phantoms it will instantly kill them.",
+  "effect.upgrade_aquatic.vibing.description": "Inflicts regeneration on mobs that physically touch the user; higher levels increase the given regeneration effect level.",
+
+  "effect.windswept.thorns.description": "Damages any mob or player who attacks the target.",
+
+  "effect.xreliquary.cure.description": "The cure to something, that's for sure.",
+  "effect.xreliquary.exhausted.description": "The cure to something, that's for sure.",
+  "effect.xreliquary.flight.description": "Allows creative flight.",
+  "effect.xreliquary.pacification.description": "Makes the target not target and wander.",
+  "effect.xreliquary.pacification": "Pacified",
+
+  "effect.cofh_core.wrenched.description": "Makes the user constantly turn 40° clockwise every second per second each effect level.",
+  "effect.cofh_core.sundered.description": "Decreases the effectiveness of worn armor by 25% per level.",
+  "effect.cofh_core.slimed.description": "Grants immunity to fall damage and makes you bounce like a slime.",
+  "effect.cofh_core.shocked.description": "Decreases attack speed by 15% per level.",
+  "effect.cofh_core.lightning_resistance.description": "Grants immunity to lightning damage.",
+  "effect.cofh_core.panacea.description": "Grants immunity to all negative status effects.",
+  "effect.cofh_core.magic_resistance.description": "Grants immunity to all magic damage.",
+  "effect.cofh_core.love.description": "Causes nearby animals to enter love mode.",
+  "effect.cofh_core.enderference.description": "Makes nearby endermen unable to teleport. Also disables teleportation for nearby players using ender pearls or chorus fruits.",
+  "effect.cofh_core.clarity.description": "Increases the amount of gained exp by 40% per level.",
+  "effect.cofh_core.explosion_resistance.description": "Grants immunity to explosion damage.",
+  "effect.cofh_core.chilled.description": "Reduces movement speed by 30% and attack damage by 1.5 hearts per level.",
+
+  "effect.species.wither_resistance.description": "Grants immunity to the Wither effect.",
+  "effect.species.birtd.description": "Stuns the afflicted and prevents them from moving, but not fighting back.",
+  "effect.mynethersdelight.b_pungent.description": "Deals fire damage when near a heat source.  Heals instead if you also have fire resistance.",
+  "effect.mynethersdelight.g_pungent.description": "Heals from heat sources when combined with fire resistance.  Deals damage instead without it.",
+  "effect.enigmaticlegacy.growing_hunger.description": "Drains hunger over time,  but grants increased damage and life steal.",
+  "effect.enigmaticlegacy.growing_bloodlust.description": "Drains health over time, but grants increased damage and life steal.  Only applied if the bearer of the curse has eaten the forbidden fruit.",
+  "effect.mowziesmobs.sunblock.description": "The Umvuthana are protecting their chief!  Stop them before you're overwhelmed!"
 }
