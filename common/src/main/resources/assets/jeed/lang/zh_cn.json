@@ -109,35 +109,35 @@
 
   "effect.deeperdarker.sculk_affinity.description": "屏蔽玩家发出的所有声音，幽匿感测体无法再侦测到这些声音。但不会屏蔽宠物或掉落物等发出的声音！",
 
-  "effect.dungeons_mobs.ensnared.description": "Affected entities are trapped in place.",
-  "effect.dungeons_mobs.warped.description": "Inflicts lethal magic damage over time.",
+  "effect.dungeons_mobs.ensnared.description": "受影响的实体会被困在原地。",
+  "effect.dungeons_mobs.warped.description": "随时间造成致命的魔法伤害。",
 
-  "effect.dungeons_gear.shielding.description": "Grants immunity to projectiles.",
-  "effect.dungeons_gear.soul_protection.description": "Revives the player on death.",
-  "effect.dungeons_gear.stunned.description": "Stuns an entity, causing nausea and slowing their movement. Higher levels increase the stun chance.",
-  "effect.dungeons_gear.party_starter.description": "Melee attacks will cause entities to explode.",
-  "effect.dungeons_gear.dynamo.description": "Increases damage on next attack, higher levels increase the damage boost.",
-  "effect.dungeons_gear.life_steal.description": "Steals health from entities killed, higher levels increase the amount of health stolen.",
-  "effect.dungeons_gear.bow_charge.description": "The next ranged attack will automatically be fully charged.",
+  "effect.dungeons_gear.shielding.description": "免疫弹射物伤害。",
+  "effect.dungeons_gear.soul_protection.description": "死亡时复活玩家。",
+  "effect.dungeons_gear.stunned.description": "使实体眩晕，造成反胃并减缓其移动。等级越高，眩晕几率越大。",
+  "effect.dungeons_gear.party_starter.description": "近战攻击将使实体爆炸。",
+  "effect.dungeons_gear.dynamo.description": "在下次攻击中增加伤害，等级越高，伤害增幅越大。",
+  "effect.dungeons_gear.life_steal.description": "击杀实体时偷取生命值，等级越高，偷取的生命值越多。",
+  "effect.dungeons_gear.bow_charge.description": "下一次远程攻击将自动蓄满力。",
 
-  "effect.eidolon.anchored.description": "Prevents the affected entity from being teleported by certain effects.",
-  "effect.eidolon.chilled.description": "Disables passive health regeneration and makes ever food not provide any hunger points.",
+  "effect.eidolon.anchored.description": "阻止实体被传送。",
+  "effect.eidolon.chilled.description": "禁用生命值自然恢复，进食不再能提供饱食度。",
 
-  "effect.environmental.panic.description": "Increases speed the lower the user health is.",
-  "effect.environmental.serenity.description": "Koi fish stop hostile mobs spawns in a 32x32x8 radius. The serenity effect indicates if the player is in that radius.",
+  "effect.environmental.panic.description": "生命值越低，速度越快。",
+  "effect.environmental.serenity.description": "靠近锦鲤时获得。阻止32x32x8的范围内生成敌对生物。",
 
-  "effect.fantasy.glowing_vision.description": "Causes Unicorns in a radius of 500 blocks to obtain the glowing effect, making them easier to locate.",
+  "effect.fantasy.glowing_vision.description": "使半径500格内的独角兽发光以发现它们。",
 
-  "effect.farmersdelight.comfort.description": "Provides natural regeneration, regardless of how hungry you are.",
-  "effect.farmersdelight.nourishment.description": "Prevents hunger loss, except when using saturation to heal damage.",
+  "effect.farmersdelight.comfort.description": "无视饱食度提供生命值自然恢复。",
+  "effect.farmersdelight.nourishment.description": "阻止饱食度自然损失，使用饱和度恢复生命值时例外。",
 
-  "effect.farmersrespite.caffeinated.description": "Increases the target's walk and attack speed.",
+  "effect.farmersrespite.caffeinated.description": "提高目标的移动和攻击速度。",
 
-  "effect.forbidden_arcanus.darkened.description": "A mix of blindness and slowness.",
-  "effect.forbidden_arcanus.fly.description": "Allows the affected player to creative fly.",
-  "effect.forbidden_arcanus.spectral_vision.description": "Allows to see entities through blocks: hostile mobs will glow red while passive ones will be green.",
+  "effect.forbidden_arcanus.darkened.description": "失明和缓慢的混合。",
+  "effect.forbidden_arcanus.fly.description": "启用创造飞行。",
+  "effect.forbidden_arcanus.spectral_vision.description": "允许穿透障碍物观察实体：敌对生物会发红光，友好生物会发绿光。",
 
-  "effect.fruitful.sustaining.description": "Increases hunger yield from any food eaten.",
+  "effect.fruitful.sustaining.description": "增加食物提供的饱食度。",
 
   "effect.goodending.strong_immunity.description": "Strong immunity removes a harmful effect, then downgrades to contemporary immunity.",
   "effect.goodending.contemporary_immunity.description": "Contemporary immunity removes a harmful effect, then downgrades to shattered immunity.",
