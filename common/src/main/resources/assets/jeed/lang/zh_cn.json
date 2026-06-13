@@ -182,4 +182,65 @@
 
   "effect.savage_and_ravage.weigth.description": "每级降低15%移动速度。同时使生物无法跳跃。",
 
+    "effect.seasonals.fall_flavor.description": "“尝起来有秋天的味道！” 随着时间的推移自动恢复饱食度和饱和度。",
+  "effect.seasonals.fall_flavour.description": "免疫尖刺植物和荆棘造成的伤害。",
+  "effect.seasonals.puppeteering.description": "攻击生命值低于自身的生物后可以控制其移动。",
+  "effect.seasonals.thorn_resistance.description": "降低尖刺植物和荆棘造成的伤害。",
+
+  "effect.tetra.bleeding.description": "造成持续伤害。",
+  "effect.tetra.earthbound.description": "使实体减速、受到的击退减少且无法跳跃。",
+  "effect.tetra.exhausted.description": "<Unknown>",
+  "effect.tetra.howling.description": "每级效果提供12.5%的概率偏转弹射物，降低5%的移动速度，并有2.5%的概率将弹射物反弹回原处。",
+  "effect.tetra.punctured.description": "每级降低10%的护甲值。",
+  "effect.tetra.severed.description": "降低最大生命值和攻击伤害。",
+  "effect.tetra.small_health.description": "较弱的生命提升效果。",
+  "effect.tetra.small_strength.description": "较弱的力量效果。",
+  "effect.tetra.steeled.description": "<Unknown>",
+  "effect.tetra.stun.description": "眩晕目标并阻碍其移动，使其在攻击时无法造成伤害，并使其攻击处于无限冷却状态。",
+
+  "effect.twilightforest.frosted.description": "你来到了一个你现在还不该来的地方……",
+
+  "effect.twist.afterburn.description": "效果结束后会对使用者造成伤害。",
+  "effect.twist.disintegration.description": "在疾跑时对使用者造成伤害。",
+  "effect.twist.hazy.description": "无法获得。",
+  "effect.twist.mold.description": "当在Charger的地盘上时，会导致使用者的心跳加速。",
+  "effect.twist.outzimpled.description": "阻止使用者产生Zimples。",
+  "effect.twist.parasite.description": "无法获得。",
+
+  "effect.untitledduckmod.intimidation.description": "使灾厄村民对实体感到恐惧。",
+
+  "effect.upgrade_aquatic.insomnia.description": "每级效果使失眠计时器增加1天，导致幻翼生成。幻翼获得此效果会转化为耀翼，耀翼获得此效果会立即死亡。",
+  "effect.upgrade_aquatic.repellence.description": "使周围约半格方块内的生物获得效果等级+1的中毒效果。",
+  "effect.upgrade_aquatic.restfulness.description": "每级效果使失眠计时器减少1天，以阻止幻翼生成。耀翼获得此效果会转化为幻翼，幻翼获得此效果会立即死亡。",
+  "effect.upgrade_aquatic.vibing.description": "使周围约半格方块内的生物获得效果等级+1的生命恢复效果。",
+
+  "effect.windswept.thorns.description": "对攻击持有者的生物造成伤害。",
+
+  "effect.xreliquary.cure.description": "某种东西的解药。",
+  "effect.xreliquary.exhausted.description": "某种东西的解药。",
+  "effect.xreliquary.flight.description": "启用创造模式飞行。",
+  "effect.xreliquary.pacification.description": "使持有者失去敌意并漫无目的地游荡。",
+  "effect.xreliquary.pacification": "Pacified",
+
+  "effect.cofh_core.wrenched.description": "每秒使使用者顺时针旋转效果等级×40°。",
+  "effect.cofh_core.sundered.description": "每级降低25%护甲值。",
+  "effect.cofh_core.slimed.description": "免疫摔落伤害，并使目标像史莱姆一样弹跳。",
+  "effect.cofh_core.shocked.description": "每级降低15%的攻击速度。",
+  "effect.cofh_core.lightning_resistance.description": "免疫雷击伤害。",
+  "effect.cofh_core.panacea.description": "免疫所有负面状态效果。",
+  "effect.cofh_core.magic_resistance.description": "免疫魔法伤害。",
+  "effect.cofh_core.love.description": "使附近的动物进入繁殖状态。",
+  "effect.cofh_core.enderference.description": "使附近的末影人无法传送。同时禁止附近的玩家使用末影珍珠或紫颂果进行传送。",
+  "effect.cofh_core.clarity.description": "每级增加40%的经验值获取量。",
+  "effect.cofh_core.explosion_resistance.description": "免疫爆炸伤害。",
+  "effect.cofh_core.chilled.description": "每级降低30%的移动速度和1.5点攻击伤害。",
+
+  "effect.species.wither_resistance.description": "免疫凋零效果。",
+  "effect.species.birtd.description": "眩晕并阻止移动，但不会阻止攻击。",
+  "effect.mynethersdelight.b_pungent.description": "靠近热源时会造成火焰伤害。如果同时拥有抗火效果，则会改为提供治疗。",
+  "effect.mynethersdelight.g_pungent.description": "同时拥有抗火效果时，靠近热源会获得治疗。否则改为造成火焰伤害。",
+  "effect.enigmaticlegacy.growing_hunger.description": "随时间推移消耗饥饿值，但会增加伤害和生命偷取。",
+  "effect.enigmaticlegacy.growing_bloodlust.description": "随时间推移消耗生命值，但会增加伤害和生命偷取。只有在诅咒携带者吃下禁忌之果时才会触发。",
+  "effect.mowziesmobs.sunblock.description": "乌姆塔纳族人正在保护他们的领袖！在被他们淹没之前阻止他们！"
+
 }
