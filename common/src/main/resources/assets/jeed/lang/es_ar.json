@@ -18,7 +18,7 @@
   "effect.minecraft.wind_charged.description": "Las entidades afectadas liberan una ráfaga de viento al morir.",
   "effect.minecraft.weaving.description": "Las entidades afectadas generan telarañas al morir.",
   "effect.minecraft.oozing.description": "Hace que la entidad genere 2 slimes al morir.",
-  "effect.minecraft.infested.description": "Hace que haya un 10% de probabilidad de que aparezcan entre 1 y 2 silverfish al recibir daño.",
+  "effect.minecraft.infested.description": "Hace que haya un 10% de probabilidad de que aparezcan entre 1 y 2 lepismas al recibir daño.",
   "effect.minecraft.fire_resistance.description": "Otorga inmunidad al daño por fuego y lava.",
   "effect.minecraft.glowing.description": "Hace que las entidades afectadas brillen con un contorno visible incluso a través de bloques.",
   "effect.minecraft.haste.description": "Aumenta la velocidad de ataque y de minado; niveles más altos mejoran ambos efectos.",
@@ -62,8 +62,8 @@
   "effect.alexsmobs.orcas_might.description": "Aumenta la velocidad de ataque. Puede activarse al nadar con una orca.",
   "effect.alexsmobs.poison_resistance.description": "Otorga inmunidad al veneno.",
   "effect.alexsmobs.soulsteal.description": "Hace que los ataques del usuario roben un poco de vida.",
-  "effect.alexsmobs.sunbird_blessing.description": "Reduce la velocidad de caída, evita daño al caer y facilita el uso del Elytra o el Elytra de Avispa Tarántula. Se aplica cerca de un Pájaro Solar.",
-  "effect.alexsmobs.sunbird_curse.description": "Aumenta la velocidad de caída, impidiendo el uso del Elytra. Se aplica al atacar a un Pájaro Solar.",
+  "effect.alexsmobs.sunbird_blessing.description": "Reduce la velocidad de caída, evita daño al caer y facilita el uso de los élitros o los élitros de Avispa Tarántula. Se aplica cerca de un Pájaro Solar.",
+  "effect.alexsmobs.sunbird_curse.description": "Aumenta la velocidad de caída, impidiendo el uso de los élitros. Se aplica al atacar a un Pájaro Solar.",
   "effect.alexsmobs.tigers_blessing.description": "Los tigres cercanos serán neutrales y protegerán al usuario. Se pierde si se ataca a un tigre. Se activa al darle pollo o cerdo a un tigre.",
 
   "effect.apothic_attributes.flying.description": "Permite volar como en modo Creativo.",
@@ -93,10 +93,10 @@
   "effect.autumnity.foul_taste.description": "El próximo alimento que se consuma elimina este efecto, pero restaura un 50% más de hambre de lo normal.",
 
   "effect.botania.allure.description": "Hace que la caña de pescar se actualice el doble de rápido, duplicando la velocidad de pesca",
-  "effect.botania.bloodthirst.description": "Permite que los monstruos hostiles aparezcan en un radio de 64 bloques alrededor del usuario, sin importar la luz u otras condiciones. También permite que aparezcan Slimes fuera de chunks especiales",
+  "effect.botania.bloodthirst.description": "Permite que los monstruos hostiles aparezcan en un radio de 64 bloques alrededor del usuario, sin importar la luz u otras condiciones. También permite que aparezcan Slimes fuera de chunks de Slimes",
   "effect.botania.clear.description": "Elimina todos los efectos de estado",
   "effect.botania.emptiness.description": "Impide la aparición natural de mobs en un radio de 128 bloques",
-  "effect.botania.feather_feet.description": "Elimina el daño por caídas. No previene daño por caída causado por otras cosas como las Ender Pearls",
+  "effect.botania.feather_feet.description": "Elimina el daño por caídas. No previene daño por caída causado por otras cosas como las perlas de Ender",
   "effect.botania.soul_cross.description": "Restaura el 5% de la vida máxima del usuario cada vez que mata a otra criatura",
 
   "effect.buzzier_bees.sunny.description": "Simula la luz del sol. Los fantasmas no atacan a las entidades que tengan este efecto, las abejas no duermen si lo tienen, y los no-muertos que lo tengan se queman.",
@@ -153,7 +153,7 @@
   "effect.immersiveengineering.flashed.description": "A los jugadores afectados se les blanquea la pantalla temporalmente, dejándolos ciegos.",
   "effect.immersiveengineering.slippery.description": "Las entidades afectadas se deslizan lentamente hacia adelante al estar en el suelo y tienen un 1/300 de probabilidad por tick (~6,5% por segundo) de soltar un ítem de la mano principal o secundaria.",
   "effect.immersiveengineering.sticky.description": "Ralentiza mucho al objetivo e impide que salte.",
-  "effect.immersiveengineering.stunned.description": "Los Enderman afectados por este efecto no pueden teletransportarse.",
+  "effect.immersiveengineering.stunned.description": "Los Endermans afectados por este efecto no pueden teletransportarse.",
 
   "effect.infernalexp.infection.description": "Envenena lentamente con daño no letal en el tiempo; puede contagiarse al atacar a otras entidades vivas.",
   "effect.infernalexp.luminous.description": "Hace que el usuario emita luz. Si se aplica a mobs no-muertos, los quema.",
@@ -209,10 +209,10 @@
 
   "effect.untitledduckmod.intimidation.description": "Hace que los Illagers tengan miedo del objetivo.",
 
-  "effect.upgrade_aquatic.insomnia.description": "Aumenta el temporizador de insomnio por 1 día por nivel de efecto, causando que los phantoms aparezcan. Si se le da a los Phantoms los convertirá en Flares, si se les da a los Flares los matará instantáneamente.",
-  "effect.upgrade_aquatic.repellence.description": "Inflica veneno a las criaturas que toquen físicamente al usuario; niveles más altos aumentan el nivel de veneno causado.",
-  "effect.upgrade_aquatic.restfulness.description": "Disminuye el temporizador de insomnio por 1 día por nivel de efecto, reduciendo la posibilidad de aparición de Phantoms. Si se le da a los Flares los convertirá en Phantoms, si se les da a los Phantoms los matará instantáneamente.",
-  "effect.upgrade_aquatic.vibing.description": "Inflica regeneración a las criaturas que toquen físicamente al usuario; niveles más altos aumentan el nivel de regeneración causado.",
+  "effect.upgrade_aquatic.insomnia.description": "Aumenta el temporizador de insomnio por 1 día por nivel de efecto, causando que los fantasmas aparezcan. Si se le da a los Phantoms los convertirá en Flares; si se les da a los Flares, los matará instantáneamente.",
+  "effect.upgrade_aquatic.repellence.description": "Inflige veneno a las criaturas que toquen físicamente al usuario; niveles más altos aumentan el nivel de veneno causado.",
+  "effect.upgrade_aquatic.restfulness.description": "Disminuye el temporizador de insomnio por 1 día por nivel de efecto, reduciendo la posibilidad de aparición de fantasmas. Si se le da a los Flares los convertirá en Phantoms; si se les da a los Phantoms, los matará instantáneamente.",
+  "effect.upgrade_aquatic.vibing.description": "Inflige regeneración a las criaturas que toquen físicamente al usuario; niveles más altos aumentan el nivel de regeneración causado.",
 
   "effect.windswept.thorns.description": "Daño a cualquier criatura o jugador que ataque al objetivo.",
 
@@ -230,7 +230,7 @@
   "effect.cofh_core.panacea.description": "Otorga inmunidad a todos los efectos de estado negativos.",
   "effect.cofh_core.magic_resistance.description": "Otorga inmunidad a todo el daño mágico.",
   "effect.cofh_core.love.description": "Hace que los animales cercanos entren en modo amor.",
-  "effect.cofh_core.enderference.description": "Hace que los Enderman cercanos no puedan teletransportarse. También desactiva la teletransportación de los jugadores cercanos usando perlas de Ender o frutas de coro.",
+  "effect.cofh_core.enderference.description": "Hace que los Endermans cercanos no puedan teletransportarse. También desactiva la teletransportación de los jugadores cercanos usando perlas de Ender o frutas del coro.",
   "effect.cofh_core.clarity.description": "Aumenta la cantidad de experiencia obtenida en un 40% por nivel.",
   "effect.cofh_core.explosion_resistance.description": "Otorga inmunidad al daño por explosión.",
   "effect.cofh_core.chilled.description": "Reduce la velocidad de movimiento en un 30% y el daño de ataque en 1.5 corazones por nivel.",
@@ -241,5 +241,5 @@
   "effect.mynethersdelight.g_pungent.description": "Sana de fuentes de calor cuando tienes resistencia al fuego. Causa daño si no la tienes.",
   "effect.enigmaticlegacy.growing_hunger.description": "Drena hambre con el tiempo, pero otorga más daño y robo de vida.",
   "effect.enigmaticlegacy.growing_bloodlust.description": "Drena salud con el tiempo, pero otorga más daño y robo de vida. Solo se aplica si el portador de la maldición ha comido la fruta prohibida.",
-  "effect.mowziesmobs.sunblock.description": "¡Los Umvuthana están protegiendo a su jefe! ¡Deténlos antes de que te abrumen!"
+  "effect.mowziesmobs.sunblock.description": "¡Los Umvuthana están protegiendo a su jefe! ¡Detenelos antes de que te abrumen!"
 }
