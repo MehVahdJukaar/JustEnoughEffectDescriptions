@@ -1,6 +1,6 @@
 
 modLoader = "javafml"
-loaderVersion = "${loader_version_range}"
+loaderVersion = "*"
 
 license = "${mod_license}"
 issueTrackerURL = "${mod_github}/issues"
@@ -27,14 +27,14 @@ itemIcon="minecraft:potion" #catalogue icon
 [[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "required"
-versionRange = "${neo_version_range}"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "minecraft"
 type = "required"
-versionRange = "[${minecraft_min_version},${minecraft_max_version})"
+versionRange = "[26.1,26.1.2]"
 ordering = "NONE"
 side = "BOTH"
 

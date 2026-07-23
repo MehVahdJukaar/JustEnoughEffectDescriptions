@@ -2,14 +2,14 @@ package net.mehvahdjukaar.jeed.common;
 
 import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Comparator;
 
 public final class Constants {
-    public static final ResourceLocation EFFECT_BACKGROUND_SMALL_TEXTURE = ResourceLocation.withDefaultNamespace(
+    public static final Identifier EFFECT_BACKGROUND_SMALL_TEXTURE = Identifier.withDefaultNamespace(
             "textures/gui/sprites/hud/effect_background.png");
-    public static final ResourceLocation EFFECT_BACKGROUND_SMALL_SPRITE = ResourceLocation.withDefaultNamespace(
+    public static final Identifier EFFECT_BACKGROUND_SMALL_SPRITE = Identifier.withDefaultNamespace(
             "hud/effect_background");
 
     public static int RECIPE_WIDTH = Jeed.EMI ? 144 : 160;
@@ -25,7 +25,7 @@ public final class Constants {
 
     public static Component LOCALIZED_NAME = Component.translatable("jeed.category.effect_info");
 
-    public static Comparator<ResourceLocation> ID_COMPARATOR = (first, second) -> {
+    public static Comparator<Identifier> ID_COMPARATOR = (first, second) -> {
         String secondNamespace = second.getNamespace();
         String firstNamespace = first.getNamespace();
         String mc = "minecraft";
@@ -43,7 +43,7 @@ public final class Constants {
         }
     };
 
-    public static Comparator<ResourceLocation> NAMESPACE_COMPARATOR = (first, second) -> {
+    public static Comparator<Identifier> NAMESPACE_COMPARATOR = (first, second) -> {
         String firstNamespace = first.getNamespace();
         String secondNamespace = second.getNamespace();
         String mc = "minecraft";

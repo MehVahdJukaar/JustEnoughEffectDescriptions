@@ -12,9 +12,11 @@ import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
+import com.mojang.serialization.Codec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -55,8 +57,8 @@ public class EffectInstanceDefinition implements EntryDefinition<MobEffectInstan
     }
 
     @Override
-    public @Nullable ResourceLocation getIdentifier(EntryStack<MobEffectInstance> entry, MobEffectInstance value) {
-        return value.getEffect().unwrapKey().get().location();
+    public Identifier getIdentifier(EntryStack<MobEffectInstance> entry, MobEffectInstance value) {
+        return value.getEffect().unwrapKey().get().identifier();
     }
 
     @Override
@@ -106,7 +108,7 @@ public class EffectInstanceDefinition implements EntryDefinition<MobEffectInstan
         ItemStack item = new ItemStack(Items.POTION);
         PotionContents potionContents = new PotionContents(Optional.empty(),
                 Optional.of(value.getEffect().value().getColor()),
-                Collections.singletonList(normalize(entry, value)));
+                Collections.singletonList(normalize(entry, value)), Optional.empty());
         item.set(DataComponents.POTION_CONTENTS, potionContents);
         return item;
     }
@@ -127,27 +129,17 @@ public class EffectInstanceDefinition implements EntryDefinition<MobEffectInstan
     }
 
     @Override
-    public boolean supportReading() {
-        return true;
-    }
-
-    @Override
-    public boolean supportSaving() {
-        return true;
-    }
-
-    @Override
     public boolean acceptsNull() {
         return false;
     }
 
     @Override
-    public CompoundTag save(EntryStack<MobEffectInstance> entry, MobEffectInstance value) {
-        return (CompoundTag) value.save();
+    public Codec<MobEffectInstance> codec() {
+        return MobEffectInstance.CODEC;
     }
 
     @Override
-    public MobEffectInstance read(CompoundTag tag) {
-        return MobEffectInstance.load(tag);
+    public StreamCodec<RegistryFriendlyByteBuf, MobEffectInstance> streamCodec() {
+        return MobEffectInstance.STREAM_CODEC;
     }
 }

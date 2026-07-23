@@ -1,6 +1,5 @@
 package net.mehvahdjukaar.jeed.plugin.jei;
 
-import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.gui.builder.IClickableIngredientFactory;
@@ -22,7 +21,7 @@ import net.mehvahdjukaar.jeed.plugin.jei.display.EffectInfoRecipeCategory;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceHelper;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Items;
 
@@ -32,11 +31,10 @@ import java.util.Optional;
 /**
  * Author: MehVahdJukaar
  */
-@REIPluginCompatIgnore
 @JeiPlugin
 public class JEIPlugin implements IModPlugin, IPlugin {
 
-    private static final ResourceLocation ID = Jeed.res("jei_plugin");
+    private static final Identifier ID = Jeed.res("jei_plugin");
 
     public static final IIngredientType<MobEffectInstance> EFFECT_INGREDIENT_TYPE = () -> MobEffectInstance.class;
 
@@ -55,7 +53,7 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     }
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return ID;
     }
 
@@ -112,11 +110,11 @@ public class JEIPlugin implements IModPlugin, IPlugin {
 
 
         @Override
-        public Optional<IClickableIngredient<?>> getClickableIngredientUnderMouse(
+        public Optional<? extends IClickableIngredient<?>> getClickableIngredientUnderMouse(
                 IClickableIngredientFactory builder, T containerScreen, double mouseX, double mouseY) {
             MobEffectInstance v = ext.getEffectAtPosition(containerScreen, mouseX, mouseY, IEffectScreenExtension.CallReason.RECIPE_KEY);
             if (v != null) {
-                builder.createBuilder(EFFECT_INGREDIENT_TYPE, v)
+                return builder.createBuilder(EFFECT_INGREDIENT_TYPE, v)
                         .buildWithArea((int) mouseX, (int) mouseY, 1, 1);
             }
 
@@ -128,7 +126,7 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         if (Jeed.EMI || Jeed.REI) return;
 
-        registration.addRecipeCatalyst(Items.POTION.getDefaultInstance(), EffectInfoRecipe.TYPE);
+        registration.addCraftingStation(EffectInfoRecipe.TYPE, Items.POTION);
     }
 
     @Override

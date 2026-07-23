@@ -1,18 +1,14 @@
 package net.mehvahdjukaar.jeed;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.mehvahdjukaar.candlelight.api.PlatformImpl;
 import net.mehvahdjukaar.jeed.common.IPlugin;
-import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
-import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Contract;
@@ -37,8 +33,8 @@ public class Jeed {
     public static boolean EMI = false;
     public static boolean REI = false;
 
-    public static ResourceLocation res(String name) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+    public static Identifier res(String name) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, name);
     }
 
 
@@ -46,63 +42,42 @@ public class Jeed {
 
 
     @Contract
-    @ExpectPlatform
+    @PlatformImpl
     public static Collection<String> getHiddenEffects() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
-    public static RecipeSerializer<?> getEffectProviderSerializer() {
-        throw new AssertionError();
-    }
-
-    @Contract
-    @ExpectPlatform
-    public static RecipeType<EffectProviderRecipe> getEffectProviderType() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static RecipeSerializer<?> getPotionProviderSerializer() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
-    public static RecipeType<PotionProviderRecipe> getPotionProviderType() {
-        throw new AssertionError();
-    }
-
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean hasIngredientList() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean hasEffectBox() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean ignoreDerivativePotions() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean sortIngredients(){
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean hasEffectColor() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean rendersSlots() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean suppressVanillaTooltips() {
         throw new AssertionError();
     }
@@ -110,9 +85,9 @@ public class Jeed {
     public static final TagKey<MobEffect> HIDDEN = TagKey.create(Registries.MOB_EFFECT, res("hidden"));
 
     public static List<Holder.Reference<MobEffect>> getEffectList() {
-        return BuiltInRegistries.MOB_EFFECT.holders()
+        return BuiltInRegistries.MOB_EFFECT.listElements()
                 .filter(e -> !e.is(HIDDEN) && !Jeed.getHiddenEffects().contains(e.key().toString()))
-                .sorted((a, b) -> NAMESPACE_COMPARATOR.compare(a.key().location(), b.key().location()))
+                .sorted((a, b) -> NAMESPACE_COMPARATOR.compare(a.key().identifier(), b.key().identifier()))
                 .toList();
     }
 

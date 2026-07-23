@@ -1,8 +1,8 @@
 package net.mehvahdjukaar.jeed.plugin.jei.ingredient;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.mehvahdjukaar.jeed.common.EffectRenderer;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.TooltipFlag;
@@ -16,6 +16,11 @@ public class EffectInstanceRenderer extends EffectRenderer implements IIngredien
 
     public EffectInstanceRenderer(boolean offset) {
         super(offset);
+    }
+
+    @Override
+    public void render(GuiGraphicsExtractor graphics, MobEffectInstance effectInstance) {
+        super.render(graphics, effectInstance);
     }
 
     @Override

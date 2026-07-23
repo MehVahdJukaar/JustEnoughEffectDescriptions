@@ -14,7 +14,6 @@ import me.shedaniel.rei.api.common.entry.type.EntryType;
 import me.shedaniel.rei.api.common.entry.type.EntryTypeRegistry;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import me.shedaniel.rei.forge.REIPluginClient;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
@@ -25,7 +24,7 @@ import net.mehvahdjukaar.jeed.plugin.rei.ingredient.EffectInstanceDefinition;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
@@ -35,11 +34,10 @@ import java.util.stream.Stream;
 
 import static net.mehvahdjukaar.jeed.common.Constants.RECIPE_WIDTH;
 
-@REIPluginClient
 public class REIPlugin implements REIClientPlugin, IPlugin {
 
     public static final CategoryIdentifier<EffectInfoDisplay> EFFECTS_INFO_CATEGORY = CategoryIdentifier.of(Jeed.res("effects"));
-    public static final EntryType<MobEffectInstance> EFFECT_ENTRY_TYPE = EntryType.deferred(ResourceLocation.tryParse("effect"));
+    public static final EntryType<MobEffectInstance> EFFECT_ENTRY_TYPE = EntryType.deferred(Jeed.res("effect"));
 
     public REIPlugin() {
         Jeed.PLUGIN = this;
@@ -61,15 +59,6 @@ public class REIPlugin implements REIClientPlugin, IPlugin {
         for (var e : Jeed.getEffectList()) {
             registry.add(EffectInfoDisplay.create(e));
         }
-    }
-
-    @Override
-    public void registerEntryTypes(EntryTypeRegistry registry) {
-        registry.register(EFFECT_ENTRY_TYPE, new EffectInstanceDefinition());
-        registry.registerBridge(EFFECT_ENTRY_TYPE, VanillaEntryTypes.ITEM, input -> {
-            ItemStack item = input.cheatsAs().getValue();
-            return CompoundEventResult.interruptTrue(Stream.of(EntryStacks.of(item)));
-        });
     }
 
     @Override

@@ -3,6 +3,8 @@ package net.mehvahdjukaar.jeed.plugin.rei.display;
 import dev.architectury.fluid.FluidStack;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.DisplaySerializer;
+import net.minecraft.resources.Identifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.EntryType;
@@ -18,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EffectInfoDisplay extends EffectInfo implements Display {
 
@@ -29,8 +32,8 @@ public class EffectInfoDisplay extends EffectInfo implements Display {
         super(effectInstance, List.of(description));
         MobEffect effect = effectInstance.getEffect().value();
         List<ItemStack> providers = computeItemProviders(effect);
-        var ingredientsList = groupIngredients(providers);
-        var allInputs = new ArrayList<>(ingredientsList.stream().map(EntryIngredients::ofIngredient).toList());
+        var groups = groupProviders(providers);
+        var allInputs = new ArrayList<>(groups.stream().map(EntryIngredients::ofItemStacks).toList());
         this.outputEntries = List.of(EntryIngredient.of(EntryStack.of(REIPlugin.EFFECT_ENTRY_TYPE, effectInstance).normalize()));
         allInputs.addAll(outputEntries);
 
@@ -63,6 +66,17 @@ public class EffectInfoDisplay extends EffectInfo implements Display {
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
         return REIPlugin.EFFECTS_INFO_CATEGORY;
+    }
+
+    @Override
+    public Optional<Identifier> getDisplayLocation() {
+        return Optional.empty();
+    }
+
+    //built fresh on the client every world load, never persisted
+    @Override
+    public DisplaySerializer<? extends Display> getSerializer() {
+        return null;
     }
 
     public static EffectInfoDisplay create(Holder<MobEffect> effect) {

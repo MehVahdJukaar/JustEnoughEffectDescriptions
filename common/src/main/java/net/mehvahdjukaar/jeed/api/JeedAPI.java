@@ -5,7 +5,6 @@ import net.mehvahdjukaar.jeed.common.EffectRenderer;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
-import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -39,7 +38,6 @@ public class JeedAPI {
     public static void disableVanillaInventoryScreenExtension() {
         disableExtension(CreativeModeInventoryScreen.class);
         disableExtension(InventoryScreen.class);
-        disableExtension(EffectRenderingInventoryScreen.class);
     }
 
     public static <T extends AbstractContainerScreen> void disableExtension(Class<T> screenClass) {

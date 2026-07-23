@@ -1,6 +1,6 @@
 package net.mehvahdjukaar.jeed.plugin.jei.display;
 
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.common.Constants;
 import net.mehvahdjukaar.jeed.common.EffectInfo;
@@ -12,7 +12,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -21,14 +21,14 @@ import java.util.Optional;
 
 public class EffectInfoRecipe extends EffectInfo {
 
-    public static final RecipeType<EffectInfoRecipe> TYPE = RecipeType.create(Jeed.MOD_ID, "effect_info", EffectInfoRecipe.class);
-    protected final List<Ingredient> ingredients;
-    protected final List<Ingredient> slots;
+    public static final IRecipeType<EffectInfoRecipe> TYPE = IRecipeType.create(Jeed.MOD_ID, "effect_info", EffectInfoRecipe.class);
+    protected final List<List<ItemStack>> ingredients;
+    protected final List<List<ItemStack>> slots;
 
-    protected EffectInfoRecipe(MobEffectInstance effectInstance, List<Ingredient> ingredients, List<FormattedText> description) {
+    protected EffectInfoRecipe(MobEffectInstance effectInstance, List<List<ItemStack>> ingredients, List<FormattedText> description) {
         super(effectInstance, description);
         this.ingredients = ingredients;
-        this.slots = divideIntoSlots(ingredients, EffectInfo::mergeIngredients);
+        this.slots = divideIntoSlots(ingredients, EffectInfo::flatten);
     }
 
     //TODO: re add
@@ -46,7 +46,7 @@ public class EffectInfoRecipe extends EffectInfo {
     public static List<EffectInfoRecipe> create(Holder<MobEffect> effect) {
         Minecraft minecraft = Minecraft.getInstance();
         Component text = getDescription(effect);
-        List<Ingredient> inputs = groupIngredients(computeItemProviders(effect.value()));
+        List<List<ItemStack>> inputs = groupProviders(computeItemProviders(effect.value()));
 
         int listH = getListHeight(inputs);
 

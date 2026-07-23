@@ -2,12 +2,13 @@ package net.mehvahdjukaar.jeed.plugin.jei.display;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 
 public class TabIcon implements IDrawable {
 
-    private static final ResourceLocation resource = Jeed.res("textures/gui/effects.png");
+    private static final Identifier resource = Jeed.res("textures/gui/effects.png");
 
     private final int width, height;
 
@@ -27,8 +28,7 @@ public class TabIcon implements IDrawable {
     }
 
     @Override
-    public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
-        graphics.blit(resource, xOffset, yOffset, 0, 0, 0, width, height, width, height);
+    public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
+        graphics.blit(RenderPipelines.GUI_TEXTURED, resource, xOffset, yOffset, 0, 0, width, height, width, height);
     }
-
 }

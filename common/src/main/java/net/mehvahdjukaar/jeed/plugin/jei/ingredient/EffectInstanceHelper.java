@@ -7,10 +7,9 @@ import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
-import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,17 +37,12 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
 
     @Override
     public Object getUid(MobEffectInstance ingredient, UidContext context) {
-        return "effect:" + getResourceLocation(ingredient);
+        return "effect:" + getIdentifier(ingredient);
     }
 
     @Override
-    public String getUniqueId(MobEffectInstance ingredient, UidContext uidContext) {
-        return "effect:" + getResourceLocation(ingredient);
-    }
-
-    @Override
-    public ResourceLocation getResourceLocation(MobEffectInstance ingredient) {
-        return ingredient.getEffect().unwrapKey().get().location();
+    public Identifier getIdentifier(MobEffectInstance ingredient) {
+        return ingredient.getEffect().unwrapKey().get().identifier();
     }
 
     @Override
@@ -61,7 +55,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
         ItemStack item = new ItemStack(Items.POTION);
         PotionContents potionContents = new PotionContents(Optional.empty(),
                 Optional.of(ingredient.getEffect().value().getColor()),
-                Collections.singletonList(normalize(ingredient)));
+                Collections.singletonList(normalize(ingredient)), Optional.empty());
         item.set(DataComponents.POTION_CONTENTS, potionContents);
         return item;
     }
@@ -72,7 +66,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
     }
 
     @Override
-    public Stream<ResourceLocation> getTagStream(MobEffectInstance ingredient) {
+    public Stream<Identifier> getTagStream(MobEffectInstance ingredient) {
         return ingredient.getEffect().tags().map(TagKey::location);
     }
 
@@ -92,7 +86,7 @@ public class EffectInstanceHelper implements IIngredientHelper<MobEffectInstance
         if (ingredient == null) {
             return "null";
         } else {
-            ToStringHelper toStringHelper = MoreObjects.toStringHelper(EffectInstance.class);
+            ToStringHelper toStringHelper = MoreObjects.toStringHelper(MobEffectInstance.class);
             MobEffect effect = ingredient.getEffect().value();
             if (effect != null) {
                 Component displayName = effect.getDisplayName();

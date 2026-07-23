@@ -3,17 +3,17 @@ package net.mehvahdjukaar.jeed.common;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.MobEffectTextureManager;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -26,6 +26,13 @@ import java.util.List;
 
 public abstract class EffectRenderer {
 
+    private static boolean isShiftDown() {
+        var window = Minecraft.getInstance().getWindow();
+        return InputConstants.isKeyDown(window, InputConstants.KEY_LSHIFT)
+                || InputConstants.isKeyDown(window, InputConstants.KEY_RSHIFT);
+    }
+
+
     protected final Minecraft mc;
     protected final boolean offset;
 
@@ -34,22 +41,17 @@ public abstract class EffectRenderer {
         this.offset = offset;
     }
 
-    public void render(GuiGraphics graphics, MobEffectInstance effectInstance) {
+    public void render(GuiGraphicsExtractor graphics, MobEffectInstance effectInstance) {
         render(graphics, effectInstance, 0, 0, 16, 16);
     }
 
-    public void render(GuiGraphics graphics, MobEffectInstance effectInstance, int x, int y, int width, int height) {
-        var effect = effectInstance.getEffect();
-
-        MobEffectTextureManager textures = mc.getMobEffectTextures();
-        TextureAtlasSprite sprite = textures.get(effect);
-
-        render(graphics, sprite, x, y, width, height);
+    public void render(GuiGraphicsExtractor graphics, MobEffectInstance effectInstance, int x, int y, int width, int height) {
+        render(graphics, Gui.getMobEffectSprite(effectInstance.getEffect()), x, y, width, height);
     }
 
-    public void render(GuiGraphics graphics, TextureAtlasSprite sprite, int x, int y, int width, int height) {
+    public void render(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height) {
         int o = offset ? -1 : 0;
-        graphics.blit(x + o, y + o, 0, width + 2, height + 2, sprite);
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x + o, y + o, width + 2, height + 2);
     }
 
 
@@ -91,9 +93,9 @@ public abstract class EffectRenderer {
             }
 
 
-            boolean showDescription = reactsToShift && Screen.hasShiftDown();
+            boolean showDescription = reactsToShift && isShiftDown();
             //show full description with shift
-            ResourceLocation res = null;
+            Identifier res = null;
             if (showDescription || tooltipFlag.isAdvanced()) {
                 res = BuiltInRegistries.MOB_EFFECT.getKey(effect);
             }

@@ -2,7 +2,8 @@ package net.mehvahdjukaar.jeed.plugin.jei.display;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import net.mehvahdjukaar.jeed.common.Constants;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
 
 public class EffectBox implements IDrawable {
 
@@ -24,8 +25,7 @@ public class EffectBox implements IDrawable {
     }
 
     @Override
-    public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
-        graphics.blitSprite(Constants.EFFECT_BACKGROUND_SMALL_SPRITE, xOffset, yOffset, width, height);
+    public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, Constants.EFFECT_BACKGROUND_SMALL_SPRITE, xOffset, yOffset, width, height);
     }
-
 }

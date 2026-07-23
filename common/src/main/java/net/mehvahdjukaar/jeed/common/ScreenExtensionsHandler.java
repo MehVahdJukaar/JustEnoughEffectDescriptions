@@ -3,7 +3,7 @@ package net.mehvahdjukaar.jeed.common;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -40,13 +40,13 @@ public class ScreenExtensionsHandler {
     }
 
 
-    public static void renderEffectTooltip(MobEffectInstance effect, Screen screen, GuiGraphics graphics, int x, int y, boolean showDuration) {
+    public static void renderEffectTooltip(MobEffectInstance effect, Screen screen, GuiGraphicsExtractor graphics, int x, int y, boolean showDuration) {
         if (Jeed.PLUGIN == null|| !Jeed.PLUGIN.rendersTooltips()) return;
         Minecraft mc = Minecraft.getInstance();
         TooltipFlag flag = mc.options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL;
         List<Component> tooltip = EffectRenderer.getTooltipsWithDescription(effect, flag, true, showDuration);
         if (!tooltip.isEmpty()) {
-            graphics.renderComponentTooltip(mc.font, tooltip, x, y);
+            graphics.setComponentTooltipForNextFrame(mc.font, tooltip, x, y);
         }
     }
 }

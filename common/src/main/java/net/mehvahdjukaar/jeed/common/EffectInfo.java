@@ -2,25 +2,25 @@ package net.mehvahdjukaar.jeed.common;
 
 import com.google.common.base.Suppliers;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
-import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
-import net.minecraft.client.Minecraft;
+import net.mehvahdjukaar.jeed.data.EffectProvider;
+import net.mehvahdjukaar.jeed.data.PotionProvider;
+import net.mehvahdjukaar.jeed.data.ProviderManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
@@ -73,15 +73,16 @@ public abstract class EffectInfo {
 
         //foods
         for (Item i : BuiltInRegistries.ITEM) {
-            FoodProperties food = i.getDefaultInstance().get(DataComponents.FOOD);
-            if (food != null) {
+            Consumable consumable = i.getDefaultInstance().get(DataComponents.CONSUMABLE);
+            if (consumable != null) {
 
                 ItemStack foodItem = new ItemStack(i);
-                for (var possibleEffect : food.effects()) {
-                    MobEffectInstance first = possibleEffect.effect();
-                    if (first != null) { //why is this nullable?? vanilla never puts null here nor its marked as such
-                        effectProvidingItems.computeIfAbsent(first.getEffect().value(),
-                                s -> (new ItemStackList())).add(foodItem);
+                for (ConsumeEffect consumeEffect : consumable.onConsumeEffects()) {
+                    if (consumeEffect instanceof ApplyStatusEffectsConsumeEffect applyEffects) {
+                        for (MobEffectInstance effect : applyEffects.effects()) {
+                            effectProvidingItems.computeIfAbsent(effect.getEffect().value(),
+                                    s -> (new ItemStackList())).add(foodItem);
+                        }
                     }
                 }
             }
@@ -100,25 +101,14 @@ public abstract class EffectInfo {
     public static List<Holder<MobEffect>> computeEffectProviders(MobEffect effect) {
         List<Holder<MobEffect>> list = new ArrayList<>();
 
-        Level world = Minecraft.getInstance().level;
-        if (world != null) {
-
-            //effects
-            var recipes = world.getRecipeManager()
-                    .getAllRecipesFor(Jeed.getEffectProviderType());
-
-            for (var recipeHolder : recipes) {
-                EffectProviderRecipe recipe = recipeHolder.value();
-                for (var e : recipe.getEffects()) {
-                    if (e.value() == effect) {
-                        recipe.effectProviders().forEach(list::add);
-                    }
-                }
+        for (EffectProvider provider : ProviderManager.getEffectProviders()) {
+            if (provider.matches(effect)) {
+                provider.effectProviders().forEach(list::add);
             }
         }
         if (Jeed.sortIngredients()) {
-            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.unwrapKey().get().location(),
-                    o2.unwrapKey().get().location()));
+            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.unwrapKey().get().identifier(),
+                    o2.unwrapKey().get().identifier()));
         }
         return list;
     }
@@ -126,25 +116,14 @@ public abstract class EffectInfo {
     public static List<Holder<Fluid>> computeFluidProvides(MobEffect effect) {
         List<Holder<Fluid>> list = new ArrayList<>();
 
-        Level world = Minecraft.getInstance().level;
-        if (world != null) {
-
-            //effects
-            var recipes = world.getRecipeManager()
-                    .getAllRecipesFor(Jeed.getEffectProviderType());
-
-            for (var recipeHolder : recipes) {
-                EffectProviderRecipe recipe = recipeHolder.value();
-                for (var e : recipe.getEffects()) {
-                    if (e.value() == effect) {
-                        recipe.fluidProviders().forEach(list::add);
-                    }
-                }
+        for (EffectProvider provider : ProviderManager.getEffectProviders()) {
+            if (provider.matches(effect)) {
+                provider.fluidProviders().forEach(list::add);
             }
         }
         if (Jeed.sortIngredients()) {
-            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.unwrapKey().get().location(),
-                    o2.unwrapKey().get().location()));
+            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.unwrapKey().get().identifier(),
+                    o2.unwrapKey().get().identifier()));
         }
         return list;
     }
@@ -153,46 +132,26 @@ public abstract class EffectInfo {
 
         ItemStackList list = new ItemStackList();
 
-        Level world = Minecraft.getInstance().level;
-        if (world != null) {
+        for (EffectProvider provider : ProviderManager.getEffectProviders()) {
+            if (provider.matches(effect)) {
+                list.addAll(provider.providers());
+            }
+        }
 
-            //effects
-            var recipes = world.getRecipeManager()
-                    .getAllRecipesFor(Jeed.getEffectProviderType());
-
-            for (var recipeHolder : recipes) {
-                EffectProviderRecipe recipe = recipeHolder.value();
-                for (var e : recipe.getEffects()) {
-                    if (e.value() == effect) {
-                        for (var i : recipe.getIngredients()) {
-                            list.addAll(List.of(i.getItems()));
+        for (PotionProvider provider : ProviderManager.getPotionProviders()) {
+            for (var potion : getPotions(provider)) {
+                if (potion.value().getEffects().stream().anyMatch(e -> e.getEffect().value() == effect)) {
+                    if (Jeed.ignoreDerivativePotions()) {
+                        String path = potion.unwrapKey().get().identifier().getPath();
+                        if (path.startsWith("long_") || path.startsWith("strong_")) {
+                            continue;
                         }
                     }
-                }
-            }
-
-            //potions
-            var potionRecipes = world.getRecipeManager()
-                    .getAllRecipesFor(Jeed.getPotionProviderType());
-
-            for (var recipeHolder : potionRecipes) {
-                PotionProviderRecipe recipe = recipeHolder.value();
-                for (var potion : recipe.getPotions()) {
-                    if (potion.value().getEffects().stream().anyMatch(e -> e.getEffect().value() == effect)) {
-                        if (Jeed.ignoreDerivativePotions()) {
-                            String path = potion.unwrapKey().get().location().getPath();
-                            if (path.startsWith("long_") || path.startsWith("strong_")) {
-                                continue;
-                            }
-                        }
-                        for (var ing : recipe.getIngredients()) {
-                            for (var stack : ing.getItems()) {
-                                ItemStack copy = stack.copy();
-                                PotionContents potionContents = new PotionContents(Optional.of(potion), Optional.empty(), List.of());
-                                copy.set(DataComponents.POTION_CONTENTS, potionContents);
-                                list.add(copy);
-                            }
-                        }
+                    for (ItemStack stack : provider.providers()) {
+                        ItemStack copy = stack.copy();
+                        PotionContents potionContents = new PotionContents(Optional.of(potion), Optional.empty(), List.of(), Optional.empty());
+                        copy.set(DataComponents.POTION_CONTENTS, potionContents);
+                        list.add(copy);
                     }
                 }
             }
@@ -202,37 +161,30 @@ public abstract class EffectInfo {
         if (stat != null) list.addAll(stat);
 
         if (Jeed.sortIngredients()) {
-            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.getItemHolder().unwrapKey().get().location(),
-                    o2.getItemHolder().unwrapKey().get().location()));
+            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.typeHolder().unwrapKey().get().identifier(),
+                    o2.typeHolder().unwrapKey().get().identifier()));
         }
         return list;
     }
 
-    public static List<Ingredient> groupIngredients(List<ItemStack> ingredients) {
-        Map<Item, Ingredient> map = new HashMap<>();
-        for (ItemStack stack : ingredients) {
-            map.merge(stack.getItem(), Ingredient.of(stack), EffectInfo::mergeIngredients);
-        }
-        //  var entryList = sortIngredients(map);
-        var entryList = new ArrayList<>(map.entrySet());
-        // Create a new LinkedHashMap and insert sorted entries
-        List<Ingredient> list = new ArrayList<>();
-        for (var entry : entryList) {
-            list.add(entry.getValue());
-        }
-        return list;
+    private static List<? extends Holder<net.minecraft.world.item.alchemy.Potion>> getPotions(PotionProvider provider) {
+        return provider.potions().isEmpty() ? BuiltInRegistries.POTION.listElements().toList() : provider.potions();
     }
 
-    private static Ingredient mergeIngredients(Ingredient ingredient, Ingredient ingredient1) {
-        return mergeIngredients(List.of(ingredient, ingredient1));
+    /**
+     * Groups stacks of the same item into one slot entry. Ingredients can no longer carry components, so slots hold
+     * plain stack lists that each viewer cycles through.
+     */
+    public static List<List<ItemStack>> groupProviders(List<ItemStack> providers) {
+        Map<Item, List<ItemStack>> map = new LinkedHashMap<>();
+        for (ItemStack stack : providers) {
+            map.computeIfAbsent(stack.getItem(), i -> new ArrayList<>()).add(stack);
+        }
+        return List.copyOf(map.values());
     }
 
-    public static Ingredient mergeIngredients(List<Ingredient> ingredients) {
-        List<ItemStack> l = new ArrayList<>();
-        for (Ingredient i : ingredients) {
-            l.addAll(Arrays.stream(i.getItems()).toList());
-        }
-        return Ingredient.of(l.toArray(new ItemStack[0]));
+    public static List<ItemStack> flatten(List<List<ItemStack>> groups) {
+        return groups.stream().flatMap(List::stream).toList();
     }
 
     public static <T, I> List<I> divideIntoSlots(List<T> ingredients, Function<List<T>, I> mapper) {
@@ -264,10 +216,19 @@ public abstract class EffectInfo {
             }
             return super.add(stack);
         }
+
+        @Override
+        public boolean addAll(Collection<? extends ItemStack> stacks) {
+            boolean changed = false;
+            for (ItemStack stack : stacks) {
+                changed |= this.add(stack);
+            }
+            return changed;
+        }
     }
 
     public static Component getDescription(Holder<MobEffect> effect) {
-        ResourceLocation name = effect.unwrapKey().get().location();
+        Identifier name = effect.unwrapKey().get().identifier();
 
         String descriptionKey = "effect." + name.getNamespace() + "." + name.getPath() + ".description";
 

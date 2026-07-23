@@ -14,25 +14,26 @@
   "license": "${mod_license}",
   "icon": "icon.png",
   "environment": "*",
+  "accessWidener": "jeed.accesswidener",
   "entrypoints": {
     "main": [
-      "net.mehvahdjukaar.jeed.fabric.JeedImpl"
+      "net.mehvahdjukaar.jeed.platform.JeedImpl"
     ],
     "rei_client": [
       "net.mehvahdjukaar.jeed.plugin.rei.REIPlugin"
     ],
+    "rei_common": [
+      "net.mehvahdjukaar.jeed.plugin.rei.REICommonPluginImpl"
+    ],
     "jei_mod_plugin": [
       "net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin"
-    ],
-    "emi": [
-      "net.mehvahdjukaar.jeed.plugin.emi.EMIPlugin"
     ]
   },
   "mixins": [
     "${mod_id}.mixins.json"
   ],
   "depends": {
-    "fabric": ">=0.92.0+1.20.1",
-    "minecraft": ">=${minecraft_min_version} <${minecraft_max_version}"
+    "minecraft": ">=26.1- <=26.1.2",
+    "java": ">=25"
   }
 }
