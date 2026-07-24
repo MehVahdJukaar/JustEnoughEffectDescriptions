@@ -144,7 +144,7 @@
   "effect.goodending.shattered_immunity.description": "La inmunidad rota elimina un efecto negativo y luego desaparece.",
 
   "effect.habitat.blast_endurance.description": "Reduce el daño recibido por explosiones.",
-  "effect.habitat.prickling,description": "Tiene una probabilidad de causar daño de espinas al atacante igual al nivel del efecto.",
+  "effect.habitat.prickling.description": "Tiene una probabilidad de causar daño de espinas al atacante igual al nivel del efecto.",
   "effect.habitat.prolongation.description": "Aumenta la duración de todas las pociones entrantes un 20%.",
 
   "effect.immersiveengineering.concrete_feet.description": "Impide que el objetivo se mueva o salte. El efecto termina al dejar de estar parado sobre concreto.",
