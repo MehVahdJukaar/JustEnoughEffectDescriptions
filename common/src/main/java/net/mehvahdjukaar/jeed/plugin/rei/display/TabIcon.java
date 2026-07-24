@@ -2,7 +2,7 @@ package net.mehvahdjukaar.jeed.plugin.rei.display;
 
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
-import me.shedaniel.rei.api.client.gui.compat.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphics;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;

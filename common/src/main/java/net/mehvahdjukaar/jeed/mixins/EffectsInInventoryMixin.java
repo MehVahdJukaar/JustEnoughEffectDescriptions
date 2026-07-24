@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectsInInventory;
 import net.minecraft.resources.Identifier;
@@ -21,8 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 /**
- * Loader agnostic part. The tooltip suppression lives in the per loader mixins since NeoForge patches
- * {@code extractText} into a stub that delegates to its own {@code renderText}.
+ * Loader agnostic part. The tooltip suppression lives in the per loader mixins since NeoForge turns
+ * vanilla {@code renderText} into a deprecated stub that delegates to its own overload.
  */
 @Mixin(EffectsInInventory.class)
 public abstract class EffectsInInventoryMixin {
@@ -34,18 +34,18 @@ public abstract class EffectsInInventoryMixin {
     @Unique
     private int jeed$mouseX, jeed$mouseY;
 
-    @Inject(at = @At("HEAD"), method = "extractRenderState")
-    private void jeed$captureMouse(GuiGraphicsExtractor graphics, int mouseX, int mouseY, CallbackInfo info) {
+    @Inject(at = @At("HEAD"), method = "render")
+    private void jeed$captureMouse(GuiGraphics graphics, int mouseX, int mouseY, CallbackInfo info) {
         jeed$mouseX = mouseX;
         jeed$mouseY = mouseY;
         NativeCompat.setInventoryEffect(null, false);
     }
 
-    @WrapOperation(method = "extractEffects",
+    @WrapOperation(method = "renderEffects",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V")
+                    target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V")
     )
-    private void jeed$captureHoveredEffect(GuiGraphicsExtractor graphics, RenderPipeline pipeline, Identifier sprite,
+    private void jeed$captureHoveredEffect(GuiGraphics graphics, RenderPipeline pipeline, Identifier sprite,
                                            int px, int py, int spriteWidth, int spriteHeight, Operation<Void> original,
                                            @Local MobEffectInstance hoveredEffect) {
         original.call(graphics, pipeline, sprite, px, py, spriteWidth, spriteHeight);

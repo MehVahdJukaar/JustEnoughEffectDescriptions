@@ -34,7 +34,7 @@
     "${mod_id}-fabric.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=26.1- <=26.1.2",
-    "java": ">=25"
+    "minecraft": ">=1.21.11 <=1.21.11",
+    "java": ">=21"
   }
 }

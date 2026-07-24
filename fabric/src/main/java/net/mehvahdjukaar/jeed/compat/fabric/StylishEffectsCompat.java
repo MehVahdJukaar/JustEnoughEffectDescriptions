@@ -1,5 +1,5 @@
-// Stylish Effects (and Puzzles Lib) have no 26.1 build yet, so there is nothing to compile against.
-// Kept here, commented out, to be revived once they update. Still written against the 1.21 APIs.
+// Stylish Effects 21.11.3 removed its whole fuzs.stylisheffects.api.v1.client package, so none of the hooks
+// below exist anymore. Kept here, commented out, in case the API comes back. Still written against the 1.21 APIs.
 //package net.mehvahdjukaar.jeed.compat.fabric;
 //
 //import fuzs.puzzleslib.api.event.v1.core.EventResult;

@@ -19,6 +19,8 @@ dependencies {
     // the platform artifacts JiJ cloth-config/basic-math/architectury, so pull the api for those classes
     modCompileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
 
-    // No 26.1 build yet
-    // modCompileOnly("curse.maven:stylish-effects-543661:5093224")
+    // stylish effects 21.11.3 dropped its fuzs.stylisheffects.api.v1.client package, so there is
+    // nothing left to compile the compat against
+    // modCompileOnly("maven.modrinth:stylish-effects:xOFVHKXU")
+    // modCompileOnly("fuzs.puzzleslib:puzzleslib-neoforge:21.11.13")
 }

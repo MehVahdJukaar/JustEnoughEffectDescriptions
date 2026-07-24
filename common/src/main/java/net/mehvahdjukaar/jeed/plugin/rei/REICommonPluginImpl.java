@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.stream.Stream;
 
 /**
- * Entry type registration moved to the common plugin in REI 26.1, so it can no longer live on the client plugin.
+ * Entry type registration lives on the common plugin, it can no longer be done from the client one.
  */
 public class REICommonPluginImpl implements REICommonPlugin {
 
