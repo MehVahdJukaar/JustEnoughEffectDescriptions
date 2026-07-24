@@ -1,1 +1,1 @@
-hotfix
+updated translations
