@@ -3,6 +3,7 @@
   "jeed.tooltip.color_complete": "%1$s: %2$s",
   "jeed.tooltip.color": "颜色代码",
   "jeed.tooltip.beneficial": "增益效果",
+  "jeed.tooltip.neutral": "中性效果",
   "jeed.tooltip.harmful": "负面效果",
   "jeed.description.missing": "无可用描述",
 
@@ -16,8 +17,9 @@
   "effect.minecraft.glowing.description": "使实体发光，并带有可以穿过非透明方块看到的轮廓线。",
   "effect.minecraft.haste.description": "提高挖掘和攻击速度；越高的等级速度越快。",
   "effect.minecraft.health_boost.description": "提升生命上限；越高的等级上限越高。",
-  "effect.minecraft.hero_of_the_village.description": "在与村民的交易中获得折扣，并让村民会根据自己的职业赠送随机物品‌‌",
-  "effect.minecraft.hunger.description": "饥饿值更快的消耗；更高的等级消耗更快",
+  "effect.minecraft.hero_of_the_village.description": "在与村民的交易中获得折扣，并让村民会根据自己的职业赠送随机物品‌‌。",
+  "effect.minecraft.hunger.description": "饥饿值更快的消耗；更高的等级消耗更快。",
+  "effect.minecraft.infested.description": "受到伤害时，有10%概率生成1到2只蠹虫。",
   "effect.minecraft.instant_damage.description": "治疗亡灵生物，伤害非亡灵生物；更高的等级有更强的效果。",
   "effect.minecraft.instant_health.description": "治疗非亡灵生物，伤害亡灵生物；更高的等级有更强的效果。",
   "effect.minecraft.invisibility.description": "让实体模型消失，并减少被隐藏实体的检测范围，盔甲及主副手物品依然可见，更高的等级，检测范围越小。",
@@ -27,7 +29,9 @@
   "effect.minecraft.mining_fatigue.description": "降低挖掘与攻击速度；更高的等级会降低这两个变量。",
   "effect.minecraft.nausea.description": "晃动和扭曲视角。",
   "effect.minecraft.night_vision.description": "改善玩家在黑暗区域和水下的视力。",
+  "effect.minecraft.oozing.description": "死亡后生成两只史莱姆。",
   "effect.minecraft.poison.description": "会降低生命值直到只剩半颗心；更高的等级每秒造成更多的伤害，不影响亡灵生物。",
+  "effect.minecraft.raid_omen.description": "当玩家进入村庄时，不祥之兆会转化为袭击之兆。持续时间为30秒。一旦持续时间结束，就会在玩家获得此效果的地点触发袭击。",
   "effect.minecraft.regeneration.description": "会快速恢复生命值；更高的水平使生命值恢复得更快。",
   "effect.minecraft.resistance.description": "每等级减少20%受到的伤害。",
   "effect.minecraft.saturation.description": "快速恢复饥饿值与饱和度。",
@@ -35,8 +39,208 @@
   "effect.minecraft.slowness.description": "降低移动速度；等级越高，玩家速度越慢，视野越窄小。",
   "effect.minecraft.speed.description": "提高移动速度；等级越高，玩家速度越块，视野越宽阔。",
   "effect.minecraft.strength.description": "增加攻击伤害；更高的等级更高的攻击伤害。",
+  "effect.minecraft.trial_omen.description": "没有试炼之兆的玩家在非不祥的试炼刷怪笼探测范围内时，不祥之兆可以转化为试炼之兆。持续时间为15分钟乘以不祥之兆的效果等级。拥有试炼之兆的玩家会被不祥的粒子包围。",
   "effect.minecraft.unluck.description": "减少刷出更多高质量战利品的概率；等级越高，获得更好战利品的概率就越小。",
   "effect.minecraft.water_breathing.description": "防止溺水并允许在水下呼吸。",
   "effect.minecraft.weakness.description": "降低攻击伤害；等级越高，伤害越小。",
-  "effect.minecraft.wither.description": "会降低生命值直到死亡；更高的等级每秒造成更多的伤害。"
+  "effect.minecraft.weaving.description": "死亡后放置蜘蛛网。",
+  "effect.minecraft.wind_charged.description": "死亡后产生风爆。",
+  "effect.minecraft.wither.description": "会降低生命值直到死亡；更高的等级每秒造成更多的伤害。",
+
+  "effect.abundance.succumbing.description": "被攻击时会获得中毒效果，等级越高中毒的持续时间越久。",
+  "effect.abundance.supportive.description": "为周围的动物提供再生效果，为中立生物提供力量效果，为怪物提供抗性提升效果。",
+
+  "effect.alexsmobs.bug_pheromones.description": "使敌对节肢动物对持有者中立。",
+  "effect.alexsmobs.clinging.description": "允许在天花板上行走。",
+  "effect.alexsmobs.debilitating_sting.description": "对非节肢生物：效果持续30秒，此生物会持续受到伤害直至生命值不超过最大生命值的50%。对节肢生物：效果持续2分钟，此生物会倒立并无法动弹。被沙漠蛛蜂攻击会获得此效果。",
+  "effect.alexsmobs.ender_flu.description": "会使感染上的生物抽搐，在效果结束后受到魔法伤害，并在同一位置生成新的末影噬菌体。被末影噬菌体攻击获得。",
+  "effect.alexsmobs.exsanguination.description": "持续受到魔法伤害。",
+  "effect.alexsmobs.fear.description": "使目标无法移动。当老虎出现在面前时获得。",
+  "effect.alexsmobs.knockback_resistance.description": "每一级增加50%击退抗性。",
+  "effect.alexsmobs.lava_vision.description": "允许透过熔岩观察。",
+  "effect.alexsmobs.oiled.description": "油浮在水上。拥有此效果的生物在水中会浮到水面，在下雨天会从地面飘到空中。",
+  "effect.alexsmobs.orcas_might.description": "增加攻击速度。和一群虎鲸一起游泳时获得。",
+  "effect.alexsmobs.poison_resistance.description": "免疫中毒效果。",
+  "effect.alexsmobs.soulsteal.description": "赋予生物攻击时的生命窃取能力。",
+  "effect.alexsmobs.sunbird_blessing.description": "降低下落速度，防止摔落伤害，并使使用鞘翅或沙漠蛛蜂鞘翅飞行更容易。靠近曦鹤时获得。",
+  "effect.alexsmobs.sunbird_curse.description": "增加下落速度，使生物更快地击中地面。阻止使用鞘翅飞行。攻击曦鹤时获得。",
+  "effect.alexsmobs.tigers_blessing.description": "靠近的老虎会变得中立，并会帮助持有者攻击敌对生物。攻击虎时效果会提前消失。喂食老虎肉类时概率获得。",
+
+  "effect.apothic_attributes.flying.description": "启用创造模式飞行。",
+  "effect.apothic_attributes.grievious.description": "每级减少20%的治疗量。",
+  "effect.apothic_attributes.knowledge.description": "击杀实体获得的经验值翻4倍。效果每提高一级额外翻4倍。",
+  "effect.apothic_attributes.vitality.description": "每级增加20%的治疗效果。",
+
+  "effect.archers_paradox.challenge_complete.description": "代表挑战箭的连射挑战成功。",
+  "effect.archers_paradox.challenge_miss.description": "代表挑战箭的连射挑战失败。",
+  "effect.archers_paradox.challenge_streak.description": "代表连射挑战的时限和等级。",
+  "effect.archers_paradox.training_miss.description": "代表训练箭的连射中断。",
+  "effect.archers_paradox.training_streak.description": "代表训练的时限和等级。",
+
+  "effect.ars_nouveau.mana_regen.description": "提升魔力的恢复速度。",
+
+  "effect.astralsorcery.bleed.description": "对生物造成持续伤害。",
+  "effect.astralsorcery.cheat_death.description": "允许实体欺骗死亡。触发时点燃附近的敌对生物，并赋予生命恢复和防火效果。",
+  "effect.astralsorcery.drop_modifier.description": "增加死亡时的掉落物数量。",
+
+  "effect.atmospheric.gelled.description": "初始阶段可以熄灭身上的火焰，略微增加生命回复速度，并略微减少受到的火焰伤害。如果在效果生效期间再次获得，将获得中毒效果。",
+  "effect.atmospheric.persistence.description": "使实体的移动速度随着其饥饿度的降低而加快。",
+  "effect.atmospheric.relief.description": "如果受到的伤害大于等于效果等级，恢复等于效果等级的血量。",
+  "effect.atmospheric.spitting.description": "效果生效期间会快速吐出百香果籽，可以击退并伤害生物。",
+  "effect.atmospheric.worsening.description": "如果受到的伤害大于等于效果等级，额外受到等于效果等级的伤害。",
+
+  "effect.autumnity.extension.description": "在此效果期间，获得的其它效果持续时间额外延长30秒。",
+  "effect.autumnity.foul_taste.description": "拥有此效果的玩家在食用秽莓和秽莓汤以外的食物时，会额外补充50%的饥饿值回复量，并降低1级效果等级。",
+
+  "effect.botania.allure.description": "使持有者的渔竿更新频率翻倍，从而使钓鱼速度加倍。",
+  "effect.botania.bloodthirst.description": "允许敌对生物在持有者周围64格的范围内生成，无视光照水平或其他生成条件。这也允许史莱姆在史莱姆区块之外生成。",
+  "effect.botania.clear.description": "清除所有状态效果。",
+  "effect.botania.emptiness.description": "阻止受影响实体周围128个方块范围内的生物自然生成。",
+  "effect.botania.feather_feet.description": "抵消因坠落造成的摔落伤害。不会阻止由末影珍珠等其它原因造成的摔落伤害。",
+  "effect.botania.soul_cross.description": "每次击杀其他生物时恢复最大生命值的5%。",
+
+  "effect.buzzier_bees.sunny.description": "模拟阳光。幽灵不会攻击拥有该效果的生物，蜜蜂在拥有该效果时不会睡觉，亡灵生物在拥有该效果时会被灼烧。",
+
+  "effect.caverns_and_chasms.affliction.description": "效果结束时，每级效果等级造成3点魔法伤害。",
+  "effect.caverns_and_chasms.rewind.description": "效果结束时，传送到获得效果的位置。",
+
+  "effect.create_confectionery.rest.description": "使幻翼消失。",
+  "effect.create_confectionery.stimulation.description": "消除缓慢和挖掘疲劳。",
+
+  "effect.deeperdarker.sculk_affinity.description": "屏蔽玩家发出的所有声音，幽匿感测体无法再侦测到这些声音。但不会屏蔽宠物或掉落物等发出的声音！",
+
+  "effect.dungeons_mobs.ensnared.description": "受影响的实体会被困在原地。",
+  "effect.dungeons_mobs.warped.description": "随时间造成致命的魔法伤害。",
+
+  "effect.dungeons_gear.shielding.description": "免疫弹射物伤害。",
+  "effect.dungeons_gear.soul_protection.description": "死亡时复活玩家。",
+  "effect.dungeons_gear.stunned.description": "使实体眩晕，造成反胃并减缓其移动。等级越高，眩晕几率越大。",
+  "effect.dungeons_gear.party_starter.description": "近战攻击将使实体爆炸。",
+  "effect.dungeons_gear.dynamo.description": "在下次攻击中增加伤害，等级越高，伤害增幅越大。",
+  "effect.dungeons_gear.life_steal.description": "击杀实体时偷取生命值，等级越高，偷取的生命值越多。",
+  "effect.dungeons_gear.bow_charge.description": "下一次远程攻击将自动蓄满力。",
+
+  "effect.eidolon.anchored.description": "阻止实体被传送。",
+  "effect.eidolon.chilled.description": "禁用生命值自然恢复，进食不再能提供饱食度。",
+
+  "effect.environmental.panic.description": "生命值越低，速度越快。",
+  "effect.environmental.serenity.description": "靠近锦鲤时获得。阻止32x32x8的范围内生成敌对生物。",
+
+  "effect.fantasy.glowing_vision.description": "使半径500格内的独角兽发光以发现它们。",
+
+  "effect.farmersdelight.comfort.description": "无视饱食度提供生命值自然恢复。",
+  "effect.farmersdelight.nourishment.description": "阻止饱食度自然损失，使用饱和度恢复生命值时例外。",
+
+  "effect.farmersrespite.caffeinated.description": "提高目标的移动和攻击速度。",
+
+  "effect.forbidden_arcanus.darkened.description": "失明和缓慢的混合。",
+  "effect.forbidden_arcanus.fly.description": "启用创造飞行。",
+  "effect.forbidden_arcanus.spectral_vision.description": "允许穿透障碍物观察实体：敌对生物会发红光，友好生物会发绿光。",
+
+  "effect.fruitful.sustaining.description": "增加食物提供的饱食度。",
+
+  "effect.goodending.strong_immunity.description": "强效免疫可以移除一次负面效果，然后降级为当代免疫。",
+  "effect.goodending.contemporary_immunity.description": "当代免疫可以移除一次负面效果，然后降级为破碎免疫。",
+  "effect.goodending.shattered_immunity.description": "破碎免疫可以移除一次负面效果，然后逐渐消散。",
+
+  "effect.habitat.blast_endurance.description": "减少受到的爆炸伤害。",
+  "effect.habitat.prickling,description": "受到攻击时有概率对攻击者造成与效果等级相等的荆棘伤害。",
+  "effect.habitat.prolongation.description": "将所有即将生效的效果的持续时间延长 20%。",
+
+  "effect.immersiveengineering.concrete_feet.description": "使目标无法移动或跳跃。当用户不再站在混凝土上时，效果立即消失。",
+  "effect.immersiveengineering.conductive.description": "受其影响的实体会受到额外触电伤害，例如红石兵工厂武器或带电的刀片刺网。",
+  "effect.immersiveengineering.flammable.description": "增加受到的火焰伤害。",
+  "effect.immersiveengineering.flashed.description": "受其影响的玩家的屏幕会闪白，使他们暂时失明。",
+  "effect.immersiveengineering.slippery.description": "受其影响的实体在地面上时会缓慢向前滑动，每个游戏刻都有 1/300 的几率（每秒大约 6.5% 的几率）掉落他们主手或副手持有的物品。",
+  "effect.immersiveengineering.sticky.description": "大幅降低移动速度并无法跳跃。",
+  "effect.immersiveengineering.stunned.description": "使末影人等生物无法瞬移。",
+
+  "effect.infernalexp.infection.description": "逐渐造成非致命伤害；攻击其他生物实体时会传播此效果。",
+  "effect.infernalexp.luminous.description": "使使用者发出光芒。获得此效果的亡灵生物会着火。",
+
+  "effect.mowziesmobs.frozen.description": "冻结并使实体失去行动能力，同时随时间造成伤害。",
+  "effect.mowziesmobs.geomancy.description": "空手右键点击泥土地面以生成一个平台。蓄力右键可生成更大的平台。左键浮起的方块会将其作为射弹物射出。在空中时，双击并按住潜行键即可向视线方向挖掘隧道。松开潜行键停止挖掘并返回地面。",
+  "effect.mowziesmobs.poison_resist.description": "免疫中毒。",
+  "effect.mowziesmobs.suns_blessing.description": "用空手右键召唤日光打击，用空手shift右键发射太阳射线。",
+
+  "effect.neapolitan.agility.description": "允许像攀爬梯子一样攀爬任何方块。",
+  "effect.neapolitan.berserking.description": "每次击杀生物会使该效果提升1级，每级都会增加力量和防御力。",
+  "effect.neapolitan.harmony.description": "使大多数敌对生物远离使用者。",
+  "effect.neapolitan.slipping.description": "使实体向随机方向滑动。",
+  "effect.neapolitan.sugar_rush.description": "在效果持续时间的前四分之三给予速度效果，后四分之一给予缓慢效果。",
+  "effect.neapolitan.vanilla_scent.description": "拥有该效果时无法获得除该效果外的其它状态效果。",
+
+  "effect.nether_extension.gentle.description": "减少造成的击退效果。",
+  "effect.nether_extension.infested.description": "在目标周围生成富有攻击性的孢子幼体。",
+  "effect.nether_extension.rough.description": "增加造成的击退效果。",
+
+  "effect.quark.danger_sight.description": "高亮显示敌对生物可以生成的区域。",
+  "effect.quark.resilience.description": "增加50%击退抗性。",
+
+  "effect.rats.plague.description": "生命值无法自然恢复，并将心形生命值转化为黑色。可以通过交互或攻击传播给其他实体。",
+  "effect.rats.synesthesia.description": "提供无限的饱和度、20点伤害吸收生命值并大幅提升攻击速度。效果生效时，屏幕会覆盖上一层米黄色滤镜。",
+
+  "effect.savage_and_ravage.weigth.description": "每级降低15%移动速度。同时使生物无法跳跃。",
+
+    "effect.seasonals.fall_flavor.description": "“尝起来有秋天的味道！” 随着时间的推移自动恢复饱食度和饱和度。",
+  "effect.seasonals.fall_flavour.description": "免疫尖刺植物和荆棘造成的伤害。",
+  "effect.seasonals.puppeteering.description": "攻击生命值低于自身的生物后可以控制其移动。",
+  "effect.seasonals.thorn_resistance.description": "降低尖刺植物和荆棘造成的伤害。",
+
+  "effect.tetra.bleeding.description": "造成持续伤害。",
+  "effect.tetra.earthbound.description": "使实体减速、受到的击退减少且无法跳跃。",
+  "effect.tetra.exhausted.description": "<Unknown>",
+  "effect.tetra.howling.description": "每级效果提供12.5%的概率偏转弹射物，降低5%的移动速度，并有2.5%的概率将弹射物反弹回原处。",
+  "effect.tetra.punctured.description": "每级降低10%的护甲值。",
+  "effect.tetra.severed.description": "降低最大生命值和攻击伤害。",
+  "effect.tetra.small_health.description": "较弱的生命提升效果。",
+  "effect.tetra.small_strength.description": "较弱的力量效果。",
+  "effect.tetra.steeled.description": "<Unknown>",
+  "effect.tetra.stun.description": "眩晕目标并阻碍其移动，使其在攻击时无法造成伤害，并使其攻击处于无限冷却状态。",
+
+  "effect.twilightforest.frosted.description": "你来到了一个你现在还不该来的地方……",
+
+  "effect.twist.afterburn.description": "效果结束后会对使用者造成伤害。",
+  "effect.twist.disintegration.description": "在疾跑时对使用者造成伤害。",
+  "effect.twist.hazy.description": "无法获得。",
+  "effect.twist.mold.description": "当在Charger的地盘上时，会导致使用者的心跳加速。",
+  "effect.twist.outzimpled.description": "阻止使用者产生Zimples。",
+  "effect.twist.parasite.description": "无法获得。",
+
+  "effect.untitledduckmod.intimidation.description": "使灾厄村民对实体感到恐惧。",
+
+  "effect.upgrade_aquatic.insomnia.description": "每级效果使失眠计时器增加1天，导致幻翼生成。幻翼获得此效果会转化为耀翼，耀翼获得此效果会立即死亡。",
+  "effect.upgrade_aquatic.repellence.description": "使周围约半格方块内的生物获得效果等级+1的中毒效果。",
+  "effect.upgrade_aquatic.restfulness.description": "每级效果使失眠计时器减少1天，以阻止幻翼生成。耀翼获得此效果会转化为幻翼，幻翼获得此效果会立即死亡。",
+  "effect.upgrade_aquatic.vibing.description": "使周围约半格方块内的生物获得效果等级+1的生命恢复效果。",
+
+  "effect.windswept.thorns.description": "对攻击持有者的生物造成伤害。",
+
+  "effect.xreliquary.cure.description": "某种东西的解药。",
+  "effect.xreliquary.exhausted.description": "某种东西的解药。",
+  "effect.xreliquary.flight.description": "启用创造模式飞行。",
+  "effect.xreliquary.pacification.description": "使持有者失去敌意并漫无目的地游荡。",
+  "effect.xreliquary.pacification": "Pacified",
+
+  "effect.cofh_core.wrenched.description": "每秒使使用者顺时针旋转效果等级×40°。",
+  "effect.cofh_core.sundered.description": "每级降低25%护甲值。",
+  "effect.cofh_core.slimed.description": "免疫摔落伤害，并使目标像史莱姆一样弹跳。",
+  "effect.cofh_core.shocked.description": "每级降低15%的攻击速度。",
+  "effect.cofh_core.lightning_resistance.description": "免疫雷击伤害。",
+  "effect.cofh_core.panacea.description": "免疫所有负面状态效果。",
+  "effect.cofh_core.magic_resistance.description": "免疫魔法伤害。",
+  "effect.cofh_core.love.description": "使附近的动物进入繁殖状态。",
+  "effect.cofh_core.enderference.description": "使附近的末影人无法传送。同时禁止附近的玩家使用末影珍珠或紫颂果进行传送。",
+  "effect.cofh_core.clarity.description": "每级增加40%的经验值获取量。",
+  "effect.cofh_core.explosion_resistance.description": "免疫爆炸伤害。",
+  "effect.cofh_core.chilled.description": "每级降低30%的移动速度和1.5点攻击伤害。",
+
+  "effect.species.wither_resistance.description": "免疫凋零效果。",
+  "effect.species.birtd.description": "眩晕并阻止移动，但不会阻止攻击。",
+  "effect.mynethersdelight.b_pungent.description": "靠近热源时会造成火焰伤害。如果同时拥有抗火效果，则会改为提供治疗。",
+  "effect.mynethersdelight.g_pungent.description": "同时拥有抗火效果时，靠近热源会获得治疗。否则改为造成火焰伤害。",
+  "effect.enigmaticlegacy.growing_hunger.description": "随时间推移消耗饥饿值，但会增加伤害和生命偷取。",
+  "effect.enigmaticlegacy.growing_bloodlust.description": "随时间推移消耗生命值，但会增加伤害和生命偷取。只有在诅咒携带者吃下禁忌之果时才会触发。",
+  "effect.mowziesmobs.sunblock.description": "乌姆塔纳族人正在保护他们的领袖！在被他们淹没之前阻止他们！"
+
 }
