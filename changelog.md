@@ -1,1 +1,1 @@
-fixed emi recipe not being legible
+updated translations
