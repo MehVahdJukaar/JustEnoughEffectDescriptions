@@ -8,6 +8,9 @@ issueTrackerURL = "${mod_github}/issues"
 [[mixins]]
 config = "${mod_id}.mixins.json"
 
+[[mixins]]
+config = "${mod_id}-neoforge.mixins.json"
+
 [[mods]]
 modId = "${mod_id}"
 version = "${mod_version}"

@@ -30,7 +30,8 @@
     ]
   },
   "mixins": [
-    "${mod_id}.mixins.json"
+    "${mod_id}.mixins.json",
+    "${mod_id}-fabric.mixins.json"
   ],
   "depends": {
     "minecraft": ">=26.1- <=26.1.2",

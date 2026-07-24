@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.mehvahdjukaar.jeed.mixins.fabric",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "EffectTooltipMixin"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

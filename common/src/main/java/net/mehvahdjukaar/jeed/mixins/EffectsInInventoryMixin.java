@@ -1,21 +1,16 @@
 package net.mehvahdjukaar.jeed.mixins;
 
 
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectsInInventory;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,10 +19,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
-import java.util.Optional;
 
-
+/**
+ * Loader agnostic part. The tooltip suppression lives in the per loader mixins since NeoForge patches
+ * {@code extractText} into a stub that delegates to its own {@code renderText}.
+ */
 @Mixin(EffectsInInventory.class)
 public abstract class EffectsInInventoryMixin {
 
@@ -64,12 +60,6 @@ public abstract class EffectsInInventoryMixin {
         if (jeed$mouseX >= x && jeed$mouseX <= x + width && jeed$mouseY >= y && jeed$mouseY <= y + height) {
             NativeCompat.setInventoryEffect(hoveredEffect, !big);
         }
-    }
-
-    @WrapWithCondition(method = "extractText", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;setTooltipForNextFrame(Lnet/minecraft/client/gui/Font;Ljava/util/List;Ljava/util/Optional;II)V"))
-    private boolean jeed$cancelTooltips(GuiGraphicsExtractor instance, Font font, List<Component> list, Optional<TooltipComponent> optional, int i, int j) {
-        return !Jeed.suppressVanillaTooltips();
     }
 
     /**
