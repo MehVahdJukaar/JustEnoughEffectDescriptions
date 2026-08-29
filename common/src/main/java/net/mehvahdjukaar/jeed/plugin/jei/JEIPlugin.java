@@ -129,7 +129,9 @@ public class JEIPlugin implements IModPlugin, IPlugin {
     @Override
     public void onClickedEffect(MobEffectInstance effect, double x, double y, int button) {
         if (Jeed.EMI) return;
-
+        if (JEIPlugin.JEI_HELPERS == null) return;
+        if (JEIPlugin.JEI_RUNTIME == null) return;
+        
         var focus = JEIPlugin.JEI_HELPERS.getFocusFactory().createFocus(RecipeIngredientRole.INPUT, JEIPlugin.EFFECT_INGREDIENT_TYPE, effect);
 
         IRecipesGui recipesGui = JEIPlugin.JEI_RUNTIME.getRecipesGui();
