@@ -1,2 +1,1 @@
-- fixed effect providers recipes being broken
-- neutral effect will be correctly marked as such
+- added a null check
