@@ -2,7 +2,7 @@ plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
    // id 'io.github.juuxel.loom-quiltflower' version '1.7.1' apply false
-    id "com.matthewprenger.cursegradle" version "1.4.0"
+    id "me.modmuss50.mod-publish-plugin" version "0.8.+" apply false
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -14,7 +14,7 @@ architectury {
 subprojects {
     apply plugin: "dev.architectury.loom"
   //  apply plugin: "io.github.juuxel.loom-quiltflower"
-    apply plugin: "com.matthewprenger.cursegradle"
+    apply plugin: "me.modmuss50.mod-publish-plugin"
     apply plugin: "com.modrinth.minotaur"
 
 
@@ -67,33 +67,27 @@ subprojects {
     }
 
     if (env.CURSEFORGE_TOKEN) {
-        curseforge {
-            apiKey = env.CURSEFORGE_TOKEN
-            project {
-                id = rootProject.project_id
-                changelog = changelogText
-                releaseType = 'release'
-                addGameVersion rootProject.minecraft_version
-                addGameVersion modLoader.capitalize()
+        publishMods {
+            file = tasks.remapJar.archiveFile
+            changelog = changelogText
+            displayName = "${rootProject.mod_id}-${rootProject.mod_version}-${modLoader}"
+            type = STABLE
+            modLoaders.add(modLoader)
 
-                mainArtifact(tasks.remapJar)
+            curseforge {
+                projectId = rootProject.project_id
+                accessToken = env.CURSEFORGE_TOKEN
+                minecraftVersions.add(rootProject.minecraft_version)
+                clientRequired = true
+                serverRequired = false
 
                 if (modLoader == "fabric") {
-                    relations {
-                        requiredDependency "fabric-api"
-                        optionalDependency "jei"
-                        optionalDependency "emi"
-                        optionalDependency "roughly-enough-items"
-                        optionalDependency "stylish-effects"
-                    }
-                } else {
-                    relations {
-                        optionalDependency "jei"
-                        optionalDependency "emi"
-                        optionalDependency "roughly-enough-items"
-                        optionalDependency "stylish-effects"
-                    }
+                    requires { slug = "fabric-api" }
                 }
+                optional { slug = "jei" }
+                optional { slug = "emi" }
+                optional { slug = "roughly-enough-items" }
+                optional { slug = "stylish-effects" }
             }
         }
     }
