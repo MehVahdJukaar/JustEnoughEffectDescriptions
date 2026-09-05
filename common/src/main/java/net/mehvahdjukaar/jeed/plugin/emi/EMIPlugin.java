@@ -1,4 +1,4 @@
-// EMI has no 1.21.11 build - its newest release still targets 1.21.1, so there is no API to compile against.
+// EMI has no 26.1 build yet - its newest release still targets 1.21.1, so there is no API to compile against.
 // Kept here, commented out, so the plugin can be revived as soon as EMI updates. Still written against the 1.21 APIs.
 //package net.mehvahdjukaar.jeed.plugin.emi;
 //

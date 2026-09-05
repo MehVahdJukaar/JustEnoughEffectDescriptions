@@ -24,7 +24,7 @@ public class JeedClient {
         });
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> JEEDProviderManager.resetWithLevel());
 
-        //credits to Fuzss for all the Stylish Effects mod compat. Its api package is gone as of 21.11.3
+        //credits to Fuzss for all the Stylish Effects mod compat. No 26.1 build of it yet
         //if (FabricLoader.getInstance().isModLoaded("stylisheffects")) {
         //    StylishEffectsCompat.init();
         //}
@@ -32,8 +32,8 @@ public class JeedClient {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
                     var ext = ScreenExtensionsHandler.getExtension(screen);
                     if (ext != null) {
-                        //before, not after: the screen flushes deferred tooltips at the end of its own render
-                        ScreenEvents.beforeRender(screen).register((screen1, graphics, mouseX, mouseY, tickDelta) -> {
+                        //before, not after: the screen flushes deferred tooltips at the end of its own extract
+                        ScreenEvents.beforeExtract(screen).register((screen1, graphics, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, IEffectScreenExtension.CallReason.TOOLTIP);
                             if (effect != null) {
                                 ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, graphics,

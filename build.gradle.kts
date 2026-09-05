@@ -52,18 +52,18 @@ subprojects {
         forEach {
             changelog = rootProject.file("changelog.md").readText()
             versionName = "${mod.id.get()}-${mod.version.get()}-${project.name}"
-            minecraftVersions.set(listOf("1.21.11"))
+            minecraftVersions.set(listOf("26.1", "26.1.1", "26.1.2"))
         }
     }
 
     tasks.withType<JavaCompile> {
         options.compilerArgs.addAll(listOf("-Xmaxerrs", "4000"))
-        options.release.set(21)
+        options.release.set(25)
     }
 
     configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_25
+        targetCompatibility = JavaVersion.VERSION_25
     }
 
     repositories {

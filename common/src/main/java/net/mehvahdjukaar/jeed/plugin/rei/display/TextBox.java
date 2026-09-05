@@ -3,7 +3,7 @@ package net.mehvahdjukaar.jeed.plugin.rei.display;
 import me.shedaniel.math.Point;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import net.mehvahdjukaar.jeed.common.Constants;
-import net.minecraft.client.gui.GuiGraphics;
+import me.shedaniel.rei.api.client.gui.compat.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.FormattedText;

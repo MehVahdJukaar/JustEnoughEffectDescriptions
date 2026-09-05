@@ -16,7 +16,7 @@ import net.mehvahdjukaar.jeed.plugin.jei.JEIPlugin;
 import net.mehvahdjukaar.jeed.plugin.jei.ingredient.EffectInstanceRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.effect.MobEffect;
@@ -65,7 +65,7 @@ public class EffectInfoRecipeCategory implements IRecipeCategory<EffectInfoRecip
     }
 
     @Override
-    public void draw(EffectInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+    public void draw(EffectInfoRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
         int xPos = 0;
         int yPos = effectBackground.getHeight() + 4 + Y_OFFSET;
 
@@ -79,10 +79,10 @@ public class EffectInfoRecipeCategory implements IRecipeCategory<EffectInfoRecip
 
         name.setStyle(Style.EMPTY.withBold(true).withColor(TextColor.fromRgb(color)));
         float x = RECIPE_WIDTH / 2f - font.width(name) / 2f;
-        graphics.drawString(font, Language.getInstance().getVisualOrder(name), (int) x, 0, 0xFF000000);
+        graphics.text(font, Language.getInstance().getVisualOrder(name), (int) x, 0, 0xFF000000);
 
         for (FormattedText descriptionLine : recipe.getDescription()) {
-            graphics.drawString(font, Language.getInstance().getVisualOrder(descriptionLine), xPos, yPos, 0xFF000000, false);
+            graphics.text(font, Language.getInstance().getVisualOrder(descriptionLine), xPos, yPos, 0xFF000000, false);
             yPos += font.lineHeight + LINE_SPACING;
         }
 

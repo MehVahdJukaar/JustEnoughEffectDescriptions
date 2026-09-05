@@ -13,7 +13,7 @@ public class CodecUtil {
 
     public static final Codec<ItemStack> SINGLE_ITEM_CODEC = RecordCodecBuilder.create((i) -> i.group(
                     Item.CODEC.fieldOf("item")
-                            .forGetter(ItemStack::getItemHolder),
+                            .forGetter(ItemStack::typeHolder),
                     DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY)
                             .forGetter(ItemStack::getComponentsPatch))
             .apply(i, (holder, dataComponentPatch) -> new ItemStack(holder, 1, dataComponentPatch))

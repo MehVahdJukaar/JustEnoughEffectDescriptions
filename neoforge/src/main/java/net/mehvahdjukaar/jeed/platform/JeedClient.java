@@ -24,7 +24,7 @@ public class JeedClient {
 
         NativeCompat.init();
 
-        //credits to Fuzss for all the Stylish Effects mod compat. Its api package is gone as of 21.11.3
+        //credits to Fuzss for all the Stylish Effects mod compat. No 26.1 build of it yet
         //if (ModList.get().isLoaded("stylisheffects")) {
         //    StylishEffectsCompat.init();
         //}

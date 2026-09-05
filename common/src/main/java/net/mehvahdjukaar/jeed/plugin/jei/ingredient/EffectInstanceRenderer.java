@@ -2,7 +2,7 @@ package net.mehvahdjukaar.jeed.plugin.jei.ingredient;
 
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.mehvahdjukaar.jeed.common.EffectRenderer;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,7 +19,7 @@ public class EffectInstanceRenderer extends EffectRenderer implements IIngredien
     }
 
     @Override
-    public void render(GuiGraphics graphics, MobEffectInstance effectInstance) {
+    public void render(GuiGraphicsExtractor graphics, MobEffectInstance effectInstance) {
         super.render(graphics, effectInstance);
     }
 

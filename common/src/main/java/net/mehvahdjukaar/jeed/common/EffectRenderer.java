@@ -4,7 +4,7 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.language.I18n;
@@ -41,15 +41,15 @@ public abstract class EffectRenderer {
         this.offset = offset;
     }
 
-    public void render(GuiGraphics graphics, MobEffectInstance effectInstance) {
+    public void render(GuiGraphicsExtractor graphics, MobEffectInstance effectInstance) {
         render(graphics, effectInstance, 0, 0, 16, 16);
     }
 
-    public void render(GuiGraphics graphics, MobEffectInstance effectInstance, int x, int y, int width, int height) {
+    public void render(GuiGraphicsExtractor graphics, MobEffectInstance effectInstance, int x, int y, int width, int height) {
         render(graphics, Gui.getMobEffectSprite(effectInstance.getEffect()), x, y, width, height);
     }
 
-    public void render(GuiGraphics graphics, Identifier sprite, int x, int y, int width, int height) {
+    public void render(GuiGraphicsExtractor graphics, Identifier sprite, int x, int y, int width, int height) {
         int o = offset ? -1 : 0;
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, x + o, y + o, width + 2, height + 2);
     }

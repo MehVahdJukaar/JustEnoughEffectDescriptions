@@ -161,8 +161,8 @@ public abstract class EffectInfo {
         if (stat != null) list.addAll(stat);
 
         if (Jeed.sortIngredients()) {
-            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.getItemHolder().unwrapKey().get().identifier(),
-                    o2.getItemHolder().unwrapKey().get().identifier()));
+            list.sort((o1, o2) -> ID_COMPARATOR.compare(o1.typeHolder().unwrapKey().get().identifier(),
+                    o2.typeHolder().unwrapKey().get().identifier()));
         }
         return list;
     }

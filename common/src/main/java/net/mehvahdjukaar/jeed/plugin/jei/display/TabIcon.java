@@ -2,7 +2,7 @@ package net.mehvahdjukaar.jeed.plugin.jei.display;
 
 import mezz.jei.api.gui.drawable.IDrawable;
 import net.mehvahdjukaar.jeed.Jeed;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
@@ -28,7 +28,7 @@ public class TabIcon implements IDrawable {
     }
 
     @Override
-    public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
+    public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
         graphics.blit(RenderPipelines.GUI_TEXTURED, resource, xOffset, yOffset, 0, 0, width, height, width, height);
     }
 }
