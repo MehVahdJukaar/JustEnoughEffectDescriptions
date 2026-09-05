@@ -1,0 +1,12 @@
+{
+  "type": "jeed:effect_provider",
+  "effect": "minecraft:breath_of_the_nautilus",
+  "providers": [
+    {
+      "item": "minecraft:nautilus_spawn_egg"
+    },
+    {
+      "item": "minecraft:zombie_nautilus_spawn_egg"
+    }
+  ]
+}

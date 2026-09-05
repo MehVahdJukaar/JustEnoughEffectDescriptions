@@ -32,7 +32,8 @@ public class JeedClient {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
                     var ext = ScreenExtensionsHandler.getExtension(screen);
                     if (ext != null) {
-                        ScreenEvents.afterRender(screen).register((screen1, graphics, mouseX, mouseY, tickDelta) -> {
+                        //before, not after: the screen flushes deferred tooltips at the end of its own render
+                        ScreenEvents.beforeRender(screen).register((screen1, graphics, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, IEffectScreenExtension.CallReason.TOOLTIP);
                             if (effect != null) {
                                 ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, graphics,
