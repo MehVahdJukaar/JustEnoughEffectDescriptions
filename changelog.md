@@ -1,1 +1,2 @@
-1.21.11 port
+- improved handing of json effect provider parsing
+- fixes some issues

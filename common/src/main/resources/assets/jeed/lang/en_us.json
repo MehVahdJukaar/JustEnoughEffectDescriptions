@@ -10,6 +10,7 @@
   "effect.minecraft.absorption.description": "Adds some damaging absorbing hearts (which can't be regenerated); higher levels give more absorption.",
   "effect.minecraft.bad_omen.description": "Causes an ominous event upon entering a village or the trial chambers; higher levels increase the event difficulty.",
   "effect.minecraft.blindness.description": "Impairs vision and disables the ability to sprint and critical hit.",
+  "effect.minecraft.breath_of_the_nautilus.description": "Prevents drowning while riding a nautilus. Air supply won't refill unless you also have Water Breathing or Conduit Power.",
   "effect.minecraft.conduit_power.description": "Increases underwater visibility and mining speed, prevents drowning.",
   "effect.minecraft.darkness.description": "Adds a pulsating darkening affect to the players screen and pulsating black fog.",
   "effect.minecraft.trial_omen.description": "Transforms nearby trial spawners into ominous trial spawners. Last 15 minutes tiles the levels of the original Bad Omen effect",
