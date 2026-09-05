@@ -1,17 +1,28 @@
 package net.mehvahdjukaar.jeed.platform;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
+import net.mehvahdjukaar.jeed.data.JEEDProviderManager;
+import net.minecraft.server.packs.PackType;
 
 public class JeedClient {
 
     public static void init() {
 
         NativeCompat.init();
+
+        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(Jeed.res("providers"), JEEDProviderManager.INSTANCE);
+        CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
+            if (client) JEEDProviderManager.applyWithLevel(registries);
+        });
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> JEEDProviderManager.resetWithLevel());
 
         //credits to Fuzss for all the Stylish Effects mod compat. Its api package is gone as of 21.11.3
         //if (FabricLoader.getInstance().isModLoaded("stylisheffects")) {

@@ -4,7 +4,7 @@ import com.google.common.base.Suppliers;
 import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.data.EffectProvider;
 import net.mehvahdjukaar.jeed.data.PotionProvider;
-import net.mehvahdjukaar.jeed.data.ProviderManager;
+import net.mehvahdjukaar.jeed.data.JEEDProviderManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -101,7 +101,7 @@ public abstract class EffectInfo {
     public static List<Holder<MobEffect>> computeEffectProviders(MobEffect effect) {
         List<Holder<MobEffect>> list = new ArrayList<>();
 
-        for (EffectProvider provider : ProviderManager.getEffectProviders()) {
+        for (EffectProvider provider : JEEDProviderManager.getEffectProviders()) {
             if (provider.matches(effect)) {
                 provider.effectProviders().forEach(list::add);
             }
@@ -116,7 +116,7 @@ public abstract class EffectInfo {
     public static List<Holder<Fluid>> computeFluidProvides(MobEffect effect) {
         List<Holder<Fluid>> list = new ArrayList<>();
 
-        for (EffectProvider provider : ProviderManager.getEffectProviders()) {
+        for (EffectProvider provider : JEEDProviderManager.getEffectProviders()) {
             if (provider.matches(effect)) {
                 provider.fluidProviders().forEach(list::add);
             }
@@ -132,13 +132,13 @@ public abstract class EffectInfo {
 
         ItemStackList list = new ItemStackList();
 
-        for (EffectProvider provider : ProviderManager.getEffectProviders()) {
+        for (EffectProvider provider : JEEDProviderManager.getEffectProviders()) {
             if (provider.matches(effect)) {
                 list.addAll(provider.providers());
             }
         }
 
-        for (PotionProvider provider : ProviderManager.getPotionProviders()) {
+        for (PotionProvider provider : JEEDProviderManager.getPotionProviders()) {
             for (var potion : getPotions(provider)) {
                 if (potion.value().getEffects().stream().anyMatch(e -> e.getEffect().value() == effect)) {
                     if (Jeed.ignoreDerivativePotions()) {
@@ -171,10 +171,6 @@ public abstract class EffectInfo {
         return provider.potions().isEmpty() ? BuiltInRegistries.POTION.listElements().toList() : provider.potions();
     }
 
-    /**
-     * Groups stacks of the same item into one slot entry. Ingredients can no longer carry components, so slots hold
-     * plain stack lists that each viewer cycles through.
-     */
     public static List<List<ItemStack>> groupProviders(List<ItemStack> providers) {
         Map<Item, List<ItemStack>> map = new LinkedHashMap<>();
         for (ItemStack stack : providers) {

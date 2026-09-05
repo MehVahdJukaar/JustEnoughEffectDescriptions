@@ -31,7 +31,7 @@ public class JeedImpl {
         createConfigs();
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
-            JeedClient.init();
+            JeedClient.init(bus);
         }
     }
 

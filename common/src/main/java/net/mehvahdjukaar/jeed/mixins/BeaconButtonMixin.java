@@ -10,8 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.swing.*;
-
 @Mixin(BeaconScreen.BeaconPowerButton.class)
 public abstract class BeaconButtonMixin extends AbstractButton {
 
@@ -21,7 +19,7 @@ public abstract class BeaconButtonMixin extends AbstractButton {
     }
 
     @Inject(method = "setEffect", at=@At("RETURN"))
-    public void cancelTooltip(Holder<MobEffect> effect, CallbackInfo ci){
+    public void cancelTooltip(Holder<MobEffect> p_316331_, CallbackInfo ci){
         setTooltip(null);
     }
 

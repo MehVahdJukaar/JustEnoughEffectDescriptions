@@ -19,11 +19,6 @@ public class CodecUtil {
             .apply(i, (holder, dataComponentPatch) -> new ItemStack(holder, 1, dataComponentPatch))
     );
 
-    /**
-     * Accepts either a single {@code {"item": ..., "components": ...}} object or plain ingredient syntax
-     * (item id, {@code #tag} or a list of them). Ingredients can no longer hold components, so everything
-     * is flattened to plain stacks.
-     */
     public static final Codec<List<ItemStack>> ITEM_PROVIDER = Codec.withAlternative(
             SINGLE_ITEM_CODEC.xmap(List::of, List::getFirst),
             Ingredient.CODEC.xmap(

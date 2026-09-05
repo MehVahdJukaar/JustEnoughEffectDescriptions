@@ -13,9 +13,6 @@ import net.minecraft.world.item.alchemy.Potion;
 
 import java.util.List;
 
-/**
- * Items that can hold any potion. An empty {@code potions} list means "every potion".
- */
 public record PotionProvider(List<Holder<Potion>> potions,
                              List<ItemStack> providers) implements ProviderEntry {
 

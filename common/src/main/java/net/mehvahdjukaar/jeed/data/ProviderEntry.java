@@ -7,10 +7,6 @@ import net.minecraft.resources.Identifier;
 
 import java.util.Map;
 
-/**
- * One entry of a jeed provider file. Still type-dispatched on a {@code type} field so the files that used to be
- * recipes keep working unchanged.
- */
 public sealed interface ProviderEntry permits EffectProvider, PotionProvider {
 
     Identifier EFFECT_PROVIDER = Jeed.res("effect_provider");

@@ -17,9 +17,6 @@ import net.minecraft.world.level.material.Fluid;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Lists what grants a given effect. An empty {@code effect} means "every effect".
- */
 public record EffectProvider(Optional<Holder<MobEffect>> effect,
                              List<ItemStack> providers,
                              HolderSet<MobEffect> effectProviders,

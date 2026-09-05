@@ -20,10 +20,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
-/**
- * Loader agnostic part. The tooltip suppression lives in the per loader mixins since NeoForge turns
- * vanilla {@code renderText} into a deprecated stub that delegates to its own overload.
- */
 @Mixin(EffectsInInventory.class)
 public abstract class EffectsInInventoryMixin {
 
@@ -53,21 +49,13 @@ public abstract class EffectsInInventoryMixin {
         //the icon is drawn 7px inside the effect background
         int x = px - 7;
         int y = py - 7;
-        boolean big = jeed$hasRoomForText();
+        int xo = this.screen.leftPos + this.screen.imageWidth + 2;
+        boolean big = this.screen.width - xo >= 120;
         int width = big ? 120 : 32;
         int height = 32;
 
         if (jeed$mouseX >= x && jeed$mouseX <= x + width && jeed$mouseY >= y && jeed$mouseY <= y + height) {
             NativeCompat.setInventoryEffect(hoveredEffect, !big);
         }
-    }
-
-    /**
-     * Mirrors the {@code availableWidth >= 120} check vanilla uses to decide between the wide and the icon-only layout.
-     */
-    @Unique
-    private boolean jeed$hasRoomForText() {
-        int xo = this.screen.leftPos + this.screen.imageWidth + 2;
-        return this.screen.width - xo >= 120;
     }
 }

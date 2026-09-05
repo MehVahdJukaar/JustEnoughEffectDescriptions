@@ -13,14 +13,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * NeoForge deprecates vanilla {@code renderText} into a stub and adds an overload taking the effect instance,
- * which is the one {@code renderEffects} actually calls, so the tooltip lives there instead.
- */
 @Mixin(EffectsInInventory.class)
 public abstract class EffectTooltipMixin {
 
-    @WrapWithCondition(method = "renderText", at = @At(value = "INVOKE",
+    @WrapWithCondition(method = "renderText(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/Component;Lnet/minecraft/client/gui/Font;IIIIIILnet/minecraft/world/effect/MobEffectInstance;)V",
+            at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/gui/GuiGraphics;setTooltipForNextFrame(Lnet/minecraft/client/gui/Font;Ljava/util/List;Ljava/util/Optional;II)V"))
     private boolean jeed$cancelTooltips(GuiGraphics instance, Font font, List<Component> list,
                                         Optional<TooltipComponent> image, int mouseX, int mouseY) {

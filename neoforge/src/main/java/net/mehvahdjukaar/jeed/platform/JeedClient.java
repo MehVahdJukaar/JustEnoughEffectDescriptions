@@ -4,17 +4,23 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
+import net.mehvahdjukaar.jeed.data.JEEDProviderManager;
 import net.minecraft.client.gui.screens.Screen;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.TagsUpdatedEvent;
 
 public class JeedClient {
 
 
-    public static void init() {
+    public static void init(IEventBus modBus) {
         NeoForge.EVENT_BUS.register(JeedClient.class);
+        modBus.addListener((AddClientReloadListenersEvent event) ->
+                event.addListener(Jeed.res("providers"), JEEDProviderManager.INSTANCE));
 
         NativeCompat.init();
 
@@ -26,6 +32,18 @@ public class JeedClient {
 
     private static IEffectScreenExtension<?> currentExt = null;
     private static Screen currentScreen = null;
+
+    @SubscribeEvent
+    public static void onTagSync(TagsUpdatedEvent event) {
+        if (event.getUpdateCause() == TagsUpdatedEvent.UpdateCause.CLIENT_PACKET_RECEIVED) {
+            JEEDProviderManager.applyWithLevel(event.getLookupProvider());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
+        JEEDProviderManager.resetWithLevel();
+    }
 
     @SubscribeEvent
     public static void onScreenClose(ScreenEvent.Closing event) {
