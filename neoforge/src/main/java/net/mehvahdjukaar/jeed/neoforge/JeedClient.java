@@ -54,8 +54,14 @@ public class JeedClient {
             if (screen != currentScreen) {
                 storeExtension(screen);
             }
-            if (screen == currentScreen) {
+        }
+    }
 
+    @SubscribeEvent
+    public static void onScreenRender(ScreenEvent.Render.Post event) {
+        if (currentExt != null) {
+            Screen screen = event.getScreen();
+            if (screen == currentScreen) {
                 var effect = ((IEffectScreenExtension<Screen>) currentExt)
                         .getEffectAtPosition(screen, event.getMouseX(), event.getMouseY(), IEffectScreenExtension.CallReason.TOOLTIP);
                 if (effect != null) {
