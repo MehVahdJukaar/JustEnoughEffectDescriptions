@@ -48,7 +48,7 @@ public class JeedClient {
 
 
     @SubscribeEvent
-    public static void onScreenRender(ScreenEvent.Render.Pre event) {
+    public static void onScreenRender(ScreenEvent.Render.Post event) {
         if (currentExt != null) {
             Screen screen = event.getScreen();
             if (screen != currentScreen) {

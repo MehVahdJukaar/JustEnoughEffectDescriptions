@@ -1,1 +1,1 @@
-updated translations
+fixed tooltip rendering
