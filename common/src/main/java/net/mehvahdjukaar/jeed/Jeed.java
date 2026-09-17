@@ -1,6 +1,6 @@
 package net.mehvahdjukaar.jeed;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.mehvahdjukaar.candlelight.api.PlatformImpl;
 import net.mehvahdjukaar.jeed.common.IPlugin;
 import net.mehvahdjukaar.jeed.recipes.EffectProviderRecipe;
 import net.mehvahdjukaar.jeed.recipes.PotionProviderRecipe;
@@ -46,63 +46,63 @@ public class Jeed {
 
 
     @Contract
-    @ExpectPlatform
+    @PlatformImpl
     public static Collection<String> getHiddenEffects() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static RecipeSerializer<?> getEffectProviderSerializer() {
         throw new AssertionError();
     }
 
     @Contract
-    @ExpectPlatform
+    @PlatformImpl
     public static RecipeType<EffectProviderRecipe> getEffectProviderType() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static RecipeSerializer<?> getPotionProviderSerializer() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static RecipeType<PotionProviderRecipe> getPotionProviderType() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean hasIngredientList() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean hasEffectBox() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean ignoreDerivativePotions() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean sortIngredients(){
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean hasEffectColor() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean rendersSlots() {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
+    @PlatformImpl
     public static boolean suppressVanillaTooltips() {
         throw new AssertionError();
     }

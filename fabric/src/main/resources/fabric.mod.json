@@ -13,10 +13,11 @@
   },
   "license": "${mod_license}",
   "icon": "icon.png",
+  "accessWidener": "jeed.accesswidener",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.mehvahdjukaar.jeed.fabric.JeedImpl"
+      "net.mehvahdjukaar.jeed.platform.JeedImpl"
     ],
     "rei_client": [
       "net.mehvahdjukaar.jeed.plugin.rei.REIPlugin"
@@ -32,7 +33,7 @@
     "${mod_id}.mixins.json"
   ],
   "depends": {
-    "fabric": ">=0.92.0+1.20.1",
-    "minecraft": ">=${minecraft_min_version} <${minecraft_max_version}"
+    "fabric-api": "*",
+    "minecraft": "=${minecraft_version}"
   }
 }

@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jeed.fabric;
+package net.mehvahdjukaar.jeed.platform;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;

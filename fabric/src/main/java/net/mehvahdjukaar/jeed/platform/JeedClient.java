@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jeed.fabric;
+package net.mehvahdjukaar.jeed.platform;
 
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenMouseEvents;
@@ -7,7 +7,7 @@ import net.mehvahdjukaar.jeed.Jeed;
 import net.mehvahdjukaar.jeed.api.IEffectScreenExtension;
 import net.mehvahdjukaar.jeed.common.ScreenExtensionsHandler;
 import net.mehvahdjukaar.jeed.compat.NativeCompat;
-import net.mehvahdjukaar.jeed.compat.fabric.StylishEffectsCompat;
+import net.mehvahdjukaar.jeed.compat.platform.StylishEffectsCompat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 

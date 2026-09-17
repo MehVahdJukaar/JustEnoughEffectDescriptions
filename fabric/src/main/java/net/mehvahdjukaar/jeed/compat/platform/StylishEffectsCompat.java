@@ -1,4 +1,4 @@
-package net.mehvahdjukaar.jeed.compat.fabric;
+package net.mehvahdjukaar.jeed.compat.platform;
 
 import fuzs.puzzleslib.api.event.v1.core.EventResult;
 import fuzs.stylisheffects.api.v1.client.EffectScreenHandler;
