@@ -18,7 +18,7 @@ public class JeedClient {
 
         NativeCompat.init();
 
-        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(Jeed.res("providers"), JEEDProviderManager.INSTANCE);
+        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(Jeed.res("providers"), JEEDProviderManager.INSTANCE);
         CommonLifecycleEvents.TAGS_LOADED.register((registries, client) -> {
             if (client) JEEDProviderManager.applyWithLevel(registries);
         });
@@ -32,7 +32,6 @@ public class JeedClient {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
                     var ext = ScreenExtensionsHandler.getExtension(screen);
                     if (ext != null) {
-                        //before, not after: the screen flushes deferred tooltips at the end of its own extract
                         ScreenEvents.beforeExtract(screen).register((screen1, graphics, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, IEffectScreenExtension.CallReason.TOOLTIP);
                             if (effect != null) {
