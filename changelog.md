@@ -1,2 +1,2 @@
-- improved handing of json effect provider parsing
-- fixes some issues
+- updated to work with new neoforge versions 
+- misc fixes

@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.GatherEffectScreenTooltipsEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
@@ -34,15 +35,18 @@ public class JeedClient {
     private static Screen currentScreen = null;
 
     @SubscribeEvent
-    public static void onTagSync(TagsUpdatedEvent event) {
-        if (event.getUpdateCause() == TagsUpdatedEvent.UpdateCause.CLIENT_PACKET_RECEIVED) {
-            JEEDProviderManager.applyWithLevel(event.getLookupProvider());
-        }
+    public static void onTagSync(TagsUpdatedEvent.ClientPacketReceived event) {
+        JEEDProviderManager.applyWithLevel(event.getRegistries());
     }
 
     @SubscribeEvent
     public static void onLoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
         JEEDProviderManager.resetWithLevel();
+    }
+
+    @SubscribeEvent
+    public static void onGatherEffectTooltip(GatherEffectScreenTooltipsEvent event) {
+        if (Jeed.suppressVanillaTooltips()) event.getTooltip().clear();
     }
 
     @SubscribeEvent
