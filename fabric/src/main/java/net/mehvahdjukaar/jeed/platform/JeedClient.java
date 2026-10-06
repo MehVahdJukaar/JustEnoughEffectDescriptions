@@ -31,6 +31,8 @@ public class JeedClient {
                                 ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, new GuiGraphics(Minecraft.getInstance(), Minecraft.getInstance().renderBuffers().bufferSource()),//idk why
                                         mouseX, mouseY, ext.showDurationOnTooltip());
                             }
+                            //clear to avoid stale state
+                            NativeCompat.setInventoryEffect(null, false);
                         });
                         if (Jeed.EMI) return;
 

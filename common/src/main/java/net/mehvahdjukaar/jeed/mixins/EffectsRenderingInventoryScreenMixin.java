@@ -10,8 +10,8 @@ import net.mehvahdjukaar.jeed.compat.NativeCompat;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import org.joml.Matrix4f;
@@ -39,28 +39,23 @@ public abstract class EffectsRenderingInventoryScreenMixin {
     @Unique
     private int jeed$mouseX, jeed$mouseY;
 
-    @WrapOperation(method = "renderIcons",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(IIIIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V")
+    @WrapOperation(method = "renderBackgrounds",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V")
     )
-    private void jeed$captureHoveredEffect(GuiGraphics instance, int px, int py, int blitOffset, int pwidth, int pheight,
-                                      TextureAtlasSprite sprite, Operation<Void> original,
-                                      @Local(argsOnly = true) GuiGraphics graphics,
-                                      @Local(argsOnly = true) boolean big,
-                                      @Local MobEffectInstance hoveredEffect) {
-        original.call(instance, px, py, blitOffset, pwidth, pheight, sprite);
+    private void jeed$captureHoveredEffect(GuiGraphics instance, ResourceLocation sprite, int px, int py, int width, int height,
+                                           Operation<Void> original,
+                                           @Local(argsOnly = true) boolean big,
+                                           @Local MobEffectInstance hoveredEffect) {
+        original.call(instance, sprite, px, py, width, height);
 
-        if (hoveredEffect != null) {
-            Matrix4f last = graphics.pose().last().pose();
-            Vector4f vec = new Vector4f(px - (big ? 6 : 7), py - 7, 0, 1);
-            last.transform(vec);
-            int x = (int) vec.x();
-            int y = (int) vec.y();
-            int width = big ? 120 : 32;
-            int height = 32;
+        Matrix4f last = instance.pose().last().pose();
+        Vector4f vec = new Vector4f(px, py, 0, 1);
+        last.transform(vec);
+        int x = (int) vec.x();
+        int y = (int) vec.y();
 
-            if (jeed$mouseX >= x && jeed$mouseX <= x + width && jeed$mouseY >= y && jeed$mouseY <= y + height) {
-                NativeCompat.setInventoryEffect(hoveredEffect, !big);
-            }
+        if (jeed$mouseX >= x && jeed$mouseX <= x + width && jeed$mouseY >= y && jeed$mouseY <= y + height) {
+            NativeCompat.setInventoryEffect(hoveredEffect, !big);
         }
     }
 
