@@ -48,6 +48,11 @@ public class JeedClient {
 
 
     @SubscribeEvent
+    public static void onScreenRenderPre(ScreenEvent.Render.Pre event) {
+        NativeCompat.setInventoryEffect(null, false);
+    }
+
+    @SubscribeEvent
     public static void onScreenRender(ScreenEvent.Render.Post event) {
         if (currentExt != null) {
             Screen screen = event.getScreen();
@@ -61,8 +66,6 @@ public class JeedClient {
                     ScreenExtensionsHandler.renderEffectTooltip(effect, screen, event.getGuiGraphics(),
                             event.getMouseX(), event.getMouseY(), currentExt.showDurationOnTooltip());
                 }
-                // clear to avoid stale state
-                NativeCompat.setInventoryEffect(null, false);
             }
         }
     }

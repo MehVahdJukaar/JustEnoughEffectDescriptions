@@ -25,14 +25,14 @@ public class JeedClient {
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
                     var ext = ScreenExtensionsHandler.getExtension(screen);
                     if (ext != null) {
+                        ScreenEvents.beforeRender(screen).register((screen1, matrices, mouseX, mouseY, tickDelta) ->
+                                NativeCompat.setInventoryEffect(null, false));
                         ScreenEvents.afterRender(screen).register((screen1, matrices, mouseX, mouseY, tickDelta) -> {
                             var effect = ext.getEffectAtPosition(screen1, mouseX, mouseY, IEffectScreenExtension.CallReason.TOOLTIP);
                             if (effect != null) {
                                 ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, new GuiGraphics(Minecraft.getInstance(), Minecraft.getInstance().renderBuffers().bufferSource()),//idk why
                                         mouseX, mouseY, ext.showDurationOnTooltip());
                             }
-                            //clear to avoid stale state
-                            NativeCompat.setInventoryEffect(null, false);
                         });
                         if (Jeed.EMI) return;
 
