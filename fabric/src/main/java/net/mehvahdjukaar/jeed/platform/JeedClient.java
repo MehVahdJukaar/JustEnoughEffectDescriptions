@@ -38,6 +38,8 @@ public class JeedClient {
                                 ScreenExtensionsHandler.renderEffectTooltip(effect, screen1, graphics,
                                         mouseX, mouseY, ext.showDurationOnTooltip());
                             }
+                            //clear to avoid stale state
+                            NativeCompat.setInventoryEffect(null, false);
                         });
                         if (Jeed.EMI) return;
 
