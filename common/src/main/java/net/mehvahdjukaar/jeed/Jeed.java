@@ -111,7 +111,7 @@ public class Jeed {
 
     public static List<Holder.Reference<MobEffect>> getEffectList() {
         return BuiltInRegistries.MOB_EFFECT.holders()
-                .filter(e -> !e.is(HIDDEN) && !Jeed.getHiddenEffects().contains(e.key().toString()))
+                .filter(e -> !e.is(HIDDEN) && !Jeed.getHiddenEffects().contains(e.key().location().toString()))
                 .sorted((a, b) -> NAMESPACE_COMPARATOR.compare(a.key().location(), b.key().location()))
                 .toList();
     }
