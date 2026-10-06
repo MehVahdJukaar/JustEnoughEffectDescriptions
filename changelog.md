@@ -1,2 +1,0 @@
-- updated to work with new neoforge versions 
-- misc fixes
